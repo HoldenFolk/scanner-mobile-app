@@ -1,0 +1,22 @@
+export const palette = {
+	primary: '#0D0D0D',
+	secondary: '#5E81F4',
+	tertiary: '#F6F6F6',
+	fourth: '#8181A5',
+	fifth: '#F5F5FA',
+	danger: '#d32f2f',
+	alert: '#ffa000',
+	success: '#388e3c',
+	white: '#fff',
+	grayscale: [
+		'#212121',
+		'#414141',
+		'#616161',
+		'#9e9e9e',
+		'#bdbdbd',
+		'#e0e0e0',
+		'#eeeeee',
+		'#ffffff',
+	],
+	secondaryText: '#6C757D',
+};
