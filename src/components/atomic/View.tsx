@@ -1,6 +1,6 @@
 import React from 'react';
 // import {View} from 'react-native';
-import { styled } from '@kaidu/shared/lib/styles';
+import styled from 'styled-components/native';
 
 const BaseView = styled.View`
 	background-color: ${props => props?.theme?.colors?.primary};

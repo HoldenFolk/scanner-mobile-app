@@ -1,33 +1,53 @@
 import React from 'react';
-// import {Text as ElementsText} from 'react-native-elements';
-import { Text as NativeText } from 'react-native';
-import { styled } from '@kaidu/shared/lib/styles';
-import { useTheme } from '@kaidu/shared/lib/styles';
-import { scale } from '@kaidu/shared/lib/styles';
+import { Text as NativeText, TextProps as NativeTextProps } from 'react-native';
+import styled from 'styled-components/native';
+import { scale } from 'react-native-size-matters';
 
 export const BASE_SIZE = 14;
 
-/* color: ${props => props.theme.colors.tertiary}; */
-const StyledText = styled(NativeText)`
+interface StyledTextProps extends NativeTextProps {
+	theme?: {
+		colors?: {
+			secondary?: string;
+		};
+	};
+}
+
+const StyledText = styled(NativeText)<StyledTextProps>`
 	font-size: 16px;
-	color: ${props => props?.theme?.colors?.secondary};
+	color: ${props => props.theme?.colors?.secondary};
 `;
 
-export function Text(props) {
+interface TextProps extends NativeTextProps {}
+
+export function Text(props: TextProps) {
 	return <StyledText {...props} style={props.style} />;
 }
 
-export function TestText(props) {
+interface TestTextProps extends NativeTextProps {}
+
+export function TestText(props: TestTextProps) {
 	return <NativeText {...props}>This text comes from @kaidu/shared</NativeText>;
 }
 
-export function LabelText({ text, ...optionals }) {
-	// Hooks
-	const theme = useTheme();
-	// const minWidth = 60;
+interface LabelTextProps extends NativeTextProps {
+	text: string;
+	theme?: {
+		colors?: {
+			tertiary?: string;
+		};
+	};
+}
+
+export function LabelText({ text, ...optionals }: LabelTextProps) {
 	const minWidth = scale(50);
 
 	return (
-		<Text style={[{ color: theme?.colors?.tertiary, minWidth }]}>{text}</Text>
+		<Text
+			{...optionals}
+			style={[{ color: optionals.theme?.colors?.tertiary, minWidth }]}
+		>
+			{text}
+		</Text>
 	);
 }

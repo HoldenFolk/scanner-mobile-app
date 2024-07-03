@@ -11,9 +11,9 @@ const StyledSafeAreaView = styled.SafeAreaView<{ isDarkMode: boolean }>`
 	background-color: ${props =>
 		props.isDarkMode ? props.theme.colors.primary : props.theme.colors.white};
 `;
-
+//TODO: Look into color scheme
 export function BasicTemplate({ children, ...rest }: BasicTemplateProps) {
-	const isDarkMode = useColorScheme() === 'dark';
+	const isDarkMode = true; //useColorScheme() === 'dark';
 
 	return (
 		<StyledSafeAreaView isDarkMode={isDarkMode} {...rest}>
