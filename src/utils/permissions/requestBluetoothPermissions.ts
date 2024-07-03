@@ -1,5 +1,6 @@
 import { request, PERMISSIONS } from 'react-native-permissions';
 import { Platform } from 'react-native';
+import { isAndroid12AndAbove } from '../checkAndroidVersion';
 
 export async function requestIOSBluetoothPermission(): Promise<string> {
 	return request(PERMISSIONS.IOS.BLUETOOTH);

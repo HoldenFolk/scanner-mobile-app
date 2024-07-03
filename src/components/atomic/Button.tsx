@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { styled } from '@kaidu/shared/lib/styles';
+import { styled } from 'styled-components/native';
 import { lighten } from 'polished';
 import { scale, verticalScale } from '@kaidu/shared/lib/styles';
 import { Text } from './Text';

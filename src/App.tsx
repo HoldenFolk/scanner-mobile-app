@@ -2,7 +2,7 @@ import React from 'react';
 import 'react-native-gesture-handler';
 import Theme from './providers/Theme';
 import { BasicTemplate } from './components/template/BasicTemplate/BasicTemplate';
-import { Text } from './components/atomic';
+import { Text } from './components/atomic/Text';
 import { useBluetoothScan } from './hooks/useBlutoothScan';
 
 function App() {
