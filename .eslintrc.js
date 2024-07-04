@@ -8,7 +8,7 @@ module.exports = {
 		'plugin:react/recommended',
 	],
 	parser: '@typescript-eslint/parser',
-	ignorePatterns: ['plugins/**/*', 'metro.config.js'],
+	ignorePatterns: ['plugins/**/*', 'metro.config.js', 'tailwind.config.js'],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,

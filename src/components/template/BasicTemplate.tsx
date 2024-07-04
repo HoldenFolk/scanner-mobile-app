@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { StatusBar, useColorScheme, ViewProps } from 'react-native';
+import { StatusBar, ViewProps } from 'react-native';
 import styled from 'styled-components/native';
 
 interface BasicTemplateProps extends ViewProps {
