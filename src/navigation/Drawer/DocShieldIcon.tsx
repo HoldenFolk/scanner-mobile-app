@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from 'styled-components/native';
 import Svg, { Path } from 'react-native-svg';
 
+// TODO: Fix these styling errors
 export function DocShieldIcon({ size = 42, ...optionals }) {
 	const theme = useTheme();
 	return (
