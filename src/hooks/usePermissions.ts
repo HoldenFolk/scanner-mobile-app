@@ -3,17 +3,17 @@ import {
 	requestPreciseLocationPermission,
 	checkBluetoothPermission,
 	checkPreciseLocationPermission,
-} from '@/utils';
+} from '@/utils/permissions';
 
 export const usePermissions = async () => {
 	const bluetoothPermission = await checkBluetoothPermission();
 	const preciseLocationPermission = await checkPreciseLocationPermission();
 
-	if (!bluetoothPermission) {
+	if (bluetoothPermission !== 'granted') {
 		await requestBluetoothPermission();
 	}
 
-	if (!preciseLocationPermission) {
+	if (preciseLocationPermission !== 'granted') {
 		await requestPreciseLocationPermission();
 	}
 };

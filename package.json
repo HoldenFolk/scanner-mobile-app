@@ -23,7 +23,6 @@
     "@rneui/base": "^4.0.0-rc.8",
     "@rneui/themed": "^4.0.0-rc.8",
     "@types/styled-components": "^5.1.34",
-    "compare-versions": "^6.1.0",
     "i18next": "^23.11.2",
     "ky": "^1.2.4",
     "ramda": "^0.30.1",

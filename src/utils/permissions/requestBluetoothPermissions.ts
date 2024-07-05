@@ -17,8 +17,14 @@ export async function requestAndroidBasicBluetooth(): Promise<string> {
  * Request BLUETOOTH_SCAN permission on Android, required for Android 12 and above
  */
 export async function requestBluetoothScan(): Promise<string> {
-	console.log('requestBluetoothScan');
 	return request(PERMISSIONS.ANDROID.BLUETOOTH_SCAN);
+}
+
+/**
+ * Request ACCESS_FINE_LOCATION permission on Android, required for Bluetooth scanning on Android 11 and below
+ */
+export async function requestLocationPermission(): Promise<string> {
+	return request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
 }
 
 /**
@@ -29,12 +35,17 @@ export async function requestBluetoothPermission(): Promise<string> {
 
 	if (Platform.OS === 'ios') {
 		result = await requestIOSBluetoothPermission();
-	} else {
-		result = await requestAndroidBasicBluetooth();
-
-		if (isAndroid12AndAbove()) {
-			result = await requestBluetoothScan();
+	} else if (isAndroid12AndAbove()) {
+		// Request both BLUETOOTH_SCAN and BLUETOOTH_CONNECT for Android 12 and above
+		const scanResult = await requestBluetoothScan();
+		const connectResult = await requestAndroidBasicBluetooth();
+		if (scanResult === 'granted' && connectResult === 'granted') {
+			result = 'granted';
+		} else {
+			result = 'denied';
 		}
+	} else {
+		result = await requestLocationPermission();
 	}
 
 	return result;

@@ -4,14 +4,11 @@ import { useBluetoothScan } from '@/hooks/useBlutoothScan';
 import React from 'react';
 
 export const Home: React.FC = () => {
-	const { devices, scanning } = useBluetoothScan();
-	console.log('Scanning Status:', scanning.toString());
+	const { devices } = useBluetoothScan();
 
 	return (
 		<BasicTemplate>
-			<Text>
-				Status: {scanning} Devices: {devices.toString()}
-			</Text>
+			<Text>Devices: {devices.toString()}</Text>
 		</BasicTemplate>
 	);
 };

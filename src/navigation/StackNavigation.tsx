@@ -33,7 +33,6 @@ export const Stack = createStackNavigator();
  */
 export function StackNavigation() {
 	const { isAuthValid, isLoading, isError } = useAuthFromLocalStorage();
-	// console.log("file: StackNavigation.tsx:28 ~ StackNavigation ~ isAuthValid:", isAuthValid);
 	const theme = useTheme();
 	const navigation = useNavigation();
 
