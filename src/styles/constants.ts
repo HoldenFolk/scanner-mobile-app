@@ -7,6 +7,7 @@ import { breakpoints, device } from './breakpoints';
 export const theme: DefaultTheme = {
 	palette,
 	colors: palette,
+	name: 'dark',
 	fonts,
 	sizes,
 	breakpoints,

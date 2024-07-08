@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import Svg, { Path, SvgProps } from 'react-native-svg';
-import plugPng from '../assets/plug.png';
-import plugWhitePng from '../assets/plug-white.png';
+import plugPng from '@/assets/plug.png';
+import plugWhitePng from '@/assets/plug-white.png';
 import { useTheme } from 'styled-components';
-import { useColorScheme } from 'react-native';
 import styled from 'styled-components/native';
 import Icon from '../atomic/Icon';
 import { Image } from '../atomic/Image';
@@ -65,7 +64,8 @@ function LockAlert({
 }
 
 function NormalDevice() {
-	const isDarkMode = useColorScheme() === 'dark';
+	const theme = useTheme();
+	const isDarkMode = theme?.name === 'dark';
 	const imageSrc = useMemo(
 		() => (isDarkMode ? plugWhitePng : plugPng),
 		[isDarkMode],

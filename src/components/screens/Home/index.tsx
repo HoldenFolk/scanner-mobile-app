@@ -12,8 +12,8 @@ export const Home: React.FC = () => {
 	useBluetoothScan();
 	//Global state
 	const scannedDevices: ScannerData[] = useSelector(getDevices);
-	const renderItem: ListRenderItem<ScannerData> = ({ item }) => (
-		<KaiduScannedItem id={item} />
+	const renderItem: ListRenderItem<ScannerData> = ({ item: { id } }) => (
+		<KaiduScannedItem id={id} />
 	);
 
 	console.log(JSON.stringify(scannedDevices, null, 2));

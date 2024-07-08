@@ -68,7 +68,7 @@ export function ScannedItemUI({
 								size={10}
 								color={theme?.colors?.fourth}
 							/>
-							<StyledText>{`${data.rssi ?? 'N/A'} dBm`}</StyledText>
+							<StyledDarkText>{`${data.rssi ?? 'N/A'} dBm`}</StyledDarkText>
 							<RSSIStrengthIcon value={data.rssi} />
 						</Row>
 					</InfoContainer>
@@ -86,15 +86,15 @@ export default ScannedItemUI;
 
 // Styled components
 const Container = styled(View)<{ plugStateColor: string; isDarkMode: boolean }>`
-  margin: 8px;
-  padding-left: 16px;
-  background-color: ${({ plugStateColor }) => plugStateColor};
-  border-radius: 14px;
-  shadow-color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
-  shadow-offset: { width: 0, height: 4 };
-  shadow-opacity: 0.25;
-  shadow-radius: 4px;
-  elevation: 4;
+	margin: 8px;
+	padding-left: 16px;
+	background-color: ${({ plugStateColor }) => plugStateColor};
+	border-radius: 14px;
+	shadow-color: ${({ isDarkMode }) => (isDarkMode ? '#fff' : '#000')};
+	shadow-offset: 0px 4px;
+	shadow-opacity: 0.25;
+	shadow-radius: 4px;
+	elevation: 4;
 `;
 
 const CustomTouchableHighlight = styled(TouchableHighlight)<{
@@ -102,7 +102,6 @@ const CustomTouchableHighlight = styled(TouchableHighlight)<{
 }>`
 	background-color: ${({ bgColor }) => bgColor};
 	border-radius: 14px;
-	active-opacity: 0.6;
 `;
 
 const Content = styled(View)`
@@ -110,7 +109,7 @@ const Content = styled(View)`
 	padding: 8px;
 	background-color: transparent;
 	flex-direction: row;
-	justify-content: start;
+	justify-content: flex-start; /* Changed 'start' to 'flex-start' */
 	align-items: center;
 `;
 
@@ -128,6 +127,11 @@ const Row = styled(View)`
 
 const StyledText = styled(Text)`
 	color: ${({ theme }) => theme.colors.tertiary};
+	flex-wrap: wrap;
+`;
+
+const StyledDarkText = styled(Text)`
+	color: ${({ theme }) => theme.colors.fourth};
 	flex-wrap: wrap;
 `;
 

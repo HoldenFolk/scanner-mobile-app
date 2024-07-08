@@ -4,10 +4,10 @@ import { getIsConnecting, getDeviceById } from '@/providers/redux/slices';
 import { ScannedItemUI } from '@/components/molecule/ScannedItemUI';
 import { ScannerData } from '@/types/scannerData';
 
-export const KaiduScannedItem = (scanner: ScannerData) => {
+export const KaiduScannedItem = ({ id }: { id: string }) => {
 	const isDisabled = useSelector(getIsConnecting);
 	const deviceData: ScannerData = useSelector(state =>
-		getDeviceById(state, scanner.id),
+		getDeviceById(state, id),
 	);
 
 	/**
@@ -20,7 +20,7 @@ export const KaiduScannedItem = (scanner: ScannerData) => {
 
 	return (
 		<ScannedItemUI
-			macAddress={scanner.id}
+			macAddress={id}
 			onPress={handlePress}
 			disabled={isDisabled}
 			data={deviceData}

@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { StatusBar, ViewProps } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 
 interface BasicTemplateProps extends ViewProps {
 	children: ReactNode;
@@ -13,7 +13,8 @@ const StyledSafeAreaView = styled.SafeAreaView<{ isDarkMode: boolean }>`
 `;
 //TODO: Look into color scheme
 export function BasicTemplate({ children, ...rest }: BasicTemplateProps) {
-	const isDarkMode = true; //useColorScheme() === 'dark';
+	const theme = useTheme();
+	const isDarkMode = theme.name === 'dark';
 
 	return (
 		<StyledSafeAreaView isDarkMode={isDarkMode} {...rest}>
