@@ -16,7 +16,14 @@ export const scannerDevicesSlice = createSlice({
 	initialState,
 	reducers: {
 		addDevice: (state, action: PayloadAction<ScannerData>) => {
-			state.devices = [action.payload, ...state.devices];
+			const index = state.devices.findIndex(
+				device => device.id === action.payload.id,
+			);
+			if (index !== -1) {
+				state.devices[index] = action.payload;
+			} else {
+				state.devices.push(action.payload);
+			}
 		},
 		removeDevice: (state, action: PayloadAction<string>) => {
 			state.devices = remove(

@@ -4,10 +4,11 @@ import Svg, { Path, SvgProps } from 'react-native-svg';
 import Icon from '../atomic/Icon';
 import { DefaultTheme } from 'styled-components';
 import { PlugState } from '@/types/scannerData';
+import { scale } from 'react-native-size-matters';
 
 function getIconNameAndColor(type: PlugState, theme: DefaultTheme) {
 	let name;
-	let color;
+	let color: string;
 	// let iconType = 'font-awesome';
 	switch (type) {
 		case PlugState.CONFIGURED: // not connected
@@ -65,6 +66,7 @@ export function PlugStateIcon({ type, ...optionals }: { type: PlugState }) {
 	} else if (name === 'wifi-alert') {
 		return <WifiNotFoundIcon color={color} />;
 	}
+	const size = scale(38);
 
 	return (
 		<>
@@ -72,7 +74,7 @@ export function PlugStateIcon({ type, ...optionals }: { type: PlugState }) {
 				type={iconType}
 				name={name}
 				// TODO: May need to scale this
-				size={38}
+				size={size}
 				color={color}
 				{...optionals}
 			/>

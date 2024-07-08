@@ -1,19 +1,11 @@
 import React from 'react';
 import { Text as NativeText, TextProps as NativeTextProps } from 'react-native';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { scale } from 'react-native-size-matters';
 
 export const BASE_SIZE = 14;
 
-interface StyledTextProps extends NativeTextProps {
-	theme?: {
-		colors?: {
-			secondary?: string;
-		};
-	};
-}
-
-const StyledText = styled(NativeText)<StyledTextProps>`
+const StyledText = styled(NativeText)`
 	font-size: 16px;
 	color: ${props => props.theme?.colors?.secondary};
 `;
@@ -32,21 +24,14 @@ export function TestText(props: TestTextProps) {
 
 interface LabelTextProps extends NativeTextProps {
 	text: string;
-	theme?: {
-		colors?: {
-			tertiary?: string;
-		};
-	};
 }
 
 export function LabelText({ text, ...optionals }: LabelTextProps) {
-	const minWidth = scale(50);
+	const minWidth = scale(30);
+	const theme = useTheme();
 
 	return (
-		<Text
-			{...optionals}
-			style={[{ color: optionals.theme?.colors?.tertiary, minWidth }]}
-		>
+		<Text {...optionals} style={[{ color: theme?.colors?.tertiary, minWidth }]}>
 			{text}
 		</Text>
 	);

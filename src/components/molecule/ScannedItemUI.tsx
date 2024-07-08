@@ -94,7 +94,7 @@ const Container = styled(View)<{ plugStateColor: string; isDarkMode: boolean }>`
 	shadow-offset: 0px 4px;
 	shadow-opacity: 0.25;
 	shadow-radius: 4px;
-	elevation: 4;
+	elevation: 10;
 `;
 
 const CustomTouchableHighlight = styled(TouchableHighlight)<{
@@ -123,6 +123,7 @@ const Row = styled(View)`
 	background-color: transparent;
 	flex-direction: row;
 	margin-bottom: 4px;
+	align-items: center;
 `;
 
 const StyledText = styled(Text)`
