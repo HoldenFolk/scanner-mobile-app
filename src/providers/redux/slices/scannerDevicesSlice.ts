@@ -32,6 +32,9 @@ export const scannerDevicesSlice = createSlice({
 				state.devices,
 			);
 		},
+		clearDevices: state => {
+			state.devices = [];
+		},
 	},
 });
 
@@ -41,5 +44,6 @@ export const getDevices = (state: AppState): ScannerData[] =>
 export const getDeviceById = (state: AppState, id: string): ScannerData =>
 	state.scannerDevices.devices.find((device: ScannerData) => device.id === id);
 
-export const { addDevice, removeDevice } = scannerDevicesSlice.actions;
+export const { addDevice, removeDevice, clearDevices } =
+	scannerDevicesSlice.actions;
 export default scannerDevicesSlice.reducer;

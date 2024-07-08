@@ -7,23 +7,21 @@ import {
 	getIsScanning,
 	setScanning,
 	addDevice,
-	removeDevice,
-	getDevices,
+	clearDevices,
 } from '@/providers/redux/slices';
 import { PlugState } from '@/types/scannerData';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 
+// TODO: Change the mac address to be obtained from the manufaturer data
+// TODO: Make the scanners remove when lost connection
 export const useBluetoothScan = () => {
 	const isScanning = useSelector(getIsScanning);
-	const allDevices = useSelector(getDevices);
 	const dispatch = useDispatch();
 	const devicesInCurrentScan = useRef(new Set<string>());
 
-	// TODO: Change the MAC address to be obtained from the manufaturer data
-	// TODO: Add BleManagerUpdateState event to handle Bluetooth state changes
-	// TODO: Add update functionaly to update and remove devices from the list on change
+	// Handle discovered peripherals and update the device list
 	const handleDiscoverPeripheral = useCallback(
 		(peripheral: any) => {
 			const { id, name, advertising, rssi } = peripheral;
@@ -45,6 +43,7 @@ export const useBluetoothScan = () => {
 		[dispatch],
 	);
 
+	// Initialize BleManager and add event listeners
 	const initializeBleManager = useCallback(async () => {
 		try {
 			await BleManager.start({ showAlert: false });
@@ -58,37 +57,7 @@ export const useBluetoothScan = () => {
 		}
 	}, [handleDiscoverPeripheral]);
 
-	const cleanUpDevices = useCallback(() => {
-		const currentDevices = Array.from(devicesInCurrentScan.current);
-		allDevices.forEach(device => {
-			if (!currentDevices.includes(device.id)) {
-				dispatch(removeDevice(device.id));
-			}
-		});
-	}, [allDevices, dispatch]);
-
-	const startScan = useCallback(async () => {
-		const permissionGranted = await requestBluetoothPermission();
-		if (!permissionGranted) {
-			console.warn('Bluetooth permission not granted');
-			dispatch(setScanning(false));
-			return;
-		}
-
-		devicesInCurrentScan.current.clear();
-		console.log('Starting scan');
-		await BleManager.scan([], 60, true);
-		console.log('Scanning started');
-	}, [dispatch]);
-
-	const stopScan = useCallback(() => {
-		BleManager.stopScan();
-		cleanUpDevices();
-		dispatch(setScanning(false));
-		console.log('Scanning manually stopped');
-	}, [cleanUpDevices, dispatch]);
-
-	// Initialize BleManager and add event listener
+	// Initialize BleManager on mount and clean up on unmount
 	useEffect(() => {
 		initializeBleManager();
 		return () => {
@@ -97,14 +66,37 @@ export const useBluetoothScan = () => {
 		};
 	}, [initializeBleManager]);
 
-	// Start or stop scanning based on the global state
+	// Start or stop scanning based on the global isScanning state
 	useEffect(() => {
+		// Start the scanning process
+		const startScan = async () => {
+			const permissionGranted = await requestBluetoothPermission();
+			if (!permissionGranted) {
+				console.warn('Bluetooth permission not granted');
+				dispatch(setScanning(false));
+				return;
+			}
+
+			devicesInCurrentScan.current.clear();
+			console.log('Starting scan');
+			await BleManager.scan([], 60, true);
+			console.log('Scanning started');
+		};
+
+		// Stop the scanning process manually
+		const stopScan = () => {
+			BleManager.stopScan();
+			dispatch(setScanning(false));
+			dispatch(clearDevices());
+			console.log('Scanning manually stopped');
+		};
+
 		if (isScanning) {
 			startScan();
 		} else {
 			stopScan();
 		}
-	}, [isScanning, startScan, stopScan]);
+	}, [dispatch, isScanning]);
 
 	return { scanning: isScanning };
 };
