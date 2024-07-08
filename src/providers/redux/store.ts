@@ -3,10 +3,14 @@ import { combineReducers, Reducer } from 'redux';
 import globalStatusReducer, {
 	globalStatusSlice,
 } from './slices/globalStatusSlice';
+import scannerDevicesReducer, {
+	scannerDevicesSlice,
+} from './slices/scannerDevicesSlice';
 
 const reducers: Reducer = combineReducers({
 	//all reducers should be put here
 	[globalStatusSlice.name]: globalStatusReducer,
+	[scannerDevicesSlice.name]: scannerDevicesReducer,
 });
 
 export const makeStore = () =>

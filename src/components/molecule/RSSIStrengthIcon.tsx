@@ -16,10 +16,9 @@ export const getsScannerNetworkRSSIIcon = cond([
  */
 interface RSSIStrengthIconProps {
 	value: number;
-	style?: React.CSSProperties; // Optional style prop
 }
 
-export function RSSIStrengthIcon({ value, style = {} }: RSSIStrengthIconProps) {
+export function RSSIStrengthIcon({ value }: RSSIStrengthIconProps) {
 	// Hooks
 	const theme = useTheme();
 
@@ -28,11 +27,5 @@ export function RSSIStrengthIcon({ value, style = {} }: RSSIStrengthIconProps) {
 		return null;
 	}
 
-	return (
-		<Icon
-			{...scannerNetworkRSSIIcon}
-			style={[{ marginLeft: 12 }, style]}
-			color={theme?.colors?.fourth}
-		/>
-	);
+	return <Icon {...scannerNetworkRSSIIcon} color={theme?.colors?.fourth} />;
 }

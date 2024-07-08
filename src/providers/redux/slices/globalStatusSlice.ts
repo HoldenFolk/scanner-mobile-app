@@ -2,8 +2,9 @@ import { AppState } from '@/types/redux';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-	isScanning: false,
+	isScanning: true,
 	isConnecting: false,
+	isConnected: false,
 };
 
 export const globalStatusSlice = createSlice({
@@ -16,6 +17,9 @@ export const globalStatusSlice = createSlice({
 		setConnecting: (state, action: PayloadAction<boolean>) => {
 			state.isConnecting = action.payload;
 		},
+		setConnected: (state, action: PayloadAction<boolean>) => {
+			state.isConnected = action.payload;
+		},
 	},
 });
 
@@ -23,6 +27,9 @@ export const globalStatusSlice = createSlice({
 export const getIsScanning = (state: AppState) => state.globalStatus.isScanning;
 export const getIsConnecting = (state: AppState) =>
 	state.globalStatus.isConnecting;
+export const getIsConnected = (state: AppState) =>
+	state.globalStatus.isConnected;
 
-export const { setScanning, setConnecting } = globalStatusSlice.actions;
+export const { setScanning, setConnecting, setConnected } =
+	globalStatusSlice.actions;
 export default globalStatusSlice.reducer;

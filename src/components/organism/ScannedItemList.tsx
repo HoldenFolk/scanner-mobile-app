@@ -1,21 +1,16 @@
+import { ScannerData } from '@/types/scannerData';
 import React from 'react';
-import { selectSortedScannedDevices } from '@kaidu/shared/providers/ble-devices';
-import { FlatList, FlatListProps, ListRenderItem } from 'react-native';
-import { useSelector } from 'react-redux';
+import { FlatList, ListRenderItem, FlatListProps } from 'react-native';
 
-interface ScannedItemListProps<ItemT> extends FlatListProps<ItemT> {
-	renderItem: ListRenderItem<ItemT>;
+interface ScannedItemListProps extends FlatListProps<ScannerData> {
+	renderItem: ListRenderItem<ScannerData>;
 }
 
-export function ScannedItemList<ItemT>({
+export function ScannedItemList({
 	renderItem,
 	...optionals
-}: ScannedItemListProps<ItemT>) {
-	//Hooks
+}: ScannedItemListProps) {
 	const ITEM_HEIGHT = 30;
-
-	//Global state
-	const sortedScannedDevices = useSelector(selectSortedScannedDevices);
 
 	return (
 		<>
@@ -24,7 +19,6 @@ export function ScannedItemList<ItemT>({
 				nestedScrollEnabled={true}
 				automaticallyAdjustContentInsets={true}
 				keyboardShouldPersistTaps={'never'}
-				data={sortedScannedDevices}
 				renderItem={renderItem}
 				updateCellsBatchingPeriod={40}
 				disableScrollViewPanResponder={true}

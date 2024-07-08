@@ -1,12 +1,12 @@
 import React from 'react';
-// import {View} from 'react-native';
+import { ViewProps } from 'react-native';
 import styled from 'styled-components/native';
 
 const BaseView = styled.View`
 	background-color: ${props => props?.theme?.colors?.primary};
 `;
 
-export function View(props) {
+export function View(props: ViewProps) {
 	return <BaseView {...props} />;
 }
 
