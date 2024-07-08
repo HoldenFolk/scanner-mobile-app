@@ -1,45 +1,24 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import {
+	StyleProp,
+	TextStyle,
+	TouchableOpacity,
+	TouchableOpacityProps,
+} from 'react-native';
 import { styled } from 'styled-components/native';
-import { lighten } from 'polished';
-import { scale, verticalScale } from '@kaidu/shared/lib/styles';
 import { Text } from './Text';
+import { scale, verticalScale } from 'react-native-size-matters';
 
-const GeneralButton = styled(TouchableOpacity)`
-	background: ${props =>
-		props?.type === 'success'
-			? props?.theme?.colors?.success
-			: props?.theme?.colors?.secondary};
-	align-items: center;
-	justify-content: center;
-	/* special styles */
-	/* border: 2px solid ${props => props.theme.colors.fourth}; */
-	border-radius: 8px;
-	width: 100%;
-`;
-
-const Outlinebutton = styled(GeneralButton)`
-	background: transparent;
-	border: 2px solid ${props => props.theme.colors.secondary};
-`;
-
-const StyledLabel = styled(Text)`
-	color: ${props =>
-		props.lighter
-			? lighten(0.6, props?.theme?.colors?.primary)
-			: props?.theme?.colors?.primary};
-	/* special styles */
-	font-size: 18px;
-`;
-
-const OutlineLabel = styled(StyledLabel)`
-	color: ${props => props?.theme?.colors?.secondary};
-`;
+interface ButtonProps extends TouchableOpacityProps {
+	title?: string;
+	type?: 'solid' | 'outline';
+	titleStyle?: StyleProp<TextStyle>;
+}
 
 /**
  * use TouchableOpacity as base button
  */
-export function Button(props) {
+export function Button(props: ButtonProps) {
 	const {
 		title,
 		children,
@@ -55,9 +34,10 @@ export function Button(props) {
 			<Outlinebutton
 				style={[{ padding: verticalScale(10), maxWidth: scale(280) }, style]}
 				disabled={disabled}
+				type={type}
 				{...rest}
 			>
-				{title && <OutlineLabel lighter={disabled}>{title}</OutlineLabel>}
+				{title && <OutlineLabel>{title}</OutlineLabel>}
 				{children}
 			</Outlinebutton>
 		);
@@ -70,14 +50,35 @@ export function Button(props) {
 			type={type}
 			{...rest}
 		>
-			{title && (
-				<StyledLabel lighter={disabled} style={titleStyle}>
-					{title}
-				</StyledLabel>
-			)}
+			{title && <StyledLabel style={titleStyle}>{title}</StyledLabel>}
 			{children}
 		</GeneralButton>
 	);
 }
 
 export default Button;
+
+const GeneralButton = styled(TouchableOpacity)<{ type: string }>`
+	background: ${props =>
+		props?.type === 'success'
+			? props?.theme?.colors?.success
+			: props?.theme?.colors?.secondary};
+	align-items: center;
+	justify-content: center;
+	border-radius: 8px;
+	width: 100%;
+`;
+
+const Outlinebutton = styled(GeneralButton)`
+	background: transparent;
+	border: 2px solid ${props => props.theme.colors.secondary};
+`;
+
+const StyledLabel = styled(Text)`
+	color: ${props => props?.theme?.colors?.primary};
+	font-size: 18px;
+`;
+
+const OutlineLabel = styled(StyledLabel)`
+	color: ${props => props?.theme?.colors?.secondary};
+`;

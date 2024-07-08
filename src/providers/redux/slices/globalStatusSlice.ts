@@ -2,7 +2,7 @@ import { AppState } from '@/types/redux';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-	isScanning: true,
+	isScanning: false,
 	isConnecting: false,
 	isConnected: false,
 };

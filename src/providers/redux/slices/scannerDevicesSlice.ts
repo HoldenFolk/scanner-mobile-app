@@ -36,8 +36,9 @@ export const scannerDevicesSlice = createSlice({
 });
 
 // Selectors
-export const getDevices = (state: AppState) => state.scannerDevices.devices;
-export const getDeviceById = (state: AppState, id: string) =>
+export const getDevices = (state: AppState): ScannerData[] =>
+	state.scannerDevices.devices;
+export const getDeviceById = (state: AppState, id: string): ScannerData =>
 	state.scannerDevices.devices.find((device: ScannerData) => device.id === id);
 
 export const { addDevice, removeDevice } = scannerDevicesSlice.actions;

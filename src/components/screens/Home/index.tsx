@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootParamList } from '@/types/navigation';
 import BackgroundGroup from '@/components/molecule/BackgroundGroup';
+import { BleScanButton } from '@/components/molecule/BleScanButton';
 
 export const Home: React.FC = () => {
 	useBluetoothScan();
@@ -26,8 +27,8 @@ export const Home: React.FC = () => {
 	);
 
 	const backgroundTitle = isScanning
-		? 'Tap the Scan button to locate Kaidu Scanners'
-		: 'Approach a Kaidu Scanner and hold down the button for 3 seconds';
+		? 'Approach a Kaidu Scanner and hold down the button for 3 seconds'
+		: 'Tap the Scan button to locate Kaidu Scanners';
 
 	return (
 		<BasicTemplate>
@@ -45,6 +46,7 @@ export const Home: React.FC = () => {
 				<BackgroundGroup isShown={true} title={backgroundTitle} />
 			)}
 			<ScannedItemList renderItem={renderItem} data={scannedDevices} />
+			<BleScanButton />
 		</BasicTemplate>
 	);
 };
