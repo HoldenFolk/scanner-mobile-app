@@ -6,7 +6,7 @@ import { tailwind } from '@kaidu/shared/lib/styles';
 import { Spinner } from '@kaidu/shared/components/atomic/Spinner';
 import ScrollView from '@kaidu/shared/components/atomic/ScrollView';
 import { useTheme } from '@kaidu/shared/lib/styles';
-import { BasicListItem } from '../molecule/ListItem';
+import { BasicListItem } from '../molecule/scannerItem/ListItem';
 
 export function generateBottomSheetList(
 	data: { title: string; onPress: Function }[],

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components/native';
-import Icon from '../atomic/Icon';
-import { LabelText, Text } from '../atomic/Text';
+import Icon from '../../atomic/Icon';
+import { LabelText, Text } from '../../atomic/Text';
 import { RSSIStrengthIcon } from './RSSIStrengthIcon';
 import { ScannerData } from '@/types/ScannerData';
 import styled from 'styled-components/native';

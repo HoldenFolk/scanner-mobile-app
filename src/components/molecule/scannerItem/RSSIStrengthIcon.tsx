@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '../atomic/Icon';
+import { Icon } from '../../atomic/Icon';
 import { useTheme } from 'styled-components/native';
 import { cond, always, lte, T } from 'ramda';
 

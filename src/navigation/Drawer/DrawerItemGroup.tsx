@@ -5,7 +5,7 @@ import { DocShieldIcon } from './DocShieldIcon';
 import { VersionText } from '@/components/molecule/VersionText';
 import Icon from '@/components/atomic/Icon';
 import settings from '@/globalConstants';
-import { BasicListItem } from '@/components/molecule/ListItem';
+import { BasicListItem } from '@/components/molecule/scannerItem/ListItem';
 import { View } from '../../components/atomic/View';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
 
@@ -30,10 +30,6 @@ const Content = styled(View)`
 	flex: 1;
 `;
 
-const StyledBasicListItem = styled(BasicListItem)`
-	padding-horizontal: 0;
-`;
-
 /**
  * Main content in the drawer side bar
  */
@@ -41,12 +37,12 @@ export function DrawerItemGroup(_props: DrawerContentComponentProps) {
 	return (
 		<Container>
 			<Content>
-				<StyledBasicListItem
+				<BasicListItem
 					title={'Privacy Policy'}
 					onPress={handlePrivacyPolicy}
 					leftComponent={<DocShieldIcon size={ICON_SIZE} />}
 				/>
-				<StyledBasicListItem
+				<BasicListItem
 					title={'Send feedback'}
 					onPress={handleFeedback}
 					leftComponent={

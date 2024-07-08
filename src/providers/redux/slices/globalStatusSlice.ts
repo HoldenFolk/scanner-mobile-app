@@ -24,10 +24,11 @@ export const globalStatusSlice = createSlice({
 });
 
 // Selectors
-export const getIsScanning = (state: AppState) => state.globalStatus.isScanning;
-export const getIsConnecting = (state: AppState) =>
+export const getIsScanning = (state: AppState): boolean =>
+	state.globalStatus.isScanning;
+export const getIsConnecting = (state: AppState): boolean =>
 	state.globalStatus.isConnecting;
-export const getIsConnected = (state: AppState) =>
+export const getIsConnected = (state: AppState): boolean =>
 	state.globalStatus.isConnected;
 
 export const { setScanning, setConnecting, setConnected } =

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeviceIcon } from './DeviceIcon';
+import { DeviceIcon } from '../DeviceIcon';
 import { useTheme } from 'styled-components/native';
 import { TouchableHighlight, TouchableHighlightProps } from 'react-native';
 import { ScannerData } from '@/types/ScannerData';
@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 import { PlugState } from '@/types/scannerData';
 import InfoContainer from './InfoContainer';
 import { PlugStateIcon } from './PlugStateIcon';
-import View from '../atomic/View';
+import View from '../../atomic/View';
 
 interface ScannedItemUIProps extends TouchableHighlightProps {
 	macAddress: string;

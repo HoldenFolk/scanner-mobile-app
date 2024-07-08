@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { getIsConnecting, getDeviceById } from '@/providers/redux/slices';
-import { ScannedItemUI } from '@/components/molecule/ScannedItemUI';
+import { ScannedItemUI } from '@/components/molecule/scannerItem/ScannedItemUI';
 import { ScannerData } from '@/types/scannerData';
 
 export const KaiduScannedItem = ({ id }: { id: string }) => {

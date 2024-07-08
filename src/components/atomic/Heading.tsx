@@ -1,6 +1,21 @@
 import React from 'react';
-import { scale, useTheme, styled, tailwind } from '@kaidu/shared/lib/styles';
+import { styled } from 'styled-components/native';
 import { Text, BASE_SIZE } from './Text';
+import { scale } from 'react-native-size-matters';
+import { TextProps } from 'react-native';
+
+export function H2(props: TextProps) {
+	return <StyledH2 {...props} />;
+}
+
+export function ModalTitle({
+	children,
+	...props
+}: {
+	children: React.ReactNode;
+}) {
+	return <StyledModalTitle {...props}>{children}</StyledModalTitle>;
+}
 
 export const BaseHeading = styled(Text)`
 	text-align: center;
@@ -9,28 +24,18 @@ export const BaseHeading = styled(Text)`
 
 export const Heading = styled(Text)`
 	text-align: center;
-	color: ${props => props?.theme?.colors.secondary};
+	color: ${props => props.theme.colors.secondary};
 	font-size: ${BASE_SIZE * 1.6}px;
 	font-weight: bold;
 `;
 
-export function H2({ ...optionals }) {
-	const { style, ...rest } = optionals;
-	return (
-		<Text
-			style={[{ fontSize: scale(20), fontWeight: 'bold' }, style]}
-			{...rest}
-		/>
-	);
-}
+const StyledH2 = styled(Text)`
+	font-size: ${scale(20)}px;
+	font-weight: bold;
+`;
 
-export function ModalTitle({ children, ...optionals }) {
-	const theme = useTheme();
-	return (
-		<Heading
-			style={[tailwind('mb-4 mt-4'), { color: theme?.colors?.tertiary }]}
-		>
-			{children}
-		</Heading>
-	);
-}
+const StyledModalTitle = styled(Heading)`
+	margin-bottom: ${scale(4)}px;
+	margin-top: ${scale(4)}px;
+	color: ${props => props.theme.colors.tertiary};
+`;

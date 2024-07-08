@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'styled-components/native';
 import Svg, { Path, SvgProps } from 'react-native-svg';
-import Icon from '../atomic/Icon';
+import Icon from '../../atomic/Icon';
 import { DefaultTheme } from 'styled-components';
 import { PlugState } from '@/types/scannerData';
 import { scale } from 'react-native-size-matters';

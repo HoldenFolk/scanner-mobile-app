@@ -1,9 +1,10 @@
 import React from 'react';
 import { ListItem, ListItemProps } from 'react-native-elements';
 import styled from 'styled-components/native';
-import { Pressable } from '../atomic/Pressable';
-import Icon from '../atomic/Icon';
+import { Pressable } from '../../atomic/Pressable';
+// import Icon from '../atomic/Icon';
 
+// TODO: Remove white box from styling
 const StyledListItem = styled(ListItem)<{ disabled?: boolean }>`
 	background-color: ${({ theme }) => theme.colors.primary};
 	${({ disabled, theme }) =>
@@ -19,7 +20,7 @@ const StyledContent = styled(ListItem.Content)`
 `;
 
 const StyledListTitle = styled(ListItem.Title)`
-	color: ${({ theme }) => theme.colors.tertiary};
+	color: ${({ theme }) => theme.colors.secondary};
 `;
 
 const StyledListSubtitle = styled(ListItem.Subtitle)`
@@ -76,38 +77,38 @@ export const BasicListItem: React.FC<BasicListItemProps> = ({
 	);
 };
 
-interface ListItem2Props extends ListItemProps {
-	disabled?: boolean;
-	title?: string;
-	subtitle?: string;
-	children?: React.ReactNode;
-	isSelected?: boolean;
-	titleStyle?: object;
-	subtitleStyle?: object;
-}
+// interface ListItem2Props extends ListItemProps {
+// 	disabled?: boolean;
+// 	title?: string;
+// 	subtitle?: string;
+// 	children?: React.ReactNode;
+// 	isSelected?: boolean;
+// 	titleStyle?: object;
+// 	subtitleStyle?: object;
+// }
 
-export const ListItem2: React.FC<ListItem2Props> = ({
-	disabled = false,
-	title,
-	subtitle,
-	children,
-	isSelected = false,
-	titleStyle,
-	subtitleStyle,
-	...rest
-}) => {
-	return (
-		<StyledListItem {...rest} disabled={disabled}>
-			{isSelected && <Icon name="check" />}
-			<StyledContent>
-				{title && <StyledListTitle style={titleStyle}>{title}</StyledListTitle>}
-				{subtitle && (
-					<StyledListSubtitle style={subtitleStyle}>
-						{subtitle}
-					</StyledListSubtitle>
-				)}
-				{children}
-			</StyledContent>
-		</StyledListItem>
-	);
-};
+// export const ListItem2: React.FC<ListItem2Props> = ({
+// 	disabled = false,
+// 	title,
+// 	subtitle,
+// 	children,
+// 	isSelected = false,
+// 	titleStyle,
+// 	subtitleStyle,
+// 	...rest
+// }) => {
+// 	return (
+// 		<StyledListItem {...rest} disabled={disabled}>
+// 			{isSelected && <Icon name="check" />}
+// 			<StyledContent>
+// 				{title && <StyledListTitle style={titleStyle}>{title}</StyledListTitle>}
+// 				{subtitle && (
+// 					<StyledListSubtitle style={subtitleStyle}>
+// 						{subtitle}
+// 					</StyledListSubtitle>
+// 				)}
+// 				{children}
+// 			</StyledContent>
+// 		</StyledListItem>
+// 	);
+// };
