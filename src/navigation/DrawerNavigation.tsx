@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/drawer';
 import { DRAWER_SCREENS } from './routes';
 import CustomDrawerContent from './CustomDrawerContent';
-import { Home } from '../components/screens/Home';
+import { Home } from '../components/screens/Home/Home';
 
 const Drawer = createDrawerNavigator();
 
