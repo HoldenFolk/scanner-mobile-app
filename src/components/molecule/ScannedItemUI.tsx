@@ -4,12 +4,10 @@ import { useTheme } from 'styled-components/native';
 import { TouchableHighlight, TouchableHighlightProps } from 'react-native';
 import { ScannerData } from '@/types/ScannerData';
 import styled from 'styled-components/native';
-import Icon from '../atomic/Icon';
-import { LabelText, Text } from '../atomic/Text';
-import { RSSIStrengthIcon } from './RSSIStrengthIcon';
+import { PlugState } from '@/types/scannerData';
+import InfoContainer from './InfoContainer';
 import { PlugStateIcon } from './PlugStateIcon';
 import View from '../atomic/View';
-import { PlugState } from '@/types/scannerData';
 
 interface ScannedItemUIProps extends TouchableHighlightProps {
 	macAddress: string;
@@ -49,29 +47,11 @@ export function ScannedItemUI({
 						type={data.kaiduDeviceType}
 						configurationStatus={configurationStatus}
 					/>
-					<InfoContainer>
-						{!data.name && !isLoadingName ? null : (
-							<Row>
-								<StyledText>
-									Name: {isLoadingName ? 'Loading...' : data.name}
-								</StyledText>
-							</Row>
-						)}
-						<Row>
-							<LabelText text={'MAC:'} />
-							<StyledText>{macAddress ?? 'Not available'}</StyledText>
-						</Row>
-						<Row>
-							<Icon
-								name="signal"
-								type="font-awesome-5"
-								size={10}
-								color={theme?.colors?.fourth}
-							/>
-							<StyledDarkText>{`${data.rssi ?? 'N/A'} dBm`}</StyledDarkText>
-							<RSSIStrengthIcon value={data.rssi} />
-						</Row>
-					</InfoContainer>
+					<InfoContainer
+						data={data}
+						macAddress={macAddress}
+						isLoadingName={isLoadingName}
+					/>
 					<PlugStateContainer>
 						{data.plugState && <PlugStateIcon type={data.plugState} />}
 					</PlugStateContainer>
@@ -109,31 +89,8 @@ const Content = styled(View)`
 	padding: 8px;
 	background-color: transparent;
 	flex-direction: row;
-	justify-content: flex-start; /* Changed 'start' to 'flex-start' */
+	justify-content: flex-start;
 	align-items: center;
-`;
-
-const InfoContainer = styled(View)`
-	background-color: transparent;
-	flex-grow: 1;
-	flex-shrink: 1;
-`;
-
-const Row = styled(View)`
-	background-color: transparent;
-	flex-direction: row;
-	margin-bottom: 4px;
-	align-items: center;
-`;
-
-const StyledText = styled(Text)`
-	color: ${({ theme }) => theme.colors.tertiary};
-	flex-wrap: wrap;
-`;
-
-const StyledDarkText = styled(Text)`
-	color: ${({ theme }) => theme.colors.fourth};
-	flex-wrap: wrap;
 `;
 
 const PlugStateContainer = styled(View)`

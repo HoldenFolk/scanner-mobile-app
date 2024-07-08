@@ -1,10 +1,8 @@
-// DrawerNavigation.tsx
 import React from 'react';
 import {
 	createDrawerNavigator,
 	DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-// import { StackNavigation } from './StackNavigation';
 import { DRAWER_SCREENS } from './routes';
 import CustomDrawerContent from './CustomDrawerContent';
 import { Home } from '../components/screens/Home';
