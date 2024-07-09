@@ -6,7 +6,6 @@ export const WIFI_MODAL_SCREENS = {
 
 export const STACK_SCREENS = {
 	HOME: 'Home',
-	LOGIN: 'Login',
 	SETUP: 'Setup',
 	CUSTOMER: 'CustomerSelect',
 	CONFIG: 'ConfigurationSetting',

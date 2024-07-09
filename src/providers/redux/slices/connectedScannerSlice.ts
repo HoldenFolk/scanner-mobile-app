@@ -2,7 +2,6 @@ import { AppState } from '@/types/redux';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ConnectedScannerState {
-	mac: string;
 	bleID: string;
 	wifiSSID: string;
 	wifiPSWD: string;
@@ -14,7 +13,6 @@ interface ConnectedScannerState {
 }
 
 const initialState: ConnectedScannerState = {
-	mac: '',
 	bleID: '',
 	wifiSSID: '',
 	wifiPSWD: '',
@@ -31,9 +29,6 @@ export const connectedScannerSlice = createSlice({
 	reducers: {
 		setConnectedDeviceId: (state, action: PayloadAction<string>) => {
 			state.bleID = action.payload;
-		},
-		setConnectedDeviceMac: (state, action: PayloadAction<string>) => {
-			state.mac = action.payload;
 		},
 		setConnectedDeviceWifiSSID: (state, action: PayloadAction<string>) => {
 			state.wifiSSID = action.payload;
@@ -53,8 +48,6 @@ export const connectedScannerSlice = createSlice({
 // Selectors
 export const getConnectedDeviceId = (state: AppState): string =>
 	state.connectedScanner.bleID;
-export const getConnectedDeviceMac = (state: AppState): string =>
-	state.connectedScanner.mac;
 export const getConnectedDeviceWifiSSID = (state: AppState): string =>
 	state.connectedScanner.wifiSSID;
 export const getConnectedDeviceWifiPSWD = (state: AppState): string =>
@@ -66,7 +59,6 @@ export const getConnectedDeviceWifiList = (state: AppState): string[] =>
 
 export const {
 	setConnectedDeviceId,
-	setConnectedDeviceMac,
 	setConnectedDeviceWifiSSID,
 	setConnectedDeviceWifiPSWD,
 	setConnectedDeviceIsConfigured,

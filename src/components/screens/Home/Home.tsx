@@ -14,16 +14,18 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootParamList } from '@/types/navigation';
 import BackgroundGroup from '@/components/molecule/BackgroundGroup';
 import { BleScanButton } from '@/components/molecule/BleScanButton';
+import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 
 export const Home: React.FC = () => {
-	useBluetoothScan();
+	useBluetoothScan(); // Init BLE manager for scanning
+	const { connectToScanner } = useBluetoothConnect(); // Function to connect to scanner
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const isScanning = useSelector(getIsScanning);
 	const scannedDevices: ScannerData[] = useSelector(getDevices);
 
 	// Function to render each scanned item
-	const renderItem: ListRenderItem<ScannerData> = ({ item: { id } }) => (
-		<KaiduScannedItem id={id} />
+	const renderItem: ListRenderItem<ScannerData> = ({ item }) => (
+		<KaiduScannedItem scanner={item} connectToScanner={connectToScanner} />
 	);
 
 	const backgroundTitle = isScanning

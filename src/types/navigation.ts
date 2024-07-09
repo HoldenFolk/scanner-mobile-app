@@ -1,6 +1,5 @@
 export type RootParamList = {
 	Home: undefined;
-	Login: undefined;
 	Setup: undefined;
 	CustomerSelect: undefined;
 	ConfigurationSetting: undefined;

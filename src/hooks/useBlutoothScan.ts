@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useCallback } from 'react';
 import BleManager from 'react-native-ble-manager';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import { requestBluetoothPermission } from '@/utils/permissions';
@@ -19,7 +19,6 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 export const useBluetoothScan = () => {
 	const isScanning = useSelector(getIsScanning);
 	const dispatch = useDispatch();
-	const devicesInCurrentScan = useRef(new Set<string>());
 
 	// Handle discovered peripherals and update the device list
 	const handleDiscoverPeripheral = useCallback(
@@ -27,7 +26,8 @@ export const useBluetoothScan = () => {
 			const { id, name, advertising, rssi } = peripheral;
 			if (name === 'KaiduScanner') {
 				console.log('Discovered KaiduScanner:', name);
-				devicesInCurrentScan.current.add(id);
+				// TODO: Add functionality to allow LTE Scanners to be added
+				// TODO: Add functionality to get the plugstate of the scanners
 				dispatch(
 					addDevice({
 						id,
@@ -76,8 +76,6 @@ export const useBluetoothScan = () => {
 				dispatch(setScanning(false));
 				return;
 			}
-
-			devicesInCurrentScan.current.clear();
 			console.log('Starting scan');
 			await BleManager.scan([], 60, true);
 			console.log('Scanning started');
@@ -98,5 +96,5 @@ export const useBluetoothScan = () => {
 		}
 	}, [dispatch, isScanning]);
 
-	return { scanning: isScanning };
+	return {};
 };
