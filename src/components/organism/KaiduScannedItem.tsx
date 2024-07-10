@@ -19,14 +19,13 @@ export const KaiduScannedItem = ({
 }: KaiduScannedItemProps) => {
 	const isDisabled = useSelector(getIsConnecting);
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
-	const screen = STACK_SCREENS.WIFI.PARENT;
 
 	/**
 	 * prepare and execute device connection
 	 */
-	const handlePress = () => {
-		connectToScanner(scanner);
-		// navigation.navigate(screen);
+	const handlePress = async () => {
+		await connectToScanner(scanner);
+		navigation.navigate(STACK_SCREENS.WIFI.PARENT as keyof RootParamList);
 	};
 
 	return (

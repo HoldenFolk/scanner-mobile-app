@@ -14,14 +14,14 @@ import {
 	PressableProps as RNPressableProps,
 } from 'react-native';
 
-type CustomPressableProps =
+export type CustomPressableProps =
 	| (TouchableHighlightProps & { type: 'highlight' })
 	| (TouchableOpacityProps & { type: 'opacity' })
 	| (TouchableNativeFeedbackProps & { type: 'nativeFeedback' })
 	| (RNPressableProps & { type?: undefined });
 
-interface IPressableProps {
-	children: React.ReactNode;
+export interface IPressableProps {
+	children?: React.ReactNode;
 	style?: StyleProp<ViewStyle>;
 	onPress?: (event: GestureResponderEvent) => void;
 }

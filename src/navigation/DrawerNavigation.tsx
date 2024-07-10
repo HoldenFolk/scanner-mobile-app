@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/drawer';
 import { DRAWER_SCREENS } from './routes';
 import CustomDrawerContent from './Drawer/CustomDrawerContent';
-import { Home } from '../components/screens/Home/Home';
+import StackNavigation from './StackNavigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,7 +27,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({
 		>
 			<Drawer.Screen
 				name={DRAWER_SCREENS.INIT}
-				component={Home}
+				component={StackNavigation}
 				options={{ headerShown: false, title: 'Home' }}
 			/>
 		</Drawer.Navigator>

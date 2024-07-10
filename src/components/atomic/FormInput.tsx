@@ -1,12 +1,28 @@
-import { styled } from '@kaidu/shared/lib/styles';
-import Input from './Input';
+import React from 'react';
+import { Input, InputProps } from 'react-native-elements';
+import { IconNode } from 'react-native-elements/dist/icons/Icon';
 
-export const FormInput = styled(Input).attrs(props => ({
-	inputContainerStyle: {
-		borderBottomWidth: props?.showBottomLine ? 1 : 0,
-		backgroundColor: props?.theme?.colors?.primary,
-	},
-	inputStyle: {
-		color: props?.theme?.colors?.tertiary,
-	},
-}))``;
+interface FormInputProps extends InputProps {
+	label: string;
+	errorMessage?: string;
+	secureTextEntry: boolean;
+	rightIcon?: IconNode;
+}
+
+const FormInput: React.FC<FormInputProps> = ({
+	label,
+	errorMessage,
+	secureTextEntry,
+	rightIcon,
+	...props
+}) => (
+	<Input
+		label={label}
+		errorMessage={errorMessage}
+		secureTextEntry={secureTextEntry}
+		rightIcon={rightIcon}
+		{...props}
+	/>
+);
+
+export default FormInput;

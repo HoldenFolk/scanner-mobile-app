@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListItem, ListItemProps } from 'react-native-elements';
 import styled from 'styled-components/native';
-import { Pressable } from '../../atomic/Pressable';
+import { Pressable } from '../atomic/Pressable';
 // import Icon from '../atomic/Icon';
 
 // TODO: Remove white box from styling

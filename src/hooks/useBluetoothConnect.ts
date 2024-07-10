@@ -9,7 +9,7 @@ export const useBluetoothConnect = () => {
 	const retreiveServices = async (id: string) => {
 		try {
 			const services = await BleManager.retrieveServices(id);
-			console.log('Retrieved services:', JSON.stringify(services, null, 2));
+			console.log('Retrieved services:');
 		} catch (error) {
 			console.error('Failed to retrieve services:', error);
 		}

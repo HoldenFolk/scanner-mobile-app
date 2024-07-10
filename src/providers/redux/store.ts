@@ -6,11 +6,15 @@ import globalStatusReducer, {
 import scannerDevicesReducer, {
 	scannerDevicesSlice,
 } from './slices/scannerDevicesSlice';
+import connectedScannerReducer, {
+	connectedScannerSlice,
+} from './slices/connectedScannerSlice';
 
 const reducers: Reducer = combineReducers({
 	//all reducers should be put here
 	[globalStatusSlice.name]: globalStatusReducer,
 	[scannerDevicesSlice.name]: scannerDevicesReducer,
+	[connectedScannerSlice.name]: connectedScannerReducer,
 });
 
 export const makeStore = () =>

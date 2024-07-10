@@ -1,13 +1,26 @@
-import React from 'react';
-import { Modal } from 'react-native';
+import React, { ReactNode } from 'react';
+import { Modal, ModalProps } from 'react-native';
 
-export function SlideModal({ isModalVisible, children, ...optionals }) {
+interface SlideModalProps extends ModalProps {
+	isModalVisible: boolean;
+	children?: ReactNode;
+}
+
+/**
+ * Slide modal component
+ */
+export function SlideModal({
+	isModalVisible,
+	children,
+	...optionals
+}: SlideModalProps) {
 	return (
 		<Modal
 			animationType="slide"
 			transparent={false}
 			visible={isModalVisible}
 			presentationStyle="overFullScreen"
+			{...optionals}
 		>
 			{children || null}
 		</Modal>

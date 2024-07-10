@@ -2,6 +2,7 @@
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
     "types": ["jest", "node"],
+    "lib": ["dom", "es6", "dom.iterable", "scripthost"],
     "paths": {
       "@/*": ["./src/*"]
     },

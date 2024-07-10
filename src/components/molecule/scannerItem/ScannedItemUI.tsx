@@ -6,7 +6,7 @@ import { ScannerData } from '@/types/ScannerData';
 import styled from 'styled-components/native';
 import { PlugState } from '@/types/scannerData';
 import InfoContainer from './InfoContainer';
-import { PlugStateIcon } from './PlugStateIcon';
+import { PlugStateIcon } from '../PlugStateIcon';
 import View from '../../atomic/View';
 
 interface ScannedItemUIProps extends TouchableHighlightProps {
