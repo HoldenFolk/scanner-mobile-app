@@ -7,10 +7,14 @@ import styled from 'styled-components/native';
 import { PlugState, ScannerData } from '@/types/scannerData';
 import { WifiConfigFormManual } from '@/components/organism/WifiConfigFormManual';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RootParamList } from '@/types/navigation';
+import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
-	device?: ScannerData;
+	device: ScannerData;
 	wifiList: string[];
 	onWifiChangeNavigation?: () => void;
 	children?: React.ReactNode;
@@ -23,18 +27,19 @@ export function ConfigurationSetting({
 }: ConfigurationSettingProps) {
 	const { device, children } = optionals;
 	const { id: macAddress, plugState } = device || {};
+	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
+	const { disconnectFromScanner } = useBluetoothConnect();
 	console.log('ConfigurationSetting ~ wifiList:', wifiList);
 
 	const handleCancel = async () => {
-		console.log('cancel connection');
-		// try {
-		// 	await cancelConnection(bleId);
-		// } catch (err) {
-		// 	// do nothing
-		// 	console.warn('err', err?.message);
-		// } finally {
-		// 	navigation.goBack();
-		// }
+		try {
+			await disconnectFromScanner(macAddress);
+		} catch (err) {
+			// do nothing
+			console.warn('err', (err as Error)?.message);
+		} finally {
+			navigation.goBack();
+		}
 	};
 
 	return (

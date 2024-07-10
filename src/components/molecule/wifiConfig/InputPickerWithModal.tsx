@@ -17,6 +17,7 @@ interface InputPickerWithModalProps<T extends FieldValues> {
 	label: string;
 }
 
+// TODO: Add modal history here or refine component to not need it.
 const InputPickerWithModal = <T extends FieldValues>({
 	form,
 	secureTextEntry = false,

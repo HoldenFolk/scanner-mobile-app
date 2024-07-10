@@ -2,7 +2,11 @@ import React from 'react';
 import { BasicTemplate } from '@/components/template/BasicTemplate';
 import { useBluetoothScan } from '@/hooks/useBlutoothScan';
 import { useSelector } from 'react-redux';
-import { getDevices, getIsScanning } from '@/providers/redux/slices';
+import {
+	getDevices,
+	getIsConnecting,
+	getIsScanning,
+} from '@/providers/redux/slices';
 import { ScannedItemList } from '@/components/organism/ScannedItemList';
 import { KaiduScannedItem } from '@/components/organism/KaiduScannedItem';
 import { ScannerData } from '@/types/scannerData';
@@ -15,12 +19,15 @@ import { RootParamList } from '@/types/navigation';
 import BackgroundGroup from '@/components/molecule/BackgroundGroup';
 import { BleScanButton } from '@/components/molecule/BleScanButton';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
+import { OverlayActivityIndicator } from '@/components/molecule/ActivityIndicator';
 
+//TODO: Move component logic to custom hook
 export const Home: React.FC = () => {
 	useBluetoothScan(); // Init BLE manager for scanning
 	const { connectToScanner } = useBluetoothConnect(); // Function to connect to scanner
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const isScanning = useSelector(getIsScanning);
+	const isConnecting = useSelector(getIsConnecting);
 	const scannedDevices: ScannerData[] = useSelector(getDevices);
 
 	// Function to render each scanned item
@@ -34,21 +41,30 @@ export const Home: React.FC = () => {
 
 	return (
 		<BasicTemplate>
-			<Appbar
-				title="Home"
-				leftComponent={
-					<Icon
-						type="font-awesome-5"
-						name="bars"
-						onPress={() => navigation.openDrawer()}
+			{!isConnecting && (
+				<>
+					<Appbar
+						title="Kaidu"
+						leftComponent={
+							<Icon
+								type="font-awesome-5"
+								name="bars"
+								onPress={() => navigation.openDrawer()}
+							/>
+						}
 					/>
-				}
-			/>
-			{scannedDevices.length === 0 && (
-				<BackgroundGroup isShown={true} title={backgroundTitle} />
+					{scannedDevices.length === 0 && (
+						<BackgroundGroup isShown={true} title={backgroundTitle} />
+					)}
+					<ScannedItemList renderItem={renderItem} data={scannedDevices} />
+					<BleScanButton />
+				</>
 			)}
-			<ScannedItemList renderItem={renderItem} data={scannedDevices} />
-			<BleScanButton />
+
+			<OverlayActivityIndicator
+				isVisible={isConnecting}
+				text={'Retrieving details for your Kaidu scanner.'}
+			/>
 		</BasicTemplate>
 	);
 };

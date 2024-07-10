@@ -10,7 +10,7 @@ import { STACK_SCREENS } from '@/navigation/routes';
 
 interface KaiduScannedItemProps {
 	scanner: ScannerData;
-	connectToScanner: (scanner: ScannerData) => void;
+	connectToScanner: (id: string) => void;
 }
 
 export const KaiduScannedItem = ({
@@ -24,7 +24,7 @@ export const KaiduScannedItem = ({
 	 * prepare and execute device connection
 	 */
 	const handlePress = async () => {
-		await connectToScanner(scanner);
+		await connectToScanner(scanner.id);
 		navigation.navigate(STACK_SCREENS.WIFI.PARENT as keyof RootParamList);
 	};
 
