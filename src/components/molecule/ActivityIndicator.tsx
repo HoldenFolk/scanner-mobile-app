@@ -19,14 +19,15 @@ interface OverlayActivityIndicatorProps extends ActivityIndicatorProps {
 /**
  * Activity Indicator Component
  */
-export function ActivityIndicator(props: ActivityIndicatorProps) {
-	const { isVisible = true, ...rest } = props;
-
+export function ActivityIndicator({
+	isVisible = true,
+	...optionals
+}: ActivityIndicatorProps) {
 	if (!isVisible) {
 		return null;
 	}
 
-	return <CenteredSpinner {...rest} />;
+	return <CenteredSpinner {...optionals} />;
 }
 
 const StyledText = styled(Text)`

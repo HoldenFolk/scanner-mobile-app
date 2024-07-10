@@ -1,17 +1,17 @@
 import React from 'react';
 import {
 	Overlay as RNElementsOverlay,
-	OverlayProps,
+	OverlayProps as RNElementsOverlayProps,
 } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { useTheme } from 'styled-components/native';
 
-interface RNEOverlayProps extends OverlayProps {
+// Extend the overlay props to include visibility as required
+interface OverlayProps extends RNElementsOverlayProps {
 	isVisible: boolean;
 }
 
-export function Overlay({ isVisible, ...optionals }: RNEOverlayProps) {
-	const { children, ...rest } = optionals;
+export function Overlay({ isVisible = true, children, ...rest }: OverlayProps) {
 	const theme = useTheme();
 
 	const backdropStyle = {
