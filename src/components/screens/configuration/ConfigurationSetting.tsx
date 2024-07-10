@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { BasicTemplate } from '../../../components/template/BasicTemplate';
 import styled from 'styled-components/native';
 import { PlugState, ScannerData } from '@/types/scannerData';
-import { WifiConfigFormManual } from '@/components/molecule/wifiConfig/WifiConfigFormManual';
+import { WifiConfigFormManual } from '@/components/organism/WifiConfigFormManual';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
 
 interface ConfigurationSettingProps {

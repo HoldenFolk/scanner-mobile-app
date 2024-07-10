@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input, InputProps } from 'react-native-elements';
 import { IconNode } from 'react-native-elements/dist/icons/Icon';
+import styled from 'styled-components';
 
 interface FormInputProps extends InputProps {
 	label: string;
@@ -25,4 +26,10 @@ const FormInput: React.FC<FormInputProps> = ({
 	/>
 );
 
-export default FormInput;
+const StyledFormInput = styled(FormInput).attrs(props => ({
+	inputStyle: {
+		color: props.theme.colors.tertiary,
+	},
+}))``;
+
+export default StyledFormInput;

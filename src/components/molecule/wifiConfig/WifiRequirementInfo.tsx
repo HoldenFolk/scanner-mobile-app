@@ -15,6 +15,6 @@ export function WifiRequirementInfo() {
 }
 
 const StyledText = styled(AtomicText)`
-	font-size: 18px; /* Equivalent to text-lg */
+	font-size: 18px;
 	color: ${props => props.theme.colors.warn};
 `;
