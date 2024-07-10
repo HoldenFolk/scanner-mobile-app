@@ -19,16 +19,13 @@ interface OverlayActivityIndicatorProps extends ActivityIndicatorProps {
 /**
  * Activity Indicator Component
  */
-export function ActivityIndicator({
+export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
 	isVisible = true,
 	...optionals
-}: ActivityIndicatorProps) {
-	if (!isVisible) {
-		return null;
-	}
-
+}) => {
+	if (!isVisible) return null;
 	return <CenteredSpinner {...optionals} />;
-}
+};
 
 const StyledText = styled(Text)`
 	color: ${props => props.theme?.colors?.tertiary};
@@ -43,27 +40,16 @@ const Container = styled(View)`
 /**
  * Overlay Activity Indicator Component
  */
-export function OverlayActivityIndicator({
-	text,
-	isVisible = true,
-	children,
-	color,
-	...rest
-}: OverlayActivityIndicatorProps) {
-	return (
-		<Overlay isVisible={isVisible} transparent {...rest}>
-			<Container>
-				<Progress.Circle
-					size={50}
-					borderWidth={5}
-					indeterminate
-					color={color}
-				/>
-				{text ? <StyledText>{text}</StyledText> : null}
-				{children || null}
-			</Container>
-		</Overlay>
-	);
-}
+export const OverlayActivityIndicator: React.FC<
+	OverlayActivityIndicatorProps
+> = ({ text, isVisible = true, children, color, ...rest }) => (
+	<Overlay isVisible={isVisible} transparent {...rest}>
+		<Container>
+			<Progress.Circle size={50} borderWidth={5} indeterminate color={color} />
+			{text && <StyledText>{text}</StyledText>}
+			{children}
+		</Container>
+	</Overlay>
+);
 
 export default ActivityIndicator;

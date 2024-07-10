@@ -27,7 +27,6 @@ export function BleScanButton({ ...optionals }) {
 			<Button
 				{...optionals}
 				title={title}
-				// size="small"
 				onPress={handlePress}
 				titleStyle={{ color: theme.colors.white }}
 			/>
