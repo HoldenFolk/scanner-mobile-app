@@ -83,7 +83,7 @@ export const useBluetoothConnect = () => {
 	const disconnectFromScanner = async (id: string) => {
 		try {
 			dispatch(setConnecting(true));
-			await BleManager.disconnect(id);
+			await BleManager.disconnect(id, true);
 			console.log('Disconnected from scanner:', id);
 
 			dispatch(setConnecting(false));

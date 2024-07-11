@@ -5,7 +5,6 @@ import {
 	checkPreciseLocationPermission,
 } from '@/utils/permissions';
 
-// TODO: Remove?
 export const usePermissions = async () => {
 	const bluetoothPermission = await checkBluetoothPermission();
 	const preciseLocationPermission = await checkPreciseLocationPermission();

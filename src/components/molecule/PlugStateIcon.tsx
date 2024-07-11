@@ -6,7 +6,6 @@ import { DefaultTheme } from 'styled-components';
 import { PlugState } from '@/types/scannerData';
 import { scale } from 'react-native-size-matters';
 
-// TODO: Fix this icon
 function getIconNameAndColor(type: PlugState, theme: DefaultTheme) {
 	let name;
 	let color: string;
