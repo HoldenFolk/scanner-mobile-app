@@ -2,11 +2,12 @@ import React from 'react';
 import { ListItem, ListItemProps } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { Pressable } from '../atomic/Pressable';
+import { ViewStyle } from 'react-native';
 // import Icon from '../atomic/Icon';
 
 // TODO: Remove white box from styling
 const StyledListItem = styled(ListItem)<{ disabled?: boolean }>`
-	background-color: ${({ theme }) => theme.colors.primary};
+	background-color: ${props => props.theme.colors.primary};
 	${({ disabled, theme }) =>
 		disabled &&
 		`
@@ -18,6 +19,10 @@ const StyledListItem = styled(ListItem)<{ disabled?: boolean }>`
 const StyledContent = styled(ListItem.Content)`
 	background-color: transparent;
 `;
+
+const contentContainerStyle: ViewStyle = {
+	backgroundColor: 'transparent',
+};
 
 const StyledListTitle = styled(ListItem.Title)`
 	color: ${({ theme }) => theme.colors.secondary};
@@ -35,7 +40,6 @@ interface BasicListItemProps extends ListItemProps {
 	subtitle?: string;
 	leftComponent?: React.ReactNode;
 	rightComponent?: React.ReactNode;
-	containerStyle?: object;
 	titleProps?: object;
 	subTitleStyle?: object;
 	onPress?: () => void;
@@ -49,7 +53,6 @@ export const BasicListItem: React.FC<BasicListItemProps> = ({
 	onPress,
 	leftComponent,
 	rightComponent,
-	containerStyle,
 	subtitle,
 	subTitleStyle,
 	...rest
@@ -57,7 +60,7 @@ export const BasicListItem: React.FC<BasicListItemProps> = ({
 	return (
 		<Pressable onPress={onPress} disabled={disabled}>
 			<StyledListItem
-				containerStyle={containerStyle}
+				containerStyle={contentContainerStyle}
 				disabled={disabled}
 				{...rest}
 			>

@@ -8,12 +8,8 @@ export const Stack = createStackNavigator();
 
 export function StackNavigation() {
 	/**
-	 *
+	 * Main screens for application navigation
 	 */
-	// const handleReset = () => {
-	// 	navigation.dispatch(resetToHome);
-	// };
-
 	return (
 		<Stack.Navigator>
 			<>

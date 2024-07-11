@@ -20,6 +20,7 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({
 		<CustomDrawerContent {...props} drawerContent={drawerContent} />
 	);
 
+	// Side Drawer is always present in the application
 	return (
 		<Drawer.Navigator
 			initialRouteName={DRAWER_SCREENS.INIT}

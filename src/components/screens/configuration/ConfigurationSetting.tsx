@@ -4,18 +4,18 @@ import { Text } from '../../../components/atomic/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { BasicTemplate } from '../../../components/template/BasicTemplate';
 import styled from 'styled-components/native';
-import { PlugState, ScannerData } from '@/types/scannerData';
-import { WifiConfigFormManual } from '@/components/organism/WifiConfigFormManual';
+import { PlugState, ScannerData, Wifi } from '@/types/scannerData';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootParamList } from '@/types/navigation';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
+import WifiConfigForm from '@/components/organism/WifiConfigForm';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
 	device: ScannerData;
-	wifiList: string[];
+	wifiList: Wifi[];
 	onWifiChangeNavigation?: () => void;
 	children?: React.ReactNode;
 }
@@ -54,11 +54,7 @@ export function ConfigurationSetting({
 						<PlugStateInfo plugState={plugState || PlugState.UNCONFIGURED} />
 					</CenteredView>
 
-					{/*Add wifi modal for selecting wifi from the scanned network list*/}
-					<WifiConfigFormManual
-						onSubmit={onNavigation}
-						onCancel={handleCancel}
-					/>
+					<WifiConfigForm onSubmit={onNavigation} onCancel={handleCancel} />
 
 					{children}
 				</StyledKeyboardAwareScrollView>
@@ -75,6 +71,7 @@ const Container = styled(View)`
 
 const StyledKeyboardAwareScrollView = styled(KeyboardAwareScrollView)`
 	width: 100%;
+	margin-top: 16px;
 `;
 
 const CenteredView = styled(View)`

@@ -17,3 +17,8 @@ export enum PlugState {
 	MQTT_DISCONNECTED = 'e2',
 	WIFI_SSID_NOT_FOUND = 'e0',
 }
+
+export interface Wifi {
+	ssid: string;
+	rssi: string;
+}

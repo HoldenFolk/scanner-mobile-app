@@ -1,12 +1,13 @@
 import { AppState } from '@/types/redux';
+import { Wifi } from '@/types/scannerData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ConnectedScannerState {
 	bleID: string;
-	wifiSSID: string;
-	wifiPSWD: string;
+	wifiSSID?: string;
+	wifiPSWD?: string;
 	isConfigured: boolean;
-	wifiList: string[];
+	wifiList: Wifi[];
 	pending: {
 		isLoadingWifiList: boolean;
 	};
@@ -39,8 +40,15 @@ export const connectedScannerSlice = createSlice({
 		setConnectedDeviceIsConfigured: (state, action: PayloadAction<boolean>) => {
 			state.isConfigured = action.payload;
 		},
-		setConnectedDeviceWifiList: (state, action: PayloadAction<string[]>) => {
+		setConnectedDeviceWifiList: (state, action: PayloadAction<Wifi[]>) => {
 			state.wifiList = action.payload;
+		},
+		resetConnectedScanner: state => {
+			state.bleID = '';
+			state.wifiSSID = '';
+			state.wifiPSWD = '';
+			state.isConfigured = false;
+			state.wifiList = [];
 		},
 	},
 });
@@ -48,13 +56,15 @@ export const connectedScannerSlice = createSlice({
 // Selectors
 export const getConnectedDeviceId = (state: AppState): string =>
 	state.connectedScanner.bleID;
-export const getConnectedDeviceWifiSSID = (state: AppState): string =>
-	state.connectedScanner.wifiSSID;
-export const getConnectedDeviceWifiPSWD = (state: AppState): string =>
-	state.connectedScanner.wifiPSWD;
+export const getConnectedDeviceWifiSSID = (
+	state: AppState,
+): string | undefined => state.connectedScanner.wifiSSID;
+export const getConnectedDeviceWifiPSWD = (
+	state: AppState,
+): string | undefined => state.connectedScanner.wifiPSWD;
 export const getConnectedDeviceIsConfigured = (state: AppState): boolean =>
 	state.connectedScanner.isConfigured;
-export const getConnectedDeviceWifiList = (state: AppState): string[] =>
+export const getConnectedDeviceWifiList = (state: AppState): Wifi[] =>
 	state.connectedScanner.wifiList;
 
 export const {
@@ -63,5 +73,6 @@ export const {
 	setConnectedDeviceWifiPSWD,
 	setConnectedDeviceIsConfigured,
 	setConnectedDeviceWifiList,
+	resetConnectedScanner,
 } = connectedScannerSlice.actions;
 export default connectedScannerSlice.reducer;

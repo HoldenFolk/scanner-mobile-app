@@ -4,25 +4,20 @@ import { View } from 'react-native';
 import InputPickerWithModal from '../molecule/wifiConfig/InputPickerWithModal';
 import Button from '@/components/atomic/Button';
 import { WifiRequirementInfo } from '../molecule/wifiConfig/WifiRequirementInfo';
-import { useWifiConfigFormManual } from '@/hooks/useWifiConfigFormManual';
+import { WifiFormReturn } from '@/types/form';
 
-interface WifiConfigurationFormTypeFirstProps {
+interface WifiConfigurationFormManualProps {
 	onCancel: () => void;
-	onSubmit: () => void;
-	defaultValues?: object;
+	form: WifiFormReturn;
 }
 
 // Wifi Configuration Form for manual input when no wifi is found by the scanner
-// TODO: Add history options
+// TODO: Add history options and style
 export function WifiConfigFormManual({
 	onCancel,
-	onSubmit,
-	defaultValues,
-}: WifiConfigurationFormTypeFirstProps) {
-	const { handleSubmit, ssidForm, passwordForm } = useWifiConfigFormManual({
-		defaultValues,
-		onSubmit,
-	});
+	form,
+}: WifiConfigurationFormManualProps) {
+	const { handleSubmit, ssidForm, passwordForm } = form;
 
 	return (
 		<Container>
@@ -34,7 +29,7 @@ export function WifiConfigFormManual({
 				<InputPickerWithModal form={passwordForm} label={'Wifi Password'} />
 			</ContentContainer>
 			<ButtonContainer>
-				<Button title="Save" onPress={handleSubmit} />
+				<StyledButton title="Save" onPress={handleSubmit} />
 				<Button
 					title="Cancel"
 					onPress={onCancel}
@@ -46,6 +41,10 @@ export function WifiConfigFormManual({
 		</Container>
 	);
 }
+
+const StyledButton = styled(Button)`
+	margin-bottom: 16px;
+`;
 
 const Container = styled(View)`
 	width: 100%;

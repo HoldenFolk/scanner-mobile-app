@@ -1,10 +1,42 @@
-import { setConnectedDeviceId, setConnecting } from '@/providers/redux/slices';
+import {
+	resetConnectedScanner,
+	setConnectedDeviceId,
+	setConnecting,
+	setConnectedDeviceWifiList,
+} from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
 import settings from '@/globalConstants';
+import { Wifi } from '@/types/scannerData';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
+
+	const retrieveWifiList = async (id: string): Promise<Wifi[]> => {
+		const wifiList: Wifi[] = [];
+
+		let isUniqueSSID = true;
+		do {
+			const data = await readCharacteristicToString(
+				id,
+				settings.serviceID,
+				settings.characteristicIDReadWifi,
+			);
+
+			if (!data) continue;
+
+			const resultString = String.fromCharCode.apply(null, data);
+			const [ssid, rssi] = resultString.split('\t').map(item => item.trim());
+			const wifi = { ssid, rssi: rssi.slice(0, 3) };
+
+			isUniqueSSID = !wifiList.some(item => item.ssid === ssid);
+			if (isUniqueSSID) {
+				wifiList.push(wifi);
+			}
+		} while (isUniqueSSID);
+
+		return wifiList;
+	};
 
 	const retreiveServices = async (id: string) => {
 		try {
@@ -16,15 +48,13 @@ export const useBluetoothConnect = () => {
 		}
 	};
 
-	const readCharacteristic = async (
+	const readCharacteristicToString = async (
 		id: string,
 		service: string,
 		characteristic: string,
 	) => {
 		try {
-			await retreiveServices(id);
 			const data = await BleManager.read(id, service, characteristic);
-			console.log('Read characteristic:', JSON.stringify(data, null, 2));
 			return data;
 		} catch (error) {
 			console.error('Failed to read characteristic:', error);
@@ -36,19 +66,17 @@ export const useBluetoothConnect = () => {
 			dispatch(setConnecting(true));
 			await BleManager.connect(id);
 			console.log('Connected to scanner:', id);
-			dispatch(setConnecting(false));
 			dispatch(setConnectedDeviceId(id));
 
-			const response = await readCharacteristic(
-				id,
-				settings.serviceID,
-				settings.characteristicIDReadWifi,
-			);
+			await retreiveServices(id);
+			const wifiList = await retrieveWifiList(id);
+			console.log('Retrieved wifi list:', wifiList);
 
-			// await retreiveServices(id);
+			dispatch(setConnectedDeviceWifiList(wifiList));
+			dispatch(setConnecting(false));
 		} catch (error) {
 			dispatch(setConnecting(false));
-			dispatch(setConnectedDeviceId(''));
+			dispatch(resetConnectedScanner());
 			console.error('Failed to connect to scanner:', id, error);
 		}
 	};
@@ -57,11 +85,12 @@ export const useBluetoothConnect = () => {
 			dispatch(setConnecting(true));
 			await BleManager.disconnect(id);
 			console.log('Disconnected from scanner:', id);
+
 			dispatch(setConnecting(false));
-			dispatch(setConnectedDeviceId(''));
+			dispatch(resetConnectedScanner());
 		} catch (error) {
 			dispatch(setConnecting(false));
-			dispatch(setConnectedDeviceId(''));
+			dispatch(resetConnectedScanner());
 			console.error('Failed to disconnect from scanner:', id, error);
 		}
 	};

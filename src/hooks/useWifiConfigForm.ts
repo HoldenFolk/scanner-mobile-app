@@ -1,10 +1,5 @@
-import {
-	useForm,
-	Control,
-	UseFormSetValue,
-	UseFormTrigger,
-} from 'react-hook-form';
-import { GetWifiFormInputs } from '@/types/form';
+import { useForm } from 'react-hook-form';
+import { FormProps, GetWifiFormInputs, WifiFormReturn } from '@/types/form';
 
 type formType = 'wifi_ssid' | 'wifi_password';
 export const SSID_NAME: formType = 'wifi_ssid';
@@ -15,22 +10,15 @@ interface WifiConfigurationFormTypeFirstProps {
 	onSubmit: () => void;
 }
 
-interface FormProps {
-	control: Control<GetWifiFormInputs>;
-	setValue: UseFormSetValue<GetWifiFormInputs>;
-	options: string[];
-	name: formType;
-	trigger: UseFormTrigger<GetWifiFormInputs>;
-}
-
-export const useWifiConfigFormManual = ({
+export const useWifiConfigForm = ({
 	defaultValues = {},
 	onSubmit,
-}: WifiConfigurationFormTypeFirstProps) => {
+}: WifiConfigurationFormTypeFirstProps): WifiFormReturn => {
 	const {
 		control,
 		handleSubmit,
 		setValue,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		formState: { errors },
 		trigger,
 	} = useForm<GetWifiFormInputs>({ defaultValues });
@@ -60,6 +48,5 @@ export const useWifiConfigFormManual = ({
 		handleSubmit: handleSubmit(handleConfirm),
 		ssidForm,
 		passwordForm,
-		errors,
 	};
 };
