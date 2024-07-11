@@ -1,3 +1,6 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components/native';
 import View from '@/components/atomic/View';
 import ActivityIndicator from '@/components/molecule/ActivityIndicator';
 import WifiSelectionModal from '@/components/molecule/wifiConfig/WifiSelectionModal';
@@ -5,8 +8,6 @@ import {
 	getConnectedDeviceWifiList,
 	getConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
-import React from 'react';
-import { useSelector } from 'react-redux';
 
 export function WifiSelectionModalScreen() {
 	const wifiOptions = useSelector(getConnectedDeviceWifiList);
@@ -20,17 +21,17 @@ export function WifiSelectionModalScreen() {
 
 	const handleOtherWifiNavigation = () => {
 		// navigation.navigate(STACK_SCREENS.WIFI.PARENT, {
-		// 	screen: STACK_SCREENS.WIFI.OTHER,
-		// 	params: { ssid: '', bleId },
-		// 	merge: true,
+		//  screen: STACK_SCREENS.WIFI.OTHER,
+		//  params: { ssid: '', bleId },
+		//  merge: true,
 		// });
 	};
 
 	if (isLoadingWifiList) {
 		return (
-			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+			<CenteredView>
 				<ActivityIndicator isVisible={true} />
-			</View>
+			</CenteredView>
 		);
 	}
 
@@ -45,3 +46,10 @@ export function WifiSelectionModalScreen() {
 		</>
 	);
 }
+
+// Styled-components
+const CenteredView = styled(View)`
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+`;
