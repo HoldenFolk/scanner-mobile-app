@@ -20,10 +20,12 @@ import BackgroundGroup from '@/components/molecule/BackgroundGroup';
 import { BleScanButton } from '@/components/molecule/BleScanButton';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 import { OverlayActivityIndicator } from '@/components/molecule/ActivityIndicator';
+import { useBluetoothManager } from '@/hooks/useBluetoothManager';
 
 //TODO: Move component logic to custom hook
 export const Home: React.FC = () => {
-	useBluetoothScan(); // Init BLE manager for scanning
+	useBluetoothManager(); // Init BLE manager for connection
+	useBluetoothScan(); // Create effect to watch for BLE scanning status
 	const { connectToScanner } = useBluetoothConnect(); // Function to connect to scanner
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const isScanning = useSelector(getIsScanning);

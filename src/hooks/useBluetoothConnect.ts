@@ -62,22 +62,33 @@ export const useBluetoothConnect = () => {
 	};
 
 	const connectToScanner = async (id: string) => {
+		let isConnected = false;
+		let attempts = 0;
+		dispatch(setConnecting(true));
+		// Attempt to connect to the scanner up to 3 times
+		while (!isConnected && attempts < 3) {
+			try {
+				await BleManager.connect(id);
+				console.log('Connected to scanner:', id);
+				isConnected = true; // Update flag to exit loop
+			} catch (error) {
+				console.warn('Failed to connect to scanner, retrying:', id, error);
+				attempts++;
+			}
+		}
+		// Proceed with the rest of the function after successful connection
 		try {
-			dispatch(setConnecting(true));
-			await BleManager.connect(id);
-			console.log('Connected to scanner:', id);
 			dispatch(setConnectedDeviceId(id));
-
 			await retreiveServices(id);
 			await retrieveWifiList(id);
-
-			dispatch(setConnecting(false));
 		} catch (error) {
+			console.error('Failed after connecting to scanner:', id, error);
+			// Handle post-connection error
+		} finally {
 			dispatch(setConnecting(false));
-			dispatch(resetConnectedScanner());
-			console.error('Failed to connect to scanner:', id, error);
 		}
 	};
+
 	const disconnectFromScanner = async (id: string) => {
 		try {
 			dispatch(setConnecting(true));
