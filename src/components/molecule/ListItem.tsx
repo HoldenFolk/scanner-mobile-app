@@ -23,7 +23,7 @@ const contentContainerStyle: ViewStyle = {
 };
 
 const StyledListTitle = styled(ListItem.Title)`
-	color: ${({ theme }) => theme.colors.secondary};
+	color: ${({ theme }) => theme.colors.tertiary};
 `;
 
 const StyledListSubtitle = styled(ListItem.Subtitle)`

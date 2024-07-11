@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useColorScheme } from 'react-native';
 import { STACK_SCREENS } from './routes';
 import { Configuration } from '@/components/screens/configuration/Configuration';
+import { WifiSelectionModalScreen } from '@/components/screens/configuration/WifiSelectionModalScreen';
 
 const Stack = createStackNavigator();
 
@@ -58,18 +59,19 @@ export function WifiConfigurationStackGroup() {
 						options={hideScreenTitleOptions}
 					/>
 				</Stack.Group>
-				{/* <Stack.Group screenOptions={{ presentation: 'modal' }}>
+				<Stack.Group screenOptions={{ presentation: 'modal' }}>
 					<Stack.Screen
 						name={STACK_SCREENS.WIFI.SELECTION}
 						component={WifiSelectionModalScreen}
 						options={{
 							headerTitle: 'Wi-Fi',
-							headerRight: props => (
+							/*headerRight: props => (
 								<RefreshWifiListBtn color={'secondary'} {...props} />
-							),
+							), */
 						}}
 					/>
-					<Stack.Screen
+				</Stack.Group>
+				{/* 	<Stack.Screen
 						name={STACK_SCREENS.WIFI.PASSWORD}
 						component={PasswordModalScreen}
 						options={{
@@ -83,8 +85,7 @@ export function WifiConfigurationStackGroup() {
 							headerTitle: 'Other',
 							headerBackTitle: 'Back',
 						}}
-					/>
-				</Stack.Group> */}
+					/> */}
 			</Stack.Navigator>
 		</FormProvider>
 	);

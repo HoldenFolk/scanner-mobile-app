@@ -12,7 +12,7 @@ import { Wifi } from '@/types/scannerData';
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
 
-	const retrieveWifiList = async (id: string): Promise<Wifi[]> => {
+	const retrieveWifiList = async (id: string) => {
 		const wifiList: Wifi[] = [];
 
 		let isUniqueSSID = true;
@@ -34,8 +34,8 @@ export const useBluetoothConnect = () => {
 				wifiList.push(wifi);
 			}
 		} while (isUniqueSSID);
-
-		return wifiList;
+		dispatch(setConnectedDeviceWifiList(wifiList));
+		console.log('Retrieved wifi list:', wifiList);
 	};
 
 	const retreiveServices = async (id: string) => {
@@ -69,10 +69,8 @@ export const useBluetoothConnect = () => {
 			dispatch(setConnectedDeviceId(id));
 
 			await retreiveServices(id);
-			const wifiList = await retrieveWifiList(id);
-			console.log('Retrieved wifi list:', wifiList);
+			await retrieveWifiList(id);
 
-			dispatch(setConnectedDeviceWifiList(wifiList));
 			dispatch(setConnecting(false));
 		} catch (error) {
 			dispatch(setConnecting(false));

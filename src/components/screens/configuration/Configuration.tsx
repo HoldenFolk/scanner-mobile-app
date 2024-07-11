@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ErrorBoundary from 'react-native-error-boundary';
+import { STACK_SCREENS } from '@/navigation/routes';
 
 /**
  * Configuration screen in simplified app
@@ -26,6 +27,7 @@ export function Configuration() {
 
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
+		navigation.navigate(STACK_SCREENS.WIFI.SELECTION as keyof RootParamList);
 	};
 
 	const handleWifiChangeNavigation = () => {
