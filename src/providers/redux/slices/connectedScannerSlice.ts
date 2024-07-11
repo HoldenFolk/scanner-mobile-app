@@ -1,5 +1,5 @@
 import { AppState } from '@/types/redux';
-import { Wifi } from '@/types/scannerData';
+import { PlugState, Wifi } from '@/types/scannerData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface ConnectedScannerState {
@@ -7,6 +7,7 @@ interface ConnectedScannerState {
 	wifiSSID?: string;
 	wifiPSWD?: string;
 	isConfigured: boolean;
+	plugState: PlugState;
 	wifiList: Wifi[];
 	pending: {
 		isLoadingWifiList: boolean;
@@ -18,6 +19,7 @@ const initialState: ConnectedScannerState = {
 	wifiSSID: '',
 	wifiPSWD: '',
 	isConfigured: false,
+	plugState: PlugState.UNCONFIGURED,
 	wifiList: [],
 	pending: {
 		isLoadingWifiList: false,
@@ -43,6 +45,9 @@ export const connectedScannerSlice = createSlice({
 		setConnectedDeviceWifiList: (state, action: PayloadAction<Wifi[]>) => {
 			state.wifiList = action.payload;
 		},
+		setConnectedDevicePlugState: (state, action: PayloadAction<PlugState>) => {
+			state.plugState = action.payload;
+		},
 		resetConnectedScanner: state => {
 			state.bleID = '';
 			state.wifiSSID = '';
@@ -66,6 +71,8 @@ export const getConnectedDeviceIsConfigured = (state: AppState): boolean =>
 	state.connectedScanner.isConfigured;
 export const getConnectedDeviceWifiList = (state: AppState): Wifi[] =>
 	state.connectedScanner.wifiList;
+export const getConnectedDevicePlugState = (state: AppState): PlugState =>
+	state.connectedScanner.plugState;
 
 export const {
 	setConnectedDeviceId,
@@ -73,6 +80,7 @@ export const {
 	setConnectedDeviceWifiPSWD,
 	setConnectedDeviceIsConfigured,
 	setConnectedDeviceWifiList,
+	setConnectedDevicePlugState,
 	resetConnectedScanner,
 } = connectedScannerSlice.actions;
 export default connectedScannerSlice.reducer;

@@ -10,7 +10,7 @@ import { STACK_SCREENS } from '@/navigation/routes';
 
 interface KaiduScannedItemProps {
 	scanner: ScannerData;
-	connectToScanner: (id: string) => void;
+	connectToScanner: (id: string) => Promise<void>;
 }
 
 export const KaiduScannedItem = ({

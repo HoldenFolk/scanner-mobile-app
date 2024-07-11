@@ -1,8 +1,8 @@
 import { resetToHome } from '@/navigation/processors';
 import {
 	getConnectedDeviceId,
+	getConnectedDevicePlugState,
 	getConnectedDeviceWifiList,
-	getDeviceById,
 } from '@/providers/redux/slices';
 import { RootParamList } from '@/types/navigation';
 import { ConfigurationSetting } from './ConfigurationSetting';
@@ -21,8 +21,8 @@ export function Configuration() {
 
 	// Global states
 	const bleId = useSelector(getConnectedDeviceId);
+	const plugState = useSelector(getConnectedDevicePlugState);
 	const wifilist = useSelector(getConnectedDeviceWifiList);
-	const device = useSelector(state => getDeviceById(state, bleId));
 
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
@@ -35,7 +35,8 @@ export function Configuration() {
 	return (
 		<ErrorBoundary onError={() => navigation.dispatch(resetToHome)}>
 			<ConfigurationSetting
-				device={device}
+				id={bleId}
+				plugState={plugState}
 				wifiList={wifilist}
 				onNavigation={handleSetupNavigation}
 				onWifiChangeNavigation={handleWifiChangeNavigation}

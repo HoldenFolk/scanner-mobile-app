@@ -4,7 +4,7 @@ import { Text } from '../../../components/atomic/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { BasicTemplate } from '../../../components/template/BasicTemplate';
 import styled from 'styled-components/native';
-import { PlugState, ScannerData, Wifi } from '@/types/scannerData';
+import { PlugState, Wifi } from '@/types/scannerData';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -14,7 +14,8 @@ import WifiConfigForm from '@/components/organism/WifiConfigForm';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
-	device: ScannerData;
+	id: string;
+	plugState: PlugState;
 	wifiList: Wifi[];
 	onWifiChangeNavigation?: () => void;
 	children?: React.ReactNode;
@@ -23,17 +24,18 @@ interface ConfigurationSettingProps {
 export function ConfigurationSetting({
 	onNavigation,
 	wifiList,
+	id,
+	plugState,
 	...optionals
 }: ConfigurationSettingProps) {
-	const { device, children } = optionals;
-	const { id: macAddress, plugState } = device || {};
+	const { children } = optionals;
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const { disconnectFromScanner } = useBluetoothConnect();
 	console.log('ConfigurationSetting ~ wifiList:', wifiList);
 
 	const handleCancel = async () => {
 		try {
-			await disconnectFromScanner(macAddress);
+			await disconnectFromScanner(id);
 		} catch (err) {
 			// do nothing
 			console.warn('err', (err as Error)?.message);
@@ -49,7 +51,7 @@ export function ConfigurationSetting({
 					<CenteredView>
 						<Row>
 							<StyledText>{'MAC:'}</StyledText>
-							<StyledText>{macAddress}</StyledText>
+							<StyledText>{id}</StyledText>
 						</Row>
 						<PlugStateInfo plugState={plugState || PlugState.UNCONFIGURED} />
 					</CenteredView>

@@ -13,6 +13,7 @@ const Container = styled.View`
 	background-color: transparent;
 `;
 
+// TODO: Move to atomic
 function ForwardIcon() {
 	const theme = useTheme();
 	return (
@@ -30,11 +31,6 @@ function ForwardIcon() {
 export function WifiListItem({ onPress }: { onPress: () => void }) {
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
 
-	const handlePress = () => {
-		console.log('Open list of wifi');
-		onPress();
-	};
-
 	console.log(
 		'file: WifiListItem.tsx:62 ~ WifiListItem ~ currentSsid:',
 		currentSsid,
@@ -43,7 +39,7 @@ export function WifiListItem({ onPress }: { onPress: () => void }) {
 	return (
 		<BasicListItem
 			title={'Wi-Fi:'}
-			onPress={handlePress}
+			onPress={onPress}
 			rightComponent={
 				<Container>
 					<Text>{currentSsid || 'Not Configured'}</Text>
