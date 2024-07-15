@@ -23,11 +23,6 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 	onOtherWifiNavigation,
 	currentSsid,
 }) => {
-	const handlePressWifiOptionItem = (option: Wifi) => {
-		console.log('Go to set password for SSID:', option);
-		onPasswordChangeNavigation(option);
-	};
-
 	const handlePressOther = () => {
 		console.log('Go to set password for SSID: Other');
 		onOtherWifiNavigation();
@@ -43,7 +38,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 								<BasicListItem
 									key={index}
 									title={item.ssid}
-									onPress={() => handlePressWifiOptionItem(item)}
+									onPress={() => onPasswordChangeNavigation(item)}
 									leftComponent={
 										<LeftComponentView>
 											{item.rssi === currentSsid && (

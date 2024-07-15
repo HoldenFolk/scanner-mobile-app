@@ -4,12 +4,13 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { useColorScheme } from 'react-native';
-import { STACK_SCREENS } from './routes';
 import { Configuration } from '@/components/screens/configuration/Configuration';
 import { WifiSelectionModalScreen } from '@/components/screens/configuration/WifiSelectionModalScreen';
 import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiListBtn';
+import PasswordModalScreen from '@/components/screens/configuration/PasswordModalScreen';
+import { RootParamList, STACK_SCREENS } from '@/types/navigation';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootParamList>();
 
 /**
  * Wifi configuration screen and child modal screens
@@ -38,7 +39,7 @@ export function WifiConfigurationStackGroup() {
 	return (
 		<FormProvider {...methods}>
 			<Stack.Navigator
-				initialRouteName={STACK_SCREENS.CONFIG}
+				initialRouteName={STACK_SCREENS.CONFIGURATION_SETTING}
 				screenOptions={{
 					cardStyle: {
 						backgroundColor: isDarkMode
@@ -55,14 +56,14 @@ export function WifiConfigurationStackGroup() {
 			>
 				<Stack.Group>
 					<Stack.Screen
-						name={STACK_SCREENS.CONFIG}
+						name={STACK_SCREENS.CONFIGURATION_SETTING}
 						component={Configuration}
 						options={hideScreenTitleOptions}
 					/>
 				</Stack.Group>
 				<Stack.Group screenOptions={{ presentation: 'modal' }}>
 					<Stack.Screen
-						name={STACK_SCREENS.WIFI.SELECTION}
+						name={STACK_SCREENS.WIFI_SELECTION_MODAL}
 						component={WifiSelectionModalScreen}
 						options={{
 							headerTitle: 'Wi-Fi',
@@ -70,14 +71,14 @@ export function WifiConfigurationStackGroup() {
 						}}
 					/>
 				</Stack.Group>
-				{/* 	<Stack.Screen
-						name={STACK_SCREENS.WIFI.PASSWORD}
-						component={PasswordModalScreen}
-						options={{
-							headerTitle: 'Password',
-						}}
-					/>
-					<Stack.Screen
+				<Stack.Screen
+					name={STACK_SCREENS.PASSWORD_MODAL}
+					component={PasswordModalScreen}
+					options={{
+						headerTitle: 'Password',
+					}}
+				/>
+				{/*<Stack.Screen
 						name={STACK_SCREENS.WIFI.OTHER}
 						component={OtherModalScreen}
 						options={{

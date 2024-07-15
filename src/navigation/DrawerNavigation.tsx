@@ -3,9 +3,9 @@ import {
 	createDrawerNavigator,
 	DrawerContentComponentProps,
 } from '@react-navigation/drawer';
-import { DRAWER_SCREENS } from './routes';
 import CustomDrawerContent from './Drawer/CustomDrawerContent';
 import StackNavigation from './StackNavigation';
+import { STACK_SCREENS } from '@/types/navigation';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,11 +23,11 @@ export const DrawerNavigation: React.FC<DrawerNavigationProps> = ({
 	// Side Drawer is always present in the application
 	return (
 		<Drawer.Navigator
-			initialRouteName={DRAWER_SCREENS.INIT}
+			initialRouteName={STACK_SCREENS.INIT}
 			drawerContent={renderDrawerContent}
 		>
 			<Drawer.Screen
-				name={DRAWER_SCREENS.INIT}
+				name={STACK_SCREENS.INIT}
 				component={StackNavigation}
 				options={{ headerShown: false, title: 'Home' }}
 			/>

@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from '../components/screens/Home';
 import { WifiConfigurationStackGroup } from './WifiConfigurationStackGroup';
-import { STACK_SCREENS } from './routes';
+import { STACK_SCREENS } from '@/types/navigation';
 
 export const Stack = createStackNavigator();
 
@@ -22,7 +22,7 @@ export function StackNavigation() {
 						}}
 					/>
 					<Stack.Screen
-						name={STACK_SCREENS.WIFI.PARENT}
+						name={STACK_SCREENS.WIFI_CONFIGURATION}
 						component={WifiConfigurationStackGroup}
 						options={{
 							headerShown: false,

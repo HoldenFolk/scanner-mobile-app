@@ -7,29 +7,28 @@ import { useWifiConfigForm } from '@/hooks/useWifiConfigForm';
 
 interface WifiConfigurationFormProps {
 	onCancel: () => void;
-	onSubmit: () => void;
+	onNavigation: () => void;
 	defaultValues?: object;
 }
 
 // Create form state and select manual or auto Wifi SSID entry
 const WifiConfigForm = ({
-	onSubmit,
+	onNavigation,
 	onCancel,
 	defaultValues,
 }: WifiConfigurationFormProps) => {
 	const wifiList = useSelector(getConnectedDeviceWifiList);
-	const form = useWifiConfigForm({
+	const formManual = useWifiConfigForm({
 		defaultValues,
-		onSubmit,
 	});
 
 	return (
 		<>
 			{wifiList.length > 0 && (
-				<WifiConfigFormAuto onCancel={onCancel} form={form} />
+				<WifiConfigFormAuto onCancel={onCancel} onNavigation={onNavigation} />
 			)}
 			{wifiList.length === 0 && (
-				<WifiConfigFormManual onCancel={onCancel} form={form} />
+				<WifiConfigFormManual onCancel={onCancel} form={formManual} />
 			)}
 		</>
 	);

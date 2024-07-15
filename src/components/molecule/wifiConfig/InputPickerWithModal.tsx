@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { Modal, FlatList, TextInput } from 'react-native';
-import styled from 'styled-components/native';
 import { useController, Control, FieldValues, Path } from 'react-hook-form';
 import { View } from '@/components/atomic/View';
 import FormInput from '@/components/atomic/FormInput';

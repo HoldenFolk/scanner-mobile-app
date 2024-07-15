@@ -7,12 +7,10 @@ export const PASSWORD_NAME: formType = 'wifi_password';
 
 interface WifiConfigurationFormTypeFirstProps {
 	defaultValues?: object;
-	onSubmit: () => void;
 }
 
 export const useWifiConfigForm = ({
 	defaultValues = {},
-	onSubmit,
 }: WifiConfigurationFormTypeFirstProps): WifiFormReturn => {
 	const {
 		control,
@@ -24,7 +22,6 @@ export const useWifiConfigForm = ({
 	} = useForm<GetWifiFormInputs>({ defaultValues });
 
 	const handleConfirm = async (data: GetWifiFormInputs) => {
-		onSubmit();
 		console.log('Handle Confirm', data);
 	};
 

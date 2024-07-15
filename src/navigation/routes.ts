@@ -1,24 +1,21 @@
-export const WIFI_MODAL_SCREENS = {
-	SELECTION: 'WifiSelectionModal',
-	PASSWORD: 'PasswordModal',
-	OTHER: 'OtherModal',
-};
+import { RootParamList } from '@/types/navigation';
+import { NavigationProp } from '@react-navigation/native';
 
-export const STACK_SCREENS = {
-	HOME: 'Home',
-	SETUP: 'Setup',
-	CUSTOMER: 'CustomerSelect',
-	CONFIG: 'ConfigurationSetting',
-	LTE_DIAGNOSE: 'LTEDiagnose',
-	MANUAL_DIAGNOSE: 'ManualDiagnose',
-	OPERATOR_LIST: 'OperatorList',
-	SETTINGS: 'Settings',
-	WIFI: {
-		...WIFI_MODAL_SCREENS,
-		PARENT: 'WifiConfiguration',
-	},
-};
-
-export const DRAWER_SCREENS = {
-	INIT: 'Init',
+export const routes = {
+	Home: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('Home'),
+	ConfigurationSetting: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('ConfigurationSetting'),
+	Settings: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('Settings'),
+	WifiConfiguration: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('WifiConfiguration'),
+	WifiSelectionModal: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('WifiSelectionModal'),
+	PasswordModal: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('PasswordModal'),
+	OtherModal: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('OtherModal'),
+	Init: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('Init'),
 };

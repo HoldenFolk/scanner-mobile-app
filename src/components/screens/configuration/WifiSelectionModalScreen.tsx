@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components/native';
 import View from '@/components/atomic/View';
 import ActivityIndicator from '@/components/molecule/ActivityIndicator';
@@ -8,16 +8,24 @@ import {
 	getConnectedDeviceWifiList,
 	getConnectedDeviceWifiSSID,
 	getIsLoadingWifiList,
+	setConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
+import { Wifi } from '@/types/scannerData';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootParamList } from '@/types/navigation';
+import { routes } from '@/navigation/routes';
 
 export function WifiSelectionModalScreen() {
 	const wifiOptions = useSelector(getConnectedDeviceWifiList);
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
 	const isLoadingWifiList = useSelector(getIsLoadingWifiList);
-	const handlePressToChangePassword = () => {
-		console.log(
-			'file: WifiSelectionModalScreen.tsx:70 ~ handlePressToChangePassword ~ option:',
-		);
+	const navigation = useNavigation<NavigationProp<RootParamList>>();
+	const dispatch = useDispatch();
+
+	const handlePressToChangePassword = (wifi: Wifi) => {
+		console.log('Set wifi ssid in global state', wifi.ssid);
+		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
+		routes.PasswordModal(navigation);
 	};
 
 	// TODO: Implement

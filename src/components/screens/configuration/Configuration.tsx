@@ -5,13 +5,13 @@ import {
 	getConnectedDeviceWifiList,
 } from '@/providers/redux/slices';
 import { RootParamList } from '@/types/navigation';
-import { ConfigurationSetting } from './ConfigurationSetting';
+import { ConfigurationSetting } from '../../organism/ConfigurationSetting';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ErrorBoundary from 'react-native-error-boundary';
-import { STACK_SCREENS } from '@/navigation/routes';
+import { routes } from '@/navigation/routes';
 
 /**
  * Configuration screen in simplified app
@@ -27,11 +27,12 @@ export function Configuration() {
 
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
-		navigation.navigate(STACK_SCREENS.WIFI.SELECTION as keyof RootParamList);
+		routes.WifiSelectionModal(navigation);
 	};
 
 	const handleWifiChangeNavigation = () => {
 		console.log('handleWifiChangeNavigation is called');
+		routes.PasswordModal(navigation);
 	};
 
 	return (
