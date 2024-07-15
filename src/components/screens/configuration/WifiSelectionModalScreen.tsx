@@ -7,18 +7,20 @@ import WifiSelectionModal from '@/components/molecule/wifiConfig/WifiSelectionMo
 import {
 	getConnectedDeviceWifiList,
 	getConnectedDeviceWifiSSID,
+	getIsLoadingWifiList,
 } from '@/providers/redux/slices';
 
 export function WifiSelectionModalScreen() {
 	const wifiOptions = useSelector(getConnectedDeviceWifiList);
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
+	const isLoadingWifiList = useSelector(getIsLoadingWifiList);
 	const handlePressToChangePassword = () => {
 		console.log(
 			'file: WifiSelectionModalScreen.tsx:70 ~ handlePressToChangePassword ~ option:',
 		);
 	};
-	const isLoadingWifiList = false;
 
+	// TODO: Implement
 	const handleOtherWifiNavigation = () => {
 		// navigation.navigate(STACK_SCREENS.WIFI.PARENT, {
 		//  screen: STACK_SCREENS.WIFI.OTHER,

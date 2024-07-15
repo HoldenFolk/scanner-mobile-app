@@ -1,10 +1,18 @@
 import { AppState } from '@/types/redux';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface GlobalStatusState {
+	isScanning: boolean;
+	isConnecting: boolean;
+	isConnected: boolean;
+	isLoadingWifiList: boolean;
+}
+
+const initialState: GlobalStatusState = {
 	isScanning: false,
 	isConnecting: false,
 	isConnected: false,
+	isLoadingWifiList: false,
 };
 
 export const globalStatusSlice = createSlice({
@@ -20,6 +28,9 @@ export const globalStatusSlice = createSlice({
 		setConnected: (state, action: PayloadAction<boolean>) => {
 			state.isConnected = action.payload;
 		},
+		setLoadingWifiList: (state, action: PayloadAction<boolean>) => {
+			state.isLoadingWifiList = action.payload;
+		},
 	},
 });
 
@@ -30,7 +41,9 @@ export const getIsConnecting = (state: AppState): boolean =>
 	state.globalStatus.isConnecting;
 export const getIsConnected = (state: AppState): boolean =>
 	state.globalStatus.isConnected;
+export const getIsLoadingWifiList = (state: AppState): boolean =>
+	state.globalStatus.isLoadingWifiList;
 
-export const { setScanning, setConnecting, setConnected } =
+export const { setScanning, setConnecting, setConnected, setLoadingWifiList } =
 	globalStatusSlice.actions;
 export default globalStatusSlice.reducer;

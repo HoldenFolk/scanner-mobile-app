@@ -7,6 +7,7 @@ import { useColorScheme } from 'react-native';
 import { STACK_SCREENS } from './routes';
 import { Configuration } from '@/components/screens/configuration/Configuration';
 import { WifiSelectionModalScreen } from '@/components/screens/configuration/WifiSelectionModalScreen';
+import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiListBtn';
 
 const Stack = createStackNavigator();
 
@@ -65,9 +66,7 @@ export function WifiConfigurationStackGroup() {
 						component={WifiSelectionModalScreen}
 						options={{
 							headerTitle: 'Wi-Fi',
-							/*headerRight: props => (
-								<RefreshWifiListBtn color={'secondary'} {...props} />
-							), */
+							headerRight: RefreshWifiListBtn,
 						}}
 					/>
 				</Stack.Group>

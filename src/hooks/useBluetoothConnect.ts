@@ -3,6 +3,7 @@ import {
 	setConnectedDeviceId,
 	setConnecting,
 	setConnectedDeviceWifiList,
+	setLoadingWifiList,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
@@ -13,6 +14,7 @@ export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
 
 	const retrieveWifiList = async (id: string) => {
+		dispatch(setLoadingWifiList(true));
 		const wifiList: Wifi[] = [];
 
 		let isUniqueSSID = true;
@@ -35,6 +37,7 @@ export const useBluetoothConnect = () => {
 			}
 		} while (isUniqueSSID);
 		dispatch(setConnectedDeviceWifiList(wifiList));
+		dispatch(setLoadingWifiList(false));
 		console.log('Retrieved wifi list:', wifiList);
 	};
 
@@ -104,5 +107,5 @@ export const useBluetoothConnect = () => {
 		}
 	};
 
-	return { connectToScanner, disconnectFromScanner };
+	return { connectToScanner, disconnectFromScanner, retrieveWifiList };
 };

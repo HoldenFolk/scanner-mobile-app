@@ -9,9 +9,6 @@ interface ConnectedScannerState {
 	isConfigured: boolean;
 	plugState: PlugState;
 	wifiList: Wifi[];
-	pending: {
-		isLoadingWifiList: boolean;
-	};
 }
 
 const initialState: ConnectedScannerState = {
@@ -21,9 +18,6 @@ const initialState: ConnectedScannerState = {
 	isConfigured: false,
 	plugState: PlugState.UNCONFIGURED,
 	wifiList: [],
-	pending: {
-		isLoadingWifiList: false,
-	},
 };
 
 export const connectedScannerSlice = createSlice({
