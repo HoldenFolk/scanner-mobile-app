@@ -1,5 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { FormProps, GetWifiFormInputs, WifiFormReturn } from '@/types/form';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	getConnectedDeviceId,
+	setConnectedDeviceWifiPSWD,
+	setConnectedDeviceWifiSSID,
+} from '@/providers/redux/slices';
+import { useScannerConfigure } from './useScannerConfigure';
 
 type formType = 'wifi_ssid' | 'wifi_password';
 export const SSID_NAME: formType = 'wifi_ssid';
@@ -12,6 +19,10 @@ interface WifiConfigurationFormTypeFirstProps {
 export const useWifiConfigForm = ({
 	defaultValues = {},
 }: WifiConfigurationFormTypeFirstProps): WifiFormReturn => {
+	const dispatch = useDispatch();
+	const connectedId = useSelector(getConnectedDeviceId);
+	const { configureDeviceWifi } = useScannerConfigure();
+
 	const {
 		control,
 		handleSubmit,
@@ -23,6 +34,9 @@ export const useWifiConfigForm = ({
 
 	const handleConfirm = async (data: GetWifiFormInputs) => {
 		console.log('Handle Confirm', data);
+		dispatch(setConnectedDeviceWifiSSID(data.wifi_ssid));
+		dispatch(setConnectedDeviceWifiPSWD(data.wifi_password));
+		configureDeviceWifi(connectedId);
 	};
 
 	const ssidForm: FormProps = {

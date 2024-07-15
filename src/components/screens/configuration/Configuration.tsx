@@ -30,11 +30,6 @@ export function Configuration() {
 		routes.WifiSelectionModal(navigation);
 	};
 
-	const handleWifiChangeNavigation = () => {
-		console.log('handleWifiChangeNavigation is called');
-		routes.PasswordModal(navigation);
-	};
-
 	return (
 		<ErrorBoundary onError={() => navigation.dispatch(resetToHome)}>
 			<ConfigurationSetting
@@ -42,7 +37,6 @@ export function Configuration() {
 				plugState={plugState}
 				wifiList={wifilist}
 				onNavigation={handleSetupNavigation}
-				onWifiChangeNavigation={handleWifiChangeNavigation}
 			/>
 		</ErrorBoundary>
 	);

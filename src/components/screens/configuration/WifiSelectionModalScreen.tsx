@@ -24,8 +24,8 @@ export function WifiSelectionModalScreen() {
 
 	const handlePressToChangePassword = (wifi: Wifi) => {
 		console.log('Set wifi ssid in global state', wifi.ssid);
-		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
 		routes.PasswordModal(navigation);
+		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
 	};
 
 	// TODO: Implement

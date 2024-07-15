@@ -3,6 +3,9 @@ import styled from 'styled-components/native';
 import { WifiListItem } from '../molecule/wifiConfig/WifiListItem';
 import ScannerImage from '@/assets/scanner-MKMini02.png';
 import Button from '../atomic/Button';
+import { useSelector } from 'react-redux';
+import { getConnectedDeviceId } from '@/providers/redux/slices';
+import { useScannerConfigure } from '@/hooks/useScannerConfigure';
 
 interface WifiConfigurationFormAutoProps {
 	onCancel: () => void;
@@ -13,7 +16,12 @@ export const WifiConfigFormAuto = ({
 	onCancel,
 	onNavigation,
 }: WifiConfigurationFormAutoProps) => {
-	const handleSubmit = () => {};
+	const connectedId = useSelector(getConnectedDeviceId);
+	const { configureDeviceWifi } = useScannerConfigure();
+	const handleSubmit = () => {
+		console.log('configuring device wifi');
+		configureDeviceWifi(connectedId);
+	};
 
 	return (
 		<Container>

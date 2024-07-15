@@ -11,14 +11,12 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootParamList } from '@/types/navigation';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 import WifiConfigForm from '@/components/organism/WifiConfigForm';
-import { WifiFormReturn } from '@/types/form';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
 	id: string;
 	plugState: PlugState;
 	wifiList: Wifi[];
-	onWifiChangeNavigation: (form: WifiFormReturn) => void;
 	children?: React.ReactNode;
 }
 
