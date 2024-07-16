@@ -10,6 +10,7 @@ import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
 import settings from '@/globalConstants';
 import { PlugState, Wifi } from '@/types/scannerData';
+import { readCharacteristic, retreiveServices } from '@/utils/bleManager';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const useBluetoothConnect = () => {
 
 		let isUniqueSSID = true;
 		do {
-			const data = await readCharacteristicToString(
+			const data = await readCharacteristic(
 				id,
 				settings.serviceID,
 				settings.characteristicIDReadWifi,
@@ -40,29 +41,6 @@ export const useBluetoothConnect = () => {
 		dispatch(setConnectedDeviceWifiList(wifiList));
 		dispatch(setLoadingWifiList(false));
 		console.log('Retrieved wifi list:', wifiList);
-	};
-
-	const retreiveServices = async (id: string) => {
-		try {
-			const services = await BleManager.retrieveServices(id);
-			console.log('Retrieved services:');
-			return services;
-		} catch (error) {
-			console.error('Failed to retrieve services:', error);
-		}
-	};
-
-	const readCharacteristicToString = async (
-		id: string,
-		service: string,
-		characteristic: string,
-	) => {
-		try {
-			const data = await BleManager.read(id, service, characteristic);
-			return data;
-		} catch (error) {
-			console.error('Failed to read characteristic:', error);
-		}
 	};
 
 	const connectToScanner = async (id: string) => {

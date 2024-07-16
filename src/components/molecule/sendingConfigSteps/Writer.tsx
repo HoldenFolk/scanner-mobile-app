@@ -1,8 +1,36 @@
 import { Heading } from '@/components/atomic/Heading';
 import { View } from '@/components/atomic/View';
+import { useScannerConfigure } from '@/hooks/useScannerConfigure';
 import React from 'react';
 
-const Writer = () => {
+interface WriterProps {
+	bleId: string;
+	onFullfilled: () => void;
+	onRejected: () => void;
+	shouldStart: boolean;
+}
+
+const Writer = ({
+	bleId,
+	onFullfilled,
+	onRejected,
+	shouldStart,
+}: WriterProps) => {
+	const { configureDeviceWifi } = useScannerConfigure();
+
+	const writeConfigToScanner = async () => {
+		try {
+			await configureDeviceWifi(bleId);
+			onFullfilled();
+		} catch (error) {
+			onRejected();
+		}
+	};
+
+	if (shouldStart) {
+		writeConfigToScanner();
+	}
+
 	return (
 		<View>
 			<Heading>

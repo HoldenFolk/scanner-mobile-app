@@ -31,3 +31,9 @@ export enum AsyncLifecycle {
 	CANCELLED = 'cancelled',
 	VERIFYING = 'verifying',
 }
+
+export interface ManufacturerData {
+	mac: string;
+	plugState: string;
+	rssi?: string | number;
+}

@@ -4,6 +4,9 @@ import { useCallback, useEffect } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import { useDispatch } from 'react-redux';
 import BleManager from 'react-native-ble-manager';
+import { ManufacturerDataRaw } from '@/types/bleManagerTypes';
+import { decodeManufacturerData } from '@/utils/manufacturerData';
+import { getValidPlugState } from '@/utils/plugState';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -12,20 +15,30 @@ export const useBluetoothManager = () => {
 	const dispatch = useDispatch();
 
 	// Handle discovered peripherals and update the device list
+	// TODO: Add data validation to ensure all propper data is contained within the peripheral
 	const handleDiscoverPeripheral = useCallback(
 		(peripheral: any) => {
-			const { id, name, advertising, rssi } = peripheral;
+			const { name, advertising, rssi } = peripheral;
 			if (name === 'KaiduScanner') {
 				console.log('Discovered KaiduScanner:', name);
-				// TODO: Add functionality to allow LTE Scanners to be added
-				// TODO: Add functionality to get the plugstate of the scanners
+
+				const manufacturerRawData: ManufacturerDataRaw =
+					advertising?.manufacturerData || {};
+
+				const manufacturerData = decodeManufacturerData(
+					manufacturerRawData.ffff.bytes,
+				);
+				console.log('Manufacturer data:', manufacturerData);
+
+				const plugState = getValidPlugState(manufacturerData?.plugState);
+				const id = manufacturerData?.macAddress;
 				dispatch(
 					addDevice({
 						id,
 						name,
 						advertising,
 						rssi,
-						plugState: PlugState.UNCONFIGURED,
+						plugState: plugState,
 						kaiduDeviceType: 'wifi',
 					}),
 				);

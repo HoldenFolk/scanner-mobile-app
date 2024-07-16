@@ -3,14 +3,24 @@ export interface Peripheral {
 	name: string | null;
 	rssi: number;
 	advertising: AdvertisingPayload;
+	// serviceData: any;
+	// serviceUUIDs: string[];
+	// txPowerLevel: number;
 }
 
 export interface AdvertisingPayload {
 	isConnectable: boolean;
 	serviceUuids: string[];
-	manufacturerData: JSON;
+	manufacturerData: ManufacturerDataRaw;
 	serviceData: JSON;
 	txPowerLevel: number;
 	localName: string;
 	rawData?: JSON;
+}
+
+// TODO: Add type for bytes
+export interface ManufacturerDataRaw {
+	CDVType: string;
+	ffff: { bytes: number[] };
+	data: string;
 }
