@@ -28,7 +28,11 @@ const WifiConfigForm = ({
 	return (
 		<>
 			{wifiList.length > 0 && (
-				<WifiConfigFormAuto onCancel={onCancel} onWifiSelect={onWifiSelect} />
+				<WifiConfigFormAuto
+					onCancel={onCancel}
+					onWifiSelect={onWifiSelect}
+					onSubmit={onNavigation}
+				/>
 			)}
 			{wifiList.length === 0 && (
 				<WifiConfigFormManual onCancel={onCancel} form={formManual} />

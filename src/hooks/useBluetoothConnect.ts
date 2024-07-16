@@ -4,11 +4,12 @@ import {
 	setConnecting,
 	setConnectedDeviceWifiList,
 	setLoadingWifiList,
+	setConnectedDevicePlugState,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
 import settings from '@/globalConstants';
-import { Wifi } from '@/types/scannerData';
+import { PlugState, Wifi } from '@/types/scannerData';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
@@ -79,14 +80,21 @@ export const useBluetoothConnect = () => {
 				attempts++;
 			}
 		}
+		if (!isConnected) {
+			// Check if still not connected after 3 attempts
+			dispatch(setConnecting(false)); // Ensure to reset the connecting state
+			throw new Error(
+				`Failed to connect to scanner after ${attempts} attempts`,
+			);
+		}
 		// Proceed with the rest of the function after successful connection
 		try {
 			dispatch(setConnectedDeviceId(id));
+			dispatch(setConnectedDevicePlugState(PlugState.CONNECTED));
 			await retreiveServices(id);
 			await retrieveWifiList(id);
 		} catch (error) {
 			console.error('Failed after connecting to scanner:', id, error);
-			// Handle post-connection error
 		} finally {
 			dispatch(setConnecting(false));
 		}
@@ -95,7 +103,7 @@ export const useBluetoothConnect = () => {
 	const disconnectFromScanner = async (id: string) => {
 		try {
 			dispatch(setConnecting(true));
-			await BleManager.disconnect(id, true);
+			await BleManager.disconnect(id, true); // Force disconnect from scanner
 			console.log('Disconnected from scanner:', id);
 
 			dispatch(setConnecting(false));
@@ -107,5 +115,21 @@ export const useBluetoothConnect = () => {
 		}
 	};
 
-	return { connectToScanner, disconnectFromScanner, retrieveWifiList };
+	// Check if the scanner is connected
+	const isScannerConnected = async (id: string) => {
+		try {
+			const isConnected = await BleManager.isPeripheralConnected(id);
+			console.log('Scanner connected:', isConnected);
+			return isConnected;
+		} catch (error) {
+			console.error('Failed to check if scanner is connected:', error);
+		}
+	};
+
+	return {
+		connectToScanner,
+		disconnectFromScanner,
+		retrieveWifiList,
+		isScannerConnected,
+	};
 };
