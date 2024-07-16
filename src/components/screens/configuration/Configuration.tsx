@@ -1,4 +1,3 @@
-import { resetToHome } from '@/navigation/processors';
 import {
 	getConnectedDeviceId,
 	getConnectedDevicePlugState,
@@ -27,16 +26,22 @@ export function Configuration() {
 
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
+		routes.setup(navigation);
+	};
+
+	const handleWifiSelectionNavigation = () => {
+		console.log('Navigate to WifiSelectionModalScreen with data');
 		routes.WifiSelectionModal(navigation);
 	};
 
 	return (
-		<ErrorBoundary onError={() => navigation.dispatch(resetToHome)}>
+		<ErrorBoundary onError={() => routes.Home(navigation)}>
 			<ConfigurationSetting
 				id={bleId}
 				plugState={plugState}
 				wifiList={wifilist}
 				onNavigation={handleSetupNavigation}
+				onWifiSelect={handleWifiSelectionNavigation}
 			/>
 		</ErrorBoundary>
 	);

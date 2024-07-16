@@ -28,6 +28,13 @@ export function StackNavigation() {
 							headerShown: false,
 						}}
 					/>
+					{/* <Stack.Screen
+						name={STACK_SCREENS.SETUP}
+						component={Setup}
+						options={{
+							headerShown: false,
+						}}
+					/> */}
 				</Stack.Group>
 			</>
 		</Stack.Navigator>

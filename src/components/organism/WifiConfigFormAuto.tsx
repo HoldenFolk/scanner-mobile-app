@@ -9,12 +9,12 @@ import { useScannerConfigure } from '@/hooks/useScannerConfigure';
 
 interface WifiConfigurationFormAutoProps {
 	onCancel: () => void;
-	onNavigation: () => void;
+	onWifiSelect: () => void;
 }
 
 export const WifiConfigFormAuto = ({
 	onCancel,
-	onNavigation,
+	onWifiSelect,
 }: WifiConfigurationFormAutoProps) => {
 	const connectedId = useSelector(getConnectedDeviceId);
 	const { configureDeviceWifi } = useScannerConfigure();
@@ -26,7 +26,7 @@ export const WifiConfigFormAuto = ({
 	return (
 		<Container>
 			<InnerContainer>
-				<WifiListItem onPress={onNavigation} />
+				<WifiListItem onPress={onWifiSelect} />
 				<StyledImage source={ScannerImage} resizeMode="contain" />
 			</InnerContainer>
 			<ButtonContainer>

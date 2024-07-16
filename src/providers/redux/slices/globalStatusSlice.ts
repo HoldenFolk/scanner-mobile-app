@@ -1,4 +1,5 @@
 import { AppState } from '@/types/redux';
+import { AsyncLifecycle } from '@/types/scannerData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface GlobalStatusState {
@@ -6,6 +7,7 @@ interface GlobalStatusState {
 	isConnecting: boolean;
 	isConnected: boolean;
 	isLoadingWifiList: boolean;
+	configState: AsyncLifecycle;
 }
 
 const initialState: GlobalStatusState = {
@@ -13,6 +15,7 @@ const initialState: GlobalStatusState = {
 	isConnecting: false,
 	isConnected: false,
 	isLoadingWifiList: false,
+	configState: AsyncLifecycle.IDLE,
 };
 
 export const globalStatusSlice = createSlice({
@@ -31,6 +34,9 @@ export const globalStatusSlice = createSlice({
 		setLoadingWifiList: (state, action: PayloadAction<boolean>) => {
 			state.isLoadingWifiList = action.payload;
 		},
+		setConfigState: (state, action: PayloadAction<AsyncLifecycle>) => {
+			state.configState = action.payload;
+		},
 	},
 });
 
@@ -43,7 +49,14 @@ export const getIsConnected = (state: AppState): boolean =>
 	state.globalStatus.isConnected;
 export const getIsLoadingWifiList = (state: AppState): boolean =>
 	state.globalStatus.isLoadingWifiList;
+export const getConfigState = (state: AppState): AsyncLifecycle =>
+	state.globalStatus.configState;
 
-export const { setScanning, setConnecting, setConnected, setLoadingWifiList } =
-	globalStatusSlice.actions;
+export const {
+	setScanning,
+	setConnecting,
+	setConnected,
+	setLoadingWifiList,
+	setConfigState,
+} = globalStatusSlice.actions;
 export default globalStatusSlice.reducer;

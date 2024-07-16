@@ -1,5 +1,6 @@
 export type RootParamList = {
 	Home: undefined;
+	Setup: undefined;
 	ConfigurationSetting: undefined;
 	Settings: undefined;
 	WifiConfiguration: undefined;
@@ -11,6 +12,7 @@ export type RootParamList = {
 
 export const STACK_SCREENS = {
 	HOME: 'Home',
+	SETUP: 'Setup',
 	CONFIGURATION_SETTING: 'ConfigurationSetting',
 	SETTINGS: 'Settings',
 	WIFI_CONFIGURATION: 'WifiConfiguration',

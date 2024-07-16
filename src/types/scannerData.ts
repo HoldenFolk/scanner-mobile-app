@@ -22,3 +22,12 @@ export interface Wifi {
 	ssid: string;
 	rssi: string;
 }
+
+export enum AsyncLifecycle {
+	IDLE = 'idle',
+	PENDING = 'pending', //aka writing
+	FULFILLED = 'fulfilled',
+	REJECTED = 'rejected',
+	CANCELLED = 'cancelled',
+	VERIFYING = 'verifying',
+}

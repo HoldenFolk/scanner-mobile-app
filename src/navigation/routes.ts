@@ -4,6 +4,8 @@ import { NavigationProp } from '@react-navigation/native';
 export const routes = {
 	Home: (navigation: NavigationProp<RootParamList>) =>
 		navigation.navigate('Home'),
+	setup: (navigation: NavigationProp<RootParamList>) =>
+		navigation.navigate('Setup'),
 	ConfigurationSetting: (navigation: NavigationProp<RootParamList>) =>
 		navigation.navigate('ConfigurationSetting'),
 	Settings: (navigation: NavigationProp<RootParamList>) =>

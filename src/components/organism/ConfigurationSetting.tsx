@@ -14,6 +14,7 @@ import WifiConfigForm from '@/components/organism/WifiConfigForm';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
+	onWifiSelect: () => void;
 	id: string;
 	plugState: PlugState;
 	wifiList: Wifi[];
@@ -22,6 +23,7 @@ interface ConfigurationSettingProps {
 
 export function ConfigurationSetting({
 	onNavigation,
+	onWifiSelect,
 	wifiList,
 	id,
 	plugState,
@@ -55,7 +57,11 @@ export function ConfigurationSetting({
 						<PlugStateInfo plugState={plugState || PlugState.UNCONFIGURED} />
 					</CenteredView>
 
-					<WifiConfigForm onNavigation={onNavigation} onCancel={handleCancel} />
+					<WifiConfigForm
+						onWifiSelect={onWifiSelect}
+						onNavigation={onNavigation}
+						onCancel={handleCancel}
+					/>
 
 					{children}
 				</StyledKeyboardAwareScrollView>

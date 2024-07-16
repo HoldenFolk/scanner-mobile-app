@@ -4,10 +4,10 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { useColorScheme } from 'react-native';
-import { Configuration } from '@/components/screens/configuration/Configuration';
-import { WifiSelectionModalScreen } from '@/components/screens/configuration/WifiSelectionModalScreen';
+import { Configuration } from '@/components/screens/Configuration/Configuration';
+import { WifiSelectionModalScreen } from '@/components/screens/Configuration/WifiSelectionModalScreen';
 import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiListBtn';
-import PasswordModalScreen from '@/components/screens/configuration/PasswordModalScreen';
+import PasswordModalScreen from '@/components/screens/Configuration/PasswordModalScreen';
 import { RootParamList, STACK_SCREENS } from '@/types/navigation';
 
 const Stack = createStackNavigator<RootParamList>();
