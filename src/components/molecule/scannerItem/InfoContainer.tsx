@@ -41,7 +41,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 					color={theme.colors.fourth}
 				/>
 				<StyledText>{`${data.rssi || 'N/A'} dBm`}</StyledText>
-				<RSSIStrengthIcon value={data.rssi} />
+				<RSSIStrengthIcon value={data.wifiRssi} />
 			</Row>
 		</Container>
 	);

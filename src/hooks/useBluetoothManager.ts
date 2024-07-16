@@ -31,13 +31,15 @@ export const useBluetoothManager = () => {
 				console.log('Manufacturer data:', manufacturerData);
 
 				const plugState = getValidPlugState(manufacturerData?.plugState);
-				const id = manufacturerData?.macAddress;
+				const id = manufacturerData.macAddress;
+				const wifiRssi = manufacturerData.rssi;
 				dispatch(
 					addDevice({
 						id,
 						name,
 						advertising,
 						rssi,
+						wifiRssi,
 						plugState: plugState,
 						kaiduDeviceType: 'wifi',
 					}),

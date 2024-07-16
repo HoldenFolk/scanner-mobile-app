@@ -4,6 +4,7 @@ export interface ScannerData {
 	id: string;
 	name?: string;
 	rssi: number;
+	wifiRssi: number;
 	advertising: AdvertisingPayload;
 	plugState: PlugState;
 	kaiduDeviceType: 'wifi' | 'lte';

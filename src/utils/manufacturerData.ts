@@ -3,10 +3,12 @@ import { Buffer } from 'buffer';
 export const decodeManufacturerData = (bytes: number[]) => {
 	const macAddressBytes = bytes.slice(0, 6);
 	const plugStateBytes = bytes.slice(6, 7);
+	const rssi = bytes.slice(7, 8);
 
 	const manufacturerData = {
 		macAddress: formatMacAddress(convertBytesToString(macAddressBytes)),
 		plugState: convertBytesToString(plugStateBytes),
+		rssi: parseInt(convertBytesToString(rssi), 16),
 	};
 	return manufacturerData;
 };
