@@ -4,6 +4,7 @@ import {
 	setConnecting,
 	setConnectedDeviceWifiList,
 	setLoadingWifiList,
+	setConnected,
 	setConnectedDevicePlugState,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
@@ -43,7 +44,7 @@ export const useBluetoothConnect = () => {
 		console.log('Retrieved wifi list:', wifiList);
 	};
 
-	const connectToScanner = async (id: string) => {
+	const connectToScanner = async (id: string, plugState: PlugState) => {
 		let isConnected = false;
 		let attempts = 0;
 		dispatch(setConnecting(true));
@@ -68,7 +69,8 @@ export const useBluetoothConnect = () => {
 		// Proceed with the rest of the function after successful connection
 		try {
 			dispatch(setConnectedDeviceId(id));
-			dispatch(setConnectedDevicePlugState(PlugState.CONNECTED));
+			dispatch(setConnectedDevicePlugState(plugState));
+			dispatch(setConnected(true));
 			await retreiveServices(id);
 			await retrieveWifiList(id);
 		} catch (error) {
@@ -81,15 +83,18 @@ export const useBluetoothConnect = () => {
 	const disconnectFromScanner = async (id: string) => {
 		try {
 			dispatch(setConnecting(true));
-			await BleManager.disconnect(id, true); // Force disconnect from scanner
+			await BleManager.disconnect(id); // Force disconnect from scanner
 			console.log('Disconnected from scanner:', id);
 
 			dispatch(setConnecting(false));
+			dispatch(setConnected(false));
 			dispatch(resetConnectedScanner());
+			return true;
 		} catch (error) {
 			dispatch(setConnecting(false));
 			dispatch(resetConnectedScanner());
 			console.error('Failed to disconnect from scanner:', id, error);
+			return false;
 		}
 	};
 

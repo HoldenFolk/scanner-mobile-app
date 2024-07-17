@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Home } from '../components/screens/Home';
 import { WifiConfigurationStackGroup } from './WifiConfigurationStackGroup';
 import { STACK_SCREENS } from '@/types/navigation';
+import { Setup } from '@/components/screens/Setup/SetupScreen';
 
 export const Stack = createStackNavigator();
 
@@ -28,13 +29,13 @@ export function StackNavigation() {
 							headerShown: false,
 						}}
 					/>
-					{/* <Stack.Screen
+					<Stack.Screen
 						name={STACK_SCREENS.SETUP}
 						component={Setup}
 						options={{
 							headerShown: false,
 						}}
-					/> */}
+					/>
 				</Stack.Group>
 			</>
 		</Stack.Navigator>

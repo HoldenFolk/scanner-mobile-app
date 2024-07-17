@@ -18,7 +18,6 @@ export interface AdvertisingPayload {
 	rawData?: JSON;
 }
 
-// TODO: Add type for bytes
 export interface ManufacturerDataRaw {
 	CDVType: string;
 	ffff: { bytes: number[] };

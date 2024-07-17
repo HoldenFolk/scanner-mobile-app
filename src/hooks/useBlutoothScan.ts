@@ -8,7 +8,6 @@ import {
 	clearDevices,
 } from '@/providers/redux/slices';
 
-// TODO: Change the mac address to be obtained from the manufaturer data
 // TODO: Make the scanners remove when lost connection
 export const useBluetoothScan = () => {
 	const isScanning = useSelector(getIsScanning);

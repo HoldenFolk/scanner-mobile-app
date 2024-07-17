@@ -2,15 +2,17 @@ import {
 	getConnectedDeviceId,
 	getConnectedDevicePlugState,
 	getConnectedDeviceWifiList,
+	setConfigState,
 } from '@/providers/redux/slices';
 import { RootParamList } from '@/types/navigation';
 import { ConfigurationSetting } from '../../organism/ConfigurationSetting';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ErrorBoundary from 'react-native-error-boundary';
 import { routes } from '@/navigation/routes';
+import { AsyncLifecycle } from '@/types/scannerData';
 
 /**
  * Configuration screen in simplified app
@@ -18,6 +20,7 @@ import { routes } from '@/navigation/routes';
 export function Configuration() {
 	// Hooks
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
+	const dispatch = useDispatch();
 
 	// Global states
 	const bleId = useSelector(getConnectedDeviceId);
@@ -26,6 +29,7 @@ export function Configuration() {
 
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
+		dispatch(setConfigState(AsyncLifecycle.PENDING));
 		routes.setup(navigation);
 	};
 

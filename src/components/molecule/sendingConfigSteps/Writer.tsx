@@ -5,14 +5,14 @@ import React from 'react';
 
 interface WriterProps {
 	bleId: string;
-	onFullfilled: () => void;
-	onRejected: () => void;
+	onFulfilled: () => void;
+	onRejected: (err: Error) => Promise<void>;
 	shouldStart: boolean;
 }
 
-const Writer = ({
+export const Writer = ({
 	bleId,
-	onFullfilled,
+	onFulfilled,
 	onRejected,
 	shouldStart,
 }: WriterProps) => {
@@ -21,13 +21,14 @@ const Writer = ({
 	const writeConfigToScanner = async () => {
 		try {
 			await configureDeviceWifi(bleId);
-			onFullfilled();
+			onFulfilled();
 		} catch (error) {
-			onRejected();
+			onRejected(error as Error);
 		}
 	};
 
 	if (shouldStart) {
+		console.log('Starting to write config to scanner');
 		writeConfigToScanner();
 	}
 
@@ -40,4 +41,3 @@ const Writer = ({
 		</View>
 	);
 };
-export default Writer;

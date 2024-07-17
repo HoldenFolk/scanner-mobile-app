@@ -1,5 +1,4 @@
 import { addDevice } from '@/providers/redux/slices';
-import { PlugState } from '@/types/scannerData';
 import { useCallback, useEffect } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import { useDispatch } from 'react-redux';

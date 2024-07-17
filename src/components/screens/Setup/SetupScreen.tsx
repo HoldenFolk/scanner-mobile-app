@@ -1,3 +1,4 @@
+import { SetupStepsContainer } from '@/components/organism/SetupStepsContainer';
 import { BasicTemplate } from '@/components/template/BasicTemplate';
 import { routes } from '@/navigation/routes';
 import { getConnectedDeviceId } from '@/providers/redux/slices';
@@ -10,15 +11,12 @@ import { useSelector } from 'react-redux';
 
 export const Setup = () => {
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
-	const macAddress = useSelector(getConnectedDeviceId);
+	const bleId = useSelector(getConnectedDeviceId);
 
 	return (
 		<ErrorBoundary onError={() => routes.Home(navigation)}>
 			<BasicTemplate>
-				<SetupStepsContainer
-					// {...childProps}
-					key={'wifi-scanner-setup-container' + macAddress}
-				/>
+				<SetupStepsContainer bleId={bleId} />
 			</BasicTemplate>
 		</ErrorBoundary>
 	);
