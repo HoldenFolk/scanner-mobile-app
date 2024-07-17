@@ -21,6 +21,3 @@ export const STACK_SCREENS = {
 	OTHER_MODAL: 'OtherModal',
 	INIT: 'Init',
 } as const;
-
-// This type will now represent the keys of STACK_SCREENS as a union of string literals.
-export type RootRoute = keyof typeof STACK_SCREENS;

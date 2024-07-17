@@ -6,16 +6,12 @@ import {
 	Writer,
 } from '../molecule/sendingConfigSteps';
 import { View } from '../atomic/View';
-import { useDispatch, useSelector } from 'react-redux';
-import { getConfigState, setConfigState } from '@/providers/redux/slices';
+import { useDispatch } from 'react-redux';
+import { setConfigState } from '@/providers/redux/slices';
 import { AsyncLifecycle } from '@/types/scannerData';
-import { useNavigation } from '@react-navigation/native';
-import { RootParamList } from '@/types/navigation';
-import { routes } from '@/navigation/routes';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 import { ProgressGrouped } from '../molecule/ProgressGrouped';
 import styled from 'styled-components/native';
+import { useSetupStepsContainer } from '@/hooks/useSetupStepsContainer';
 
 interface SetupStepsContainerProps {
 	bleId: string;
@@ -34,43 +30,15 @@ const InnerView = styled(View)`
 `;
 
 export function SetupStepsContainer({ bleId }: SetupStepsContainerProps) {
-	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const dispatch = useDispatch();
-	const status = useSelector(getConfigState);
-	const { isScannerConnected, disconnectFromScanner } = useBluetoothConnect();
-
-	const errorMsg = 'Connection Cancelled';
-
-	const handleError = async (err: Error) => {
-		console.debug(`SetupStepsContainer:56 handleError: ${err?.message}`);
-
-		// disconnect for failure. change the message if cannot disconnect
-		const isConnected = await isScannerConnected(bleId);
-		if (isConnected) {
-			const isDisconnected = await disconnectFromScanner(bleId);
-			if (!isDisconnected) {
-				console.debug('Failed to disconnect BLE device');
-				const nextErrMsg =
-					' Failed to disconnect BLE device. Please close the app and retry';
-				err.message = nextErrMsg;
-			}
-			dispatch(setConfigState(AsyncLifecycle.REJECTED));
-		}
-	};
-
-	const handleClose = async () => {
-		routes.Home(navigation);
-	};
-
-	const handleCancel = async () => {
-		await disconnectFromScanner(bleId);
-		routes.Home(navigation);
-	};
-
-	const handleConnected = () => {
-		dispatch(setConfigState(AsyncLifecycle.FULFILLED));
-		console.log('Scanner Connected');
-	};
+	const {
+		handleError,
+		handleClose,
+		handleCancel,
+		handleConnected,
+		errorMsg,
+		status,
+	} = useSetupStepsContainer(bleId);
 
 	return (
 		<ContainerView accessibilityLabel={'Setup Screen'} testID="Setup Screen">

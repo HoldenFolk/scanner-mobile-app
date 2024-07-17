@@ -5,9 +5,9 @@ import { WifiConfigurationStackGroup } from './WifiConfigurationStackGroup';
 import { STACK_SCREENS } from '@/types/navigation';
 import { Setup } from '@/components/screens/Setup/SetupScreen';
 
-export const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-export function StackNavigation() {
+function StackNavigation() {
 	/**
 	 * Main screens for application navigation
 	 */

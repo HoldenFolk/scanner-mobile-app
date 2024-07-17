@@ -13,7 +13,7 @@ export const decodeManufacturerData = (bytes: number[]) => {
 	return manufacturerData;
 };
 
-export const convertBytesToString = (bytes: number[]) => {
+const convertBytesToString = (bytes: number[]) => {
 	const buffer = Buffer.from(bytes);
 	return buffer.toString('hex');
 };

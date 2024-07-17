@@ -7,8 +7,8 @@ import {
 } from '@/providers/redux/slices';
 
 type formType = 'wifi_ssid' | 'wifi_password';
-export const SSID_NAME: formType = 'wifi_ssid';
-export const PASSWORD_NAME: formType = 'wifi_password';
+const SSID_NAME: formType = 'wifi_ssid';
+const PASSWORD_NAME: formType = 'wifi_password';
 
 interface WifiConfigurationFormTypeFirstProps {
 	defaultValues?: object;

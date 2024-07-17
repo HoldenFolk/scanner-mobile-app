@@ -29,13 +29,13 @@ export function Timer({ shouldReset }: { shouldReset: boolean }) {
 	useEffect(() => {
 		console.debug('Timer is mounted');
 		start();
-	}, []);
+	}, [start]);
 
 	useEffect(() => {
 		if (shouldReset) {
 			reset();
 		}
-	}, [shouldReset]);
+	}, [reset, shouldReset]);
 
 	return (
 		<TimerView>
