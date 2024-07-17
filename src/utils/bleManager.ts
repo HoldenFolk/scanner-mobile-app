@@ -1,4 +1,6 @@
 import BleManager from 'react-native-ble-manager';
+import Snackbar from 'react-native-snackbar';
+import { DefaultTheme } from 'styled-components/native';
 
 export const retreiveServices = async (id: string) => {
 	try {
@@ -21,4 +23,22 @@ export const readCharacteristic = async (
 	} catch (error) {
 		console.error('Failed to read characteristic:', error);
 	}
+};
+
+export const handleBleConnectEvent = (theme: DefaultTheme) => {
+	Snackbar.show({
+		text: `BLE connected`,
+		textColor: theme.colors.success,
+		duration: Snackbar.LENGTH_LONG,
+		backgroundColor: theme.colors.grayscale[2],
+	});
+};
+
+export const handleBleDisconnectEvent = (theme: DefaultTheme) => {
+	Snackbar.show({
+		text: `BLE Disconnected`,
+		textColor: theme.colors.success,
+		duration: Snackbar.LENGTH_LONG,
+		backgroundColor: theme.colors.grayscale[2],
+	});
 };
