@@ -29,6 +29,9 @@ module.exports = {
 			version: '18.x',
 		},
 	},
+	env: {
+		jest: true,
+	},
 	rules: {
 		'prettier/prettier': [
 			'error',

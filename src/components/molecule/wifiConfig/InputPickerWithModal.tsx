@@ -20,7 +20,7 @@ const InputPickerWithModal = <T extends FieldValues>({
 	form,
 	label,
 }: InputPickerWithModalProps<T>) => {
-	const { control, setValue, options, name, trigger } = form;
+	const { control, setValue, name, trigger } = form;
 	const { field } = useController({ control, name });
 
 	const [isSecured, setIsSecured] = useState(false);
