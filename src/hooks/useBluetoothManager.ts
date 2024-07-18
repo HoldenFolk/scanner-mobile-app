@@ -30,6 +30,7 @@ export const useBluetoothManager = () => {
 	const isConnectingRef = useRef(isConnecting);
 
 	// Update the ref whenever isConnecting changes
+	// This is used to prevent errors when using the global state in the disconnect event
 	useEffect(() => {
 		isConnectingRef.current = isConnecting;
 	}, [isConnecting]);

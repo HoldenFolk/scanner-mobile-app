@@ -1,3 +1,4 @@
+import { Geolocation } from '@/types/api';
 import { AppState } from '@/types/redux';
 import { PlugState, Wifi } from '@/types/scannerData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -9,6 +10,7 @@ interface ConnectedScannerState {
 	isConfigured: boolean;
 	plugState: PlugState;
 	wifiList: Wifi[];
+	geolocation?: Geolocation;
 }
 
 const initialState: ConnectedScannerState = {
@@ -42,12 +44,20 @@ export const connectedScannerSlice = createSlice({
 		setConnectedDevicePlugState: (state, action: PayloadAction<PlugState>) => {
 			state.plugState = action.payload;
 		},
+		setConnectedDeviceGeolocation: (
+			state,
+			action: PayloadAction<Geolocation>,
+		) => {
+			state.geolocation = action.payload;
+		},
 		resetConnectedScanner: state => {
 			state.bleID = '';
 			state.wifiSSID = '';
 			state.wifiPSWD = '';
 			state.isConfigured = false;
 			state.wifiList = [];
+			state.plugState = PlugState.UNCONFIGURED;
+			state.geolocation = undefined;
 		},
 	},
 });
@@ -67,6 +77,9 @@ export const getConnectedDeviceWifiList = (state: AppState): Wifi[] =>
 	state.connectedScanner.wifiList;
 export const getConnectedDevicePlugState = (state: AppState): PlugState =>
 	state.connectedScanner.plugState;
+export const getConnectedDeviceGeolocation = (
+	state: AppState,
+): Geolocation | undefined => state.connectedScanner.geolocation;
 
 export const {
 	setConnectedDeviceId,
@@ -75,6 +88,7 @@ export const {
 	setConnectedDeviceIsConfigured,
 	setConnectedDeviceWifiList,
 	setConnectedDevicePlugState,
+	setConnectedDeviceGeolocation,
 	resetConnectedScanner,
 } = connectedScannerSlice.actions;
 export default connectedScannerSlice.reducer;

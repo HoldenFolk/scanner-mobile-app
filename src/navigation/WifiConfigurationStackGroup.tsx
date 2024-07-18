@@ -9,6 +9,7 @@ import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiList
 import PasswordModalScreen from '@/components/screens/Configuration/PasswordModalScreen';
 import { RootParamList, STACK_SCREENS } from '@/types/navigation';
 import { SlideFromRightTransition } from './NavigationTransitions';
+import { GeolocationModalScreen } from '@/components/screens/Configuration/GeolocationModalScreen';
 
 const Stack = createStackNavigator<RootParamList>();
 
@@ -36,6 +37,7 @@ export function WifiConfigurationStackGroup() {
 		headerTintColor: theme?.colors?.tertiary,
 	};
 
+	// TODO: add go back button
 	return (
 		<FormProvider {...methods}>
 			<Stack.Navigator
@@ -74,6 +76,11 @@ export function WifiConfigurationStackGroup() {
 					options={{
 						headerTitle: 'Password',
 					}}
+				/>
+				<Stack.Screen
+					name={STACK_SCREENS.GEOLOCATION_MODAL}
+					component={GeolocationModalScreen}
+					options={{ headerTitle: 'Geolocation' }}
 				/>
 			</Stack.Navigator>
 		</FormProvider>
