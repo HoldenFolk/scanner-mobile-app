@@ -1,20 +1,19 @@
-import { routes } from '@/navigation/routes';
 import { getConfigState, setConfigState } from '@/providers/redux/slices';
-import { RootParamList } from '@/types/navigation';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useBluetoothConnect } from './useBluetoothConnect';
 import { AsyncLifecycle } from '@/types/scannerData';
+import useAppNavigation from './useAppNavigation';
 
 export const useSetupStepsContainer = (bleId: string) => {
 	const dispatch = useDispatch();
-	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const status = useSelector(getConfigState);
+
 	const { isScannerConnected, disconnectFromScanner } = useBluetoothConnect();
+	const { Home } = useAppNavigation();
 
 	const errorMsg = 'Connection Cancelled';
 
+	// TODO: Implement better error handling here
 	const handleError = async (err: Error) => {
 		console.debug(`SetupStepsContainer:56 handleError: ${err?.message}`);
 
@@ -33,12 +32,12 @@ export const useSetupStepsContainer = (bleId: string) => {
 	};
 
 	const handleClose = async () => {
-		routes.Home(navigation);
+		Home();
 	};
 
 	const handleCancel = async () => {
 		await disconnectFromScanner(bleId);
-		routes.Home(navigation);
+		Home();
 	};
 
 	const handleConnected = () => {

@@ -11,20 +11,18 @@ import {
 	setConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
 import { Wifi } from '@/types/scannerData';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootParamList } from '@/types/navigation';
-import { routes } from '@/navigation/routes';
+import useAppNavigation from '@/hooks/useAppNavigation';
 
 export function WifiSelectionModalScreen() {
 	const wifiOptions = useSelector(getConnectedDeviceWifiList);
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
 	const isLoadingWifiList = useSelector(getIsLoadingWifiList);
-	const navigation = useNavigation<NavigationProp<RootParamList>>();
+	const { PasswordModal } = useAppNavigation();
 	const dispatch = useDispatch();
 
 	const handlePressToChangePassword = (wifi: Wifi) => {
 		console.log('Set wifi ssid in global state', wifi.ssid);
-		routes.PasswordModal(navigation);
+		PasswordModal();
 		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
 	};
 

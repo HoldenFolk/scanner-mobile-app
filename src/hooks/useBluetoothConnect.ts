@@ -15,6 +15,30 @@ import { readCharacteristic, retreiveServices } from '@/utils/bleManager';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
+	// Max attempts at connecting to the scanner before throwing an error
+	const MAX_ATTEMPTS = 3;
+
+	const attemptConnection = async (id: string) => {
+		for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
+			try {
+				await BleManager.connect(id);
+				console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
+				return true;
+			} catch (error) {
+				console.warn(
+					`Failed to connect to scanner (attempt ${attempts}):`,
+					id,
+					error,
+				);
+				if (attempts < MAX_ATTEMPTS) {
+					await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+				} else {
+					throw new Error('Failed to connect to scanner');
+				}
+			}
+		}
+		return false;
+	};
 
 	const retrieveWifiList = async (id: string) => {
 		dispatch(setLoadingWifiList(true));
@@ -45,38 +69,23 @@ export const useBluetoothConnect = () => {
 	};
 
 	const connectToScanner = async (id: string, plugState: PlugState) => {
-		let isConnected = false;
-		let attempts = 0;
 		dispatch(setConnecting(true));
-		// Attempt to connect to the scanner up to 3 times
-		while (!isConnected && attempts < 3) {
-			try {
-				await BleManager.connect(id);
-				console.log('Connected to scanner:', id);
-				isConnected = true; // Update flag to exit loop
-			} catch (error) {
-				console.warn('Failed to connect to scanner, retrying:', id, error);
-				attempts++;
-			}
-		}
-		if (!isConnected) {
-			// Check if still not connected after 3 attempts
-			dispatch(setConnecting(false)); // Ensure to reset the connecting state
-			throw new Error(
-				`Failed to connect to scanner after ${attempts} attempts`,
-			);
-		}
-		// Proceed with the rest of the function after successful connection
+
 		try {
+			await attemptConnection(id);
+
 			dispatch(setConnectedDeviceId(id));
 			dispatch(setConnectedDevicePlugState(plugState));
 			dispatch(setConnected(true));
+
 			await retreiveServices(id);
 			await retrieveWifiList(id);
-		} catch (error) {
-			console.error('Failed after connecting to scanner:', id, error);
-		} finally {
 			dispatch(setConnecting(false));
+			return true;
+		} catch (error) {
+			dispatch(setConnecting(false));
+			console.error('Error during connection process:', error);
+			return false;
 		}
 	};
 

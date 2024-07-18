@@ -3,25 +3,22 @@ import styled from 'styled-components/native';
 import { View } from 'react-native';
 import Button from '@/components/atomic/Button';
 import InputPickerWithModal from '@/components/molecule/wifiConfig/InputPickerWithModal';
-import { routes } from '@/navigation/routes';
 import { useForm } from 'react-hook-form';
 import { FormPropsAuto, GetWifiFormInputsAuto } from '@/types/form';
 import { useDispatch } from 'react-redux';
 import { setConnectedDeviceWifiPSWD } from '@/providers/redux/slices';
 import { BasicTemplate } from '@/components/template/BasicTemplate';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RootParamList } from '@/types/navigation';
+import useAppNavigation from '@/hooks/useAppNavigation';
 
 const PasswordModalScreen = () => {
 	const dispatch = useDispatch();
-	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
+	const { ConfigurationSetting } = useAppNavigation();
 
 	// Save wifi password in global state and navigate back to WifiConfiguration screen
 	const onPress = (data: GetWifiFormInputsAuto) => {
 		console.log('Save wifi password in global state', data.wifi_password);
 		dispatch(setConnectedDeviceWifiPSWD(data.wifi_password));
-		routes.ConfigurationSetting(navigation);
+		ConfigurationSetting();
 	};
 
 	const {

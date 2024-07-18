@@ -1,14 +1,13 @@
 import BleManager from 'react-native-ble-manager';
 import { Buffer } from 'buffer';
 import settings from '@/globalConstants';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	getConnectedDeviceWifiPSWD,
 	getConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
 
 export const useScannerConfigure = () => {
-	const dispatch = useDispatch();
 	const wifiSSID = useSelector(getConnectedDeviceWifiSSID);
 	const wifiPassword = useSelector(getConnectedDeviceWifiPSWD);
 

@@ -1,7 +1,7 @@
-import { addDevice } from '@/providers/redux/slices';
+import { addDevice, getIsConnecting } from '@/providers/redux/slices';
 import { useCallback, useEffect } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BleManager, { Peripheral } from 'react-native-ble-manager';
 import { decodeManufacturerData } from '@/utils/manufacturerData';
 import { getValidPlugState } from '@/utils/plugState';
@@ -22,6 +22,8 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 export const useBluetoothManager = () => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
+
+	const isConnecting = useSelector(getIsConnecting);
 
 	// Handle discovered peripherals and update the device list
 	// TODO: Add data validation to ensure all propper data is contained within the peripheral
@@ -60,6 +62,7 @@ export const useBluetoothManager = () => {
 		try {
 			await BleManager.start({ showAlert: false });
 			console.log('BleManager started');
+			// Init listener events for BLE
 			bleManagerEmitter.addListener(
 				SCANNED_DEVICE_EVENT,
 				handleDiscoverPeripheral,
@@ -68,12 +71,12 @@ export const useBluetoothManager = () => {
 				handleBleConnectEvent(theme),
 			);
 			bleManagerEmitter.addListener(BLE_DISCONNECT_EVENT, _event =>
-				handleBleDisconnectEvent(theme),
+				handleBleDisconnectEvent(theme, isConnecting),
 			);
 		} catch (error) {
 			console.error('Failed to initialize BleManager:', error);
 		}
-	}, [handleDiscoverPeripheral, theme]);
+	}, [handleDiscoverPeripheral, isConnecting, theme]);
 
 	// Initialize BleManager on mount and clean up on unmount
 	useEffect(() => {

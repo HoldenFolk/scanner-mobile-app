@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import BleManager from 'react-native-ble-manager';
 import Snackbar from 'react-native-snackbar';
 import { DefaultTheme } from 'styled-components/native';
@@ -33,12 +34,22 @@ export const handleBleConnectEvent = (theme: DefaultTheme) => {
 		backgroundColor: theme.colors.grayscale[2],
 	});
 };
-
-export const handleBleDisconnectEvent = (theme: DefaultTheme) => {
+// TODO: fix this
+export const handleBleDisconnectEvent = (
+	theme: DefaultTheme,
+	isConnecting: boolean,
+) => {
 	Snackbar.show({
 		text: `BLE Disconnected`,
 		textColor: theme.colors.success,
 		duration: Snackbar.LENGTH_LONG,
 		backgroundColor: theme.colors.grayscale[2],
 	});
+	if (!isConnecting) {
+		Alert.alert(
+			'Connection Error.',
+			'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner and try again.',
+			[{ text: 'OK' }],
+		);
+	}
 };

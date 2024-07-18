@@ -4,22 +4,18 @@ import {
 	getConnectedDeviceWifiList,
 	setConfigState,
 } from '@/providers/redux/slices';
-import { RootParamList } from '@/types/navigation';
 import { ConfigurationSetting } from '../../organism/ConfigurationSetting';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorBoundary from 'react-native-error-boundary';
-import { routes } from '@/navigation/routes';
 import { AsyncLifecycle } from '@/types/scannerData';
+import useAppNavigation from '@/hooks/useAppNavigation';
 
 /**
  * Configuration screen in simplified app
  */
 export function Configuration() {
 	// Hooks
-	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const dispatch = useDispatch();
 
 	// Global states
@@ -27,19 +23,21 @@ export function Configuration() {
 	const plugState = useSelector(getConnectedDevicePlugState);
 	const wifilist = useSelector(getConnectedDeviceWifiList);
 
+	const { Setup, WifiSelectionModal, Home } = useAppNavigation();
+
 	const handleSetupNavigation = () => {
 		console.log('Navigate to Setup with data');
 		dispatch(setConfigState(AsyncLifecycle.PENDING));
-		routes.setup(navigation);
+		Setup();
 	};
 
 	const handleWifiSelectionNavigation = () => {
 		console.log('Navigate to WifiSelectionModalScreen with data');
-		routes.WifiSelectionModal(navigation);
+		WifiSelectionModal();
 	};
 
 	return (
-		<ErrorBoundary onError={() => routes.Home(navigation)}>
+		<ErrorBoundary onError={() => Home()}>
 			<ConfigurationSetting
 				id={bleId}
 				plugState={plugState}
