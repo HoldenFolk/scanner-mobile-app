@@ -23,9 +23,8 @@ export const useBluetoothConnect = () => {
 			try {
 				await BleManager.connect(id);
 				console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
-				return true;
 			} catch (error) {
-				console.warn(
+				console.log(
 					`Failed to connect to scanner (attempt ${attempts}):`,
 					id,
 					error,
@@ -37,7 +36,6 @@ export const useBluetoothConnect = () => {
 				}
 			}
 		}
-		return false;
 	};
 
 	const retrieveWifiList = async (id: string) => {
@@ -80,12 +78,13 @@ export const useBluetoothConnect = () => {
 
 			await retreiveServices(id);
 			await retrieveWifiList(id);
-			dispatch(setConnecting(false));
+
 			return true;
 		} catch (error) {
-			dispatch(setConnecting(false));
 			console.error('Error during connection process:', error);
 			return false;
+		} finally {
+			dispatch(setConnecting(false));
 		}
 	};
 
@@ -95,15 +94,15 @@ export const useBluetoothConnect = () => {
 			await BleManager.disconnect(id); // Force disconnect from scanner
 			console.log('Disconnected from scanner:', id);
 
-			dispatch(setConnecting(false));
 			dispatch(setConnected(false));
 			dispatch(resetConnectedScanner());
 			return true;
 		} catch (error) {
-			dispatch(setConnecting(false));
 			dispatch(resetConnectedScanner());
 			console.error('Failed to disconnect from scanner:', id, error);
 			return false;
+		} finally {
+			dispatch(setConnecting(false));
 		}
 	};
 

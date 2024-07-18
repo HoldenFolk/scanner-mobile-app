@@ -1,5 +1,10 @@
-import { addDevice, getIsConnecting } from '@/providers/redux/slices';
-import { useCallback, useEffect } from 'react';
+import {
+	addDevice,
+	getIsConnecting,
+	resetConnectedScanner,
+	setConnected,
+} from '@/providers/redux/slices';
+import { useCallback, useEffect, useRef } from 'react';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import BleManager, { Peripheral } from 'react-native-ble-manager';
@@ -11,10 +16,8 @@ import {
 	SCANNED_DEVICE_EVENT,
 } from '@/utils/bleConstants';
 import { useTheme } from 'styled-components/native';
-import {
-	handleBleConnectEvent,
-	handleBleDisconnectEvent,
-} from '@/utils/bleManager';
+import { Alert } from 'react-native';
+import Snackbar from 'react-native-snackbar';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -24,9 +27,13 @@ export const useBluetoothManager = () => {
 	const theme = useTheme();
 
 	const isConnecting = useSelector(getIsConnecting);
+	const isConnectingRef = useRef(isConnecting);
 
-	// Handle discovered peripherals and update the device list
-	// TODO: Add data validation to ensure all propper data is contained within the peripheral
+	// Update the ref whenever isConnecting changes
+	useEffect(() => {
+		isConnectingRef.current = isConnecting;
+	}, [isConnecting]);
+
 	const handleDiscoverPeripheral = useCallback(
 		(peripheral: Peripheral) => {
 			const { name, advertising, rssi } = peripheral;
@@ -57,28 +64,56 @@ export const useBluetoothManager = () => {
 		[dispatch],
 	);
 
-	// Initialize BleManager and add event listeners
+	const handleBleConnectEvent = useCallback(() => {
+		Snackbar.show({
+			text: `BLE connected`,
+			textColor: theme.colors.success,
+			duration: Snackbar.LENGTH_LONG,
+			backgroundColor: theme.colors.grayscale[2],
+		});
+	}, [theme.colors.success, theme.colors.grayscale]);
+
+	// Event to handle BLE disconnection error and reset the global state
+	const handleBleDisconnectEvent = useCallback(() => {
+		Snackbar.show({
+			text: `BLE Disconnected`,
+			textColor: theme.colors.success,
+			duration: Snackbar.LENGTH_LONG,
+			backgroundColor: theme.colors.grayscale[2],
+		});
+		dispatch(resetConnectedScanner());
+		dispatch(setConnected(false));
+		if (!isConnectingRef.current) {
+			Alert.alert(
+				'Connection Error.',
+				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner and try again.',
+				[{ text: 'OK' }],
+			);
+		}
+	}, [dispatch, theme.colors.grayscale, theme.colors.success]);
+
 	const initializeBleManager = useCallback(async () => {
 		try {
 			await BleManager.start({ showAlert: false });
 			console.log('BleManager started');
-			// Init listener events for BLE
 			bleManagerEmitter.addListener(
 				SCANNED_DEVICE_EVENT,
 				handleDiscoverPeripheral,
 			);
-			bleManagerEmitter.addListener(BLE_CONNECT_EVENT, _event =>
-				handleBleConnectEvent(theme),
-			);
-			bleManagerEmitter.addListener(BLE_DISCONNECT_EVENT, _event =>
-				handleBleDisconnectEvent(theme, isConnecting),
+			bleManagerEmitter.addListener(BLE_CONNECT_EVENT, handleBleConnectEvent);
+			bleManagerEmitter.addListener(
+				BLE_DISCONNECT_EVENT,
+				handleBleDisconnectEvent,
 			);
 		} catch (error) {
 			console.error('Failed to initialize BleManager:', error);
 		}
-	}, [handleDiscoverPeripheral, isConnecting, theme]);
+	}, [
+		handleDiscoverPeripheral,
+		handleBleConnectEvent,
+		handleBleDisconnectEvent,
+	]);
 
-	// Initialize BleManager on mount and clean up on unmount
 	useEffect(() => {
 		initializeBleManager();
 		return () => {
