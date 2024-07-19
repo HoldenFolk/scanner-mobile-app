@@ -26,7 +26,7 @@ export function ErrorMsg({ error, onClose, ...optionals }: ErrorMsgProps) {
 
 	// Hooks
 	const theme = useTheme();
-	const themeColor = theme.colorss.tertiary;
+	const themeColor = theme.colors.tertiary;
 
 	return (
 		<ContainerView>

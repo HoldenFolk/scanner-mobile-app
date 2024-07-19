@@ -2,33 +2,27 @@ import {
 	getConnectedDeviceId,
 	getConnectedDevicePlugState,
 	getConnectedDeviceWifiList,
-	setConfigState,
 } from '@/providers/redux/slices';
 import { ConfigurationSetting } from '../../organism/ConfigurationSetting';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ErrorBoundary from 'react-native-error-boundary';
-import { AsyncLifecycle } from '@/types/scannerData';
 import useAppNavigation from '@/hooks/useAppNavigation';
 
 /**
  * Configuration screen in simplified app
  */
 export function Configuration() {
-	// Hooks
-	const dispatch = useDispatch();
-
 	// Global states
 	const bleId = useSelector(getConnectedDeviceId);
 	const plugState = useSelector(getConnectedDevicePlugState);
 	const wifilist = useSelector(getConnectedDeviceWifiList);
 
-	const { Setup, WifiSelectionModal, Home } = useAppNavigation();
+	const { GeolocationModal, WifiSelectionModal, Home } = useAppNavigation();
 
-	const handleSetupNavigation = () => {
-		console.log('Navigate to Setup with data');
-		dispatch(setConfigState(AsyncLifecycle.PENDING));
-		Setup();
+	const handleGeolocationNavigation = () => {
+		console.log('Navigate to Geolocation config');
+		GeolocationModal();
 	};
 
 	const handleWifiSelectionNavigation = () => {
@@ -42,7 +36,7 @@ export function Configuration() {
 				id={bleId}
 				plugState={plugState}
 				wifiList={wifilist}
-				onNavigation={handleSetupNavigation}
+				onNavigation={handleGeolocationNavigation}
 				onWifiSelect={handleWifiSelectionNavigation}
 			/>
 		</ErrorBoundary>

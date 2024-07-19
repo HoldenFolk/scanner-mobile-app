@@ -1,3 +1,4 @@
+// TODO make api base url to env variable
 const settings = {
 	version: '1.0.0',
 	apiBaseUrl: 'https://kaidu-configserver-devtest1.azurewebsites.net/',

@@ -13,6 +13,7 @@ const useAppNavigation = () => {
 		WifiConfiguration: () => navigation.navigate('WifiConfiguration'),
 		WifiSelectionModal: () => navigation.navigate('WifiSelectionModal'),
 		PasswordModal: () => navigation.navigate('PasswordModal'),
+		GeolocationModal: () => navigation.navigate('GeolocationModal'),
 		OtherModal: () => navigation.navigate('OtherModal'),
 		Init: () => navigation.navigate('Init'),
 	};

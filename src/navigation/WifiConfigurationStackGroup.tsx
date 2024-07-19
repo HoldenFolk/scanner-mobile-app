@@ -2,7 +2,6 @@ import React from 'react';
 import { useTheme } from 'styled-components/native';
 import { useForm, FormProvider } from 'react-hook-form';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useColorScheme } from 'react-native';
 import { Configuration } from '@/components/screens/Configuration/Configuration';
 import { WifiSelectionModalScreen } from '@/components/screens/Configuration/WifiSelectionModalScreen';
 import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiListBtn';
@@ -28,7 +27,7 @@ export function WifiConfigurationStackGroup() {
 		},
 	});
 
-	const isDarkMode = useColorScheme() === 'dark';
+	const isDarkMode = theme?.name === 'dark';
 
 	const hideScreenTitleOptions = {
 		headerShown: false,
@@ -45,13 +44,13 @@ export function WifiConfigurationStackGroup() {
 				screenOptions={{
 					cardStyle: {
 						backgroundColor: isDarkMode
-							? theme?.colors?.primary
-							: theme?.colors.white,
+							? theme.colors.primary
+							: theme.colors.white,
 					},
 					headerStyle: {
 						backgroundColor: isDarkMode
-							? theme?.colors?.primary
-							: theme?.colors.white,
+							? theme.colors.secondary
+							: theme.colors.white,
 					},
 					headerTitleStyle: { color: theme?.colors?.tertiary },
 					...SlideFromRightTransition,

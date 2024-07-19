@@ -1,13 +1,21 @@
 import useAppNavigation from '@/hooks/useAppNavigation';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { GeoLocationSetting } from '@/components/organism/GeoLocationSetting';
+import { useDispatch, useSelector } from 'react-redux';
+import { GeolocationSetting } from '@/components/organism/GeolocationSetting';
 import ErrorBoundary from 'react-native-error-boundary';
-import { setConfigState } from '@/providers/redux/slices';
+import {
+	getConnectedDeviceId,
+	setConfigState,
+	setConnectedDeviceGeolocation,
+} from '@/providers/redux/slices';
 import { AsyncLifecycle } from '@/types/scannerData';
+import { Geolocation } from '@/types/api';
 
 export const GeolocationModalScreen = () => {
 	const dispatch = useDispatch();
+
+	// Global states
+	const bleId = useSelector(getConnectedDeviceId);
 
 	const { Setup, Home } = useAppNavigation();
 
@@ -17,9 +25,18 @@ export const GeolocationModalScreen = () => {
 		Setup();
 	};
 
+	const handleUpdateGloablGeolocation = (geolocation: Geolocation) => {
+		console.log('Update global geolocation');
+		dispatch(setConnectedDeviceGeolocation(geolocation));
+	};
+
 	return (
 		<ErrorBoundary onError={() => Home()}>
-			<GeoLocationSetting navigateToSetup={handleSetupNavigation} />
+			<GeolocationSetting
+				navigateToSetup={handleSetupNavigation}
+				updateGlobalGeolocation={handleUpdateGloablGeolocation}
+				bleId={bleId}
+			/>
 		</ErrorBoundary>
 	);
 };

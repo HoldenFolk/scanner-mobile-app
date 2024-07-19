@@ -1,19 +1,22 @@
 import React from 'react';
 import { BasicTemplate } from '../template/BasicTemplate';
-import { Heading } from '../atomic/Heading';
 import styled from 'styled-components/native';
 import View from '../atomic/View';
 import { Text } from '../atomic/Text';
+import GeolocationDisplay from '../molecule/GeolocationDisplay';
+import { Geolocation } from '@/types/api';
 
-interface GeoLocationSettingProps {
+interface GeolocationSettingProps {
 	navigateToSetup: () => void;
+	updateGlobalGeolocation: (geolocation: Geolocation) => void;
 	bleId: string;
 }
 
-export const GeoLocationSetting = ({
+export const GeolocationSetting = ({
 	navigateToSetup,
+	updateGlobalGeolocation,
 	bleId,
-}: GeoLocationSettingProps) => {
+}: GeolocationSettingProps) => {
 	return (
 		<BasicTemplate>
 			<Container>
@@ -23,7 +26,11 @@ export const GeoLocationSetting = ({
 						<StyledText>{bleId}</StyledText>
 					</Row>
 				</CenteredView>
-				<Heading>GeoLocation Setting</Heading>
+
+				<GeolocationDisplay
+					navigateToSetup={navigateToSetup}
+					updateGlobalGeolocation={updateGlobalGeolocation}
+				/>
 			</Container>
 		</BasicTemplate>
 	);

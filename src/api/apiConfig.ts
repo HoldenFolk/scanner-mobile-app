@@ -1,21 +1,27 @@
+import { Geolocation } from '@/types/api';
 import apiClient from './apiClient';
 
-// v2 API that gets a list of scanners from the customer ID
-export const getScannerConfig = async (
+export const updateScannerConfig = async (
 	macAddress: string,
 	wifiSSID: string,
 	wifiPassword: string,
 	scannerName: string,
-): Promise<any> => {
+	geolocation: Geolocation,
+): Promise<string> => {
+	const params = new URLSearchParams({
+		wifiSSID,
+		wifiPassword,
+		scannerName,
+		geolocation: JSON.stringify(geolocation),
+	}).toString();
+
 	const response = await apiClient.get(
-		`kaidu_device_configuration/configstring/${macAddress}/${wifiSSID}/${wifiPassword}/${scannerName}`,
+		`kaidu_device_configuration/configstring/${macAddress}?${params}`,
 	);
 	return response.data;
 };
 
-export const updateScannerConfig = async (macAddress: string): Promise<any> => {
-	const response = await apiClient.put(
-		`v1/kaidu_device_configuration/${macAddress}`,
-	);
+export const getScannerConfig = async (macAddress: string): Promise<string> => {
+	const response = await apiClient.get(`v1/kaidu_devices_list/${macAddress}`);
 	return response.data;
 };

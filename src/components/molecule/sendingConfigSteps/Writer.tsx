@@ -16,11 +16,13 @@ export const Writer = ({
 	onRejected,
 	shouldStart,
 }: WriterProps) => {
-	const { configureDeviceWifi } = useScannerConfigure();
+	const { configureDeviceWifi, configureDeviceGeolocation } =
+		useScannerConfigure();
 
 	const writeConfigToScanner = async () => {
 		try {
 			await configureDeviceWifi(bleId);
+			await configureDeviceGeolocation(bleId);
 			onFulfilled();
 		} catch (error) {
 			onRejected(error as Error);

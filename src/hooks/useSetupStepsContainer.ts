@@ -32,11 +32,13 @@ export const useSetupStepsContainer = (bleId: string) => {
 	};
 
 	const handleClose = async () => {
+		dispatch(setConfigState(AsyncLifecycle.IDLE));
 		Home();
 	};
 
 	const handleCancel = async () => {
 		await disconnectFromScanner(bleId);
+		dispatch(setConfigState(AsyncLifecycle.IDLE));
 		Home();
 	};
 
