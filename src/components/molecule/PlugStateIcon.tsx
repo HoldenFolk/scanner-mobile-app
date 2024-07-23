@@ -73,7 +73,6 @@ export function PlugStateIcon({ type, ...optionals }: { type: PlugState }) {
 			<Icon
 				type={iconType}
 				name={name}
-				// TODO: May need to scale this
 				size={size}
 				color={color}
 				{...optionals}

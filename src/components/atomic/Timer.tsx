@@ -20,7 +20,6 @@ const TimerView = styled(View)`
 	align-items: center;
 `;
 
-// TODO: Fix missing dependencies
 export function Timer({ shouldReset }: { shouldReset: boolean }) {
 	const { seconds, minutes, start, reset } = useStopwatch({
 		autoStart: false,

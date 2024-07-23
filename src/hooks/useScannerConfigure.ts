@@ -66,13 +66,14 @@ export const useScannerConfigure = () => {
 				throw new Error('Wifi SSID is empty when configuring device wifi');
 			if (!wifiPassword)
 				throw new Error('Wifi Password is empty when configuring device wifi');
-			await updateScannerConfig(
+			const response = await updateScannerConfig(
 				deviceId,
 				wifiSSID,
 				wifiPassword,
 				'KaiduScanner',
 				geolocation,
 			);
+			console.log('Geolocation Configuration response!', response);
 		} catch (error) {
 			console.error(error as Error);
 		}

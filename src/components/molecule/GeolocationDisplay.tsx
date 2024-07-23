@@ -92,6 +92,7 @@ const SetLocationScreen: React.FC<SetLocationScreenProps> = ({
 			await handleGetCurrentLocation();
 		};
 		updateLocationPermission();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

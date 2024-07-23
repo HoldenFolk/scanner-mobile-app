@@ -42,9 +42,10 @@ export const useSetupStepsContainer = (bleId: string) => {
 		Home();
 	};
 
-	const handleConnected = () => {
+	const handleConnected = async () => {
+		await disconnectFromScanner(bleId);
 		dispatch(setConfigState(AsyncLifecycle.FULFILLED));
-		console.log('Scanner Connected');
+		console.log('Scanner Fulfilled');
 	};
 
 	return {

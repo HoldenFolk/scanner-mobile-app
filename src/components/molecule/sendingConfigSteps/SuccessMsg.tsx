@@ -29,7 +29,6 @@ interface SuccessViewProps {
  */
 export function SuccessMsg({ onConfirm, name }: SuccessViewProps) {
 	const theme = useTheme();
-	// TODO: Add green light image
 	return (
 		<>
 			<CenteredView>

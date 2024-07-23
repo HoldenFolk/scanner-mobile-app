@@ -9,12 +9,12 @@ export const updateScannerConfig = async (
 	geolocation: Geolocation,
 ): Promise<string> => {
 	const params = new URLSearchParams({
-		wifiSSID,
-		wifiPassword,
-		scannerName,
-		geolocation: JSON.stringify(geolocation),
+		wifi_ssid: wifiSSID,
+		wifi_password: wifiPassword,
+		scanner_name: scannerName,
+		geo: JSON.stringify(geolocation),
 	}).toString();
-
+	console.log('params', params);
 	const response = await apiClient.get(
 		`kaidu_device_configuration/configstring/${macAddress}?${params}`,
 	);
