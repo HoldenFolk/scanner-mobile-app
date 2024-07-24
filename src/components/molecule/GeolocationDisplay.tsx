@@ -28,7 +28,7 @@ const SetLocationScreen: React.FC<SetLocationScreenProps> = ({
 }) => {
 	const [region, setRegion] = useState<Region>();
 
-	// Function to check if two regions are approximately equal
+	// Function to check if two regions are approximately equal. Prevents rounding differences causing infinite loops.
 	const regionsAreEqual = (
 		region1: Region,
 		region2: Region,
