@@ -1,3 +1,4 @@
+// TODO: Remove
 import {
 	requestBluetoothPermission,
 	requestPreciseLocationPermission,

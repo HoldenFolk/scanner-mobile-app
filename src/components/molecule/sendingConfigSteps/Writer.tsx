@@ -25,7 +25,7 @@ export const Writer = ({
 			await configureDeviceGeolocation(bleId);
 			onFulfilled();
 		} catch (error) {
-			onRejected(error as Error);
+			await onRejected(error as Error);
 		}
 	};
 
