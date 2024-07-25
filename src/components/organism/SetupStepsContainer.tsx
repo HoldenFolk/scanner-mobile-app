@@ -48,7 +48,6 @@ export function SetupStepsContainer({ bleId }: SetupStepsContainerProps) {
 						bleId={bleId}
 						onFulfilled={() => {
 							dispatch(setConfigState(AsyncLifecycle.VERIFYING));
-							console.log('Writer fulfilled');
 						}}
 						onRejected={handleError}
 						shouldStart={status === AsyncLifecycle.PENDING}

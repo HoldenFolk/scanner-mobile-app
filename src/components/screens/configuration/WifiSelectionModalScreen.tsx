@@ -21,7 +21,6 @@ export function WifiSelectionModalScreen() {
 	const dispatch = useDispatch();
 
 	const handlePressToChangePassword = (wifi: Wifi) => {
-		console.log('Set wifi ssid in global state', wifi.ssid);
 		PasswordModal();
 		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
 	};

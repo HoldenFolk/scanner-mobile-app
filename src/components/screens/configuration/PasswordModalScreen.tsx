@@ -16,7 +16,6 @@ const PasswordModalScreen = () => {
 
 	// Save wifi password in global state and navigate back to WifiConfiguration screen
 	const onPress = (data: GetWifiFormInputsAuto) => {
-		console.log('Save wifi password in global state', data.wifi_password);
 		dispatch(setConnectedDeviceWifiPSWD(data.wifi_password));
 		ConfigurationSetting();
 	};

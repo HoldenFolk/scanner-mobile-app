@@ -21,7 +21,6 @@ export const useScannerConfigure = () => {
 		data?: string,
 	) => {
 		try {
-			console.log('Writing to characteristic: ', data);
 			if (!data) throw new Error('Data is empty when configuring device wifi');
 			const buffer = Buffer.from(data, 'utf-8');
 			const dataArray = Array.from(buffer);

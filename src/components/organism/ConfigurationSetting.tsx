@@ -4,7 +4,7 @@ import { Text } from '../atomic/Text';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { BasicTemplate } from '../template/BasicTemplate';
 import styled from 'styled-components/native';
-import { PlugState, Wifi } from '@/types/scannerData';
+import { PlugState } from '@/types/scannerData';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -17,14 +17,12 @@ interface ConfigurationSettingProps {
 	onWifiSelect: () => void;
 	id: string;
 	plugState: PlugState;
-	wifiList: Wifi[];
 	children?: React.ReactNode;
 }
 
 export function ConfigurationSetting({
 	onNavigation,
 	onWifiSelect,
-	wifiList,
 	id,
 	plugState,
 	...optionals
@@ -32,7 +30,6 @@ export function ConfigurationSetting({
 	const { children } = optionals;
 	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
 	const { disconnectFromScanner } = useBluetoothConnect();
-	console.log('ConfigurationSetting ~ wifiList:', wifiList);
 
 	const handleCancel = async () => {
 		try {

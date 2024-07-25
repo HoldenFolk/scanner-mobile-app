@@ -31,7 +31,6 @@ export const useWifiConfigForm = ({
 	} = useForm<GetWifiFormInputs>({ defaultValues });
 
 	const handleConfirm = async (data: GetWifiFormInputs) => {
-		console.log('Handle Confirm', data);
 		dispatch(setConnectedDeviceWifiSSID(data.wifi_ssid));
 		dispatch(setConnectedDeviceWifiPSWD(data.wifi_password));
 		onNavigation();

@@ -23,7 +23,7 @@ export const useGeolocationDisplay = ({
 	const regionsAreEqual = (
 		region1: Region,
 		region2: Region,
-		tolerance = 0.0001,
+		tolerance = 0.00001,
 	) => {
 		return (
 			Math.abs(region1.latitude - region2.latitude) < tolerance &&
@@ -75,7 +75,7 @@ export const useGeolocationDisplay = ({
 	}, []);
 
 	const handleRegionChangeComplete = (newRegion: Region) => {
-		if (region && !regionsAreEqual(newRegion, region, 0.0001)) {
+		if (region && !regionsAreEqual(newRegion, region, 0.00001)) {
 			setRegion(newRegion);
 			updateGlobalGeolocation({
 				latitude: newRegion.latitude,

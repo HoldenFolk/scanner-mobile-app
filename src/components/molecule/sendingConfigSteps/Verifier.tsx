@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import View from '@/components/atomic/View';
 import { Heading } from '@/components/atomic/Heading';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
@@ -10,18 +10,17 @@ interface VerifierProps {
 	startPolling: boolean;
 }
 
-export const Verifier = ({
+export const Verifier: React.FC<VerifierProps> = ({
 	bleId,
 	onFulfilled,
 	onRejected,
 	startPolling,
-}: VerifierProps) => {
+}) => {
 	const { isScannerConnected } = useBluetoothConnect();
 
-	const startVerify = async () => {
+	const startVerify = useCallback(async () => {
 		try {
 			const isConnected = await isScannerConnected(bleId);
-			console.log('Verifier ~ isConnected:', isConnected);
 			if (isConnected) {
 				await onFulfilled();
 			} else if (startPolling && !isConnected) {
@@ -30,11 +29,14 @@ export const Verifier = ({
 		} catch (error) {
 			await onRejected(error as Error);
 		}
-	};
+	}, [bleId, isScannerConnected, onFulfilled, onRejected, startPolling]);
 
-	if (startPolling) {
-		startVerify();
-	}
+	useEffect(() => {
+		if (startPolling) {
+			startVerify();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<View>

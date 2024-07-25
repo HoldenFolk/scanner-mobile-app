@@ -45,7 +45,6 @@ export const useBluetoothManager = () => {
 					advertising.manufacturerData?.ffff?.bytes || [];
 
 				const manufacturerData = decodeManufacturerData(manufacturerRawData);
-				console.log('Manufacturer data:', manufacturerData);
 
 				const plugState = getValidPlugState(manufacturerData?.plugState);
 				const id = manufacturerData.macAddress;

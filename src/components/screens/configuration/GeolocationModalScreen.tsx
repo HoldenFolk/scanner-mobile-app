@@ -20,13 +20,11 @@ export const GeolocationModalScreen = () => {
 	const { Setup, Home } = useAppNavigation();
 
 	const handleSetupNavigation = () => {
-		console.log('Navigate to Setup with data');
 		dispatch(setConfigState(AsyncLifecycle.PENDING));
 		Setup();
 	};
 
 	const handleUpdateGloablGeolocation = (geolocation: Geolocation) => {
-		console.log('Update global geolocation');
 		dispatch(setConnectedDeviceGeolocation(geolocation));
 	};
 

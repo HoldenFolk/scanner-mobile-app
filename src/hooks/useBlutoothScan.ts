@@ -23,7 +23,6 @@ export const useBluetoothScan = () => {
 				dispatch(setScanning(false));
 				return;
 			}
-			console.log('Starting scan');
 			await BleManager.scan([], 60, true);
 			console.log('Scanning started');
 		};

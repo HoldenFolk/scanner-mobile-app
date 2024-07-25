@@ -63,7 +63,6 @@ export const useBluetoothConnect = () => {
 		} while (isUniqueSSID);
 		dispatch(setConnectedDeviceWifiList(wifiList));
 		dispatch(setLoadingWifiList(false));
-		console.log('Retrieved wifi list:', wifiList);
 	};
 
 	const connectToScanner = async (id: string, plugState: PlugState) => {
@@ -110,7 +109,6 @@ export const useBluetoothConnect = () => {
 	const isScannerConnected = async (id: string) => {
 		try {
 			const isConnected = await BleManager.isPeripheralConnected(id);
-			console.log('Scanner connected:', isConnected);
 			return isConnected;
 		} catch (error) {
 			console.error('Failed to check if scanner is connected:', error);
