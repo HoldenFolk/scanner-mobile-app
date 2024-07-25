@@ -16,7 +16,7 @@ import { readCharacteristic, retreiveServices } from '@/utils/bleManager';
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
 	// Max attempts at connecting to the scanner before throwing an error
-	const MAX_ATTEMPTS = 3;
+	const MAX_ATTEMPTS = 5;
 
 	const attemptConnection = async (id: string) => {
 		for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
@@ -91,7 +91,7 @@ export const useBluetoothConnect = () => {
 	const disconnectFromScanner = async (id: string) => {
 		try {
 			dispatch(setConnecting(true));
-			await BleManager.disconnect(id); // Force disconnect from scanner
+			await BleManager.disconnect(id);
 			console.log('Disconnected from scanner:', id);
 
 			dispatch(setConnected(false));

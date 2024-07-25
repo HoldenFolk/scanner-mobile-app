@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { Icon } from '../../../components/atomic/Icon';
 import { BasicTemplate } from '../../../components/template/BasicTemplate';
 import { View as AtomicView } from '@/components/atomic/View';
 import { BasicListItem } from '../ListItem';
@@ -8,26 +7,19 @@ import { RSSIStrengthIcon } from '../scannerItem/RSSIStrengthIcon';
 import { isFilledArray } from '@/utils/array';
 import { Wifi } from '@/types/scannerData';
 import BaseScrollView from '@/components/atomic/ScrollView';
+import { SelectedCheckIcon } from '@/components/atomic/SelectedCheckIcon';
 
 interface WifiSelectionModalProps {
 	wifiOptions: Wifi[];
 	onPasswordChangeNavigation: (ssid: Wifi) => void;
-	onOtherWifiNavigation: () => void;
 	currentSsid?: string;
 }
 
-// TODO: Modularize/simplify this component
 const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 	wifiOptions,
 	onPasswordChangeNavigation,
-	onOtherWifiNavigation,
 	currentSsid,
 }) => {
-	const handlePressOther = () => {
-		console.log('Go to set password for SSID: Other');
-		onOtherWifiNavigation();
-	};
-
 	return (
 		<BasicTemplate>
 			<StyledView>
@@ -40,15 +32,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 									title={item.ssid}
 									onPress={() => onPasswordChangeNavigation(item)}
 									leftComponent={
-										<LeftComponentView>
-											{item.rssi === currentSsid && (
-												<Icon
-													name="check-circle"
-													type="font-awesome-5"
-													size={26}
-												/>
-											)}
-										</LeftComponentView>
+										item.ssid === currentSsid && <SelectedCheckIcon />
 									}
 									rightComponent={
 										item.rssi && <RSSIStrengthIcon value={Number(item.rssi)} />
@@ -56,7 +40,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 									bottomDivider
 								/>
 							))}
-							<BasicListItem
+							{/* <BasicListItem
 								title="Other..."
 								onPress={handlePressOther}
 								leftComponent={
@@ -70,7 +54,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 										)}
 									</LeftComponentView>
 								}
-							/>
+							/> */}
 						</StyledScrollView>
 					</AtomicView>
 				)}
@@ -88,11 +72,6 @@ const StyledView = styled(AtomicView)`
 const StyledScrollView = styled(BaseScrollView)`
 	padding-left: 8px;
 	padding-right: 8px;
-`;
-
-const LeftComponentView = styled(AtomicView)`
-	width: 28px;
-	background-color: transparent;
 `;
 
 export default WifiSelectionModal;

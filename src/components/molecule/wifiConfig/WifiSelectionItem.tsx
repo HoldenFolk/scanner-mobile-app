@@ -28,13 +28,8 @@ function ForwardIcon() {
 /**
  * Press to start to set Wi-Fi
  */
-export function WifiListItem({ onPress }: { onPress: () => void }) {
+export function WifiSelectionItem({ onPress }: { onPress: () => void }) {
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
-
-	console.log(
-		'file: WifiListItem.tsx:62 ~ WifiListItem ~ currentSsid:',
-		currentSsid,
-	);
 
 	return (
 		<BasicListItem
@@ -42,7 +37,7 @@ export function WifiListItem({ onPress }: { onPress: () => void }) {
 			onPress={onPress}
 			rightComponent={
 				<Container>
-					<Text>{currentSsid || 'Not Configured'}</Text>
+					<Text>{currentSsid || 'Select Network'}</Text>
 					<ForwardIcon />
 				</Container>
 			}

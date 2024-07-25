@@ -1,6 +1,7 @@
 import { request, PERMISSIONS } from 'react-native-permissions';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { isAndroid12AndAbove } from '../checkAndroidVersion';
+import { requestPreciseLocationPermission } from './requestLocationPermissions';
 
 export async function requestIOSBluetoothPermission(): Promise<string> {
 	return request(PERMISSIONS.IOS.BLUETOOTH);
@@ -21,13 +22,6 @@ export async function requestBluetoothScan(): Promise<string> {
 }
 
 /**
- * Request ACCESS_FINE_LOCATION permission on Android, required for Bluetooth scanning on Android 11 and below
- */
-export async function requestLocationPermission(): Promise<string> {
-	return request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-}
-
-/**
  * Request Bluetooth permission on both Android and iOS
  */
 export async function requestBluetoothPermission(): Promise<string> {
@@ -39,13 +33,22 @@ export async function requestBluetoothPermission(): Promise<string> {
 		// Request both BLUETOOTH_SCAN and BLUETOOTH_CONNECT for Android 12 and above
 		const scanResult = await requestBluetoothScan();
 		const connectResult = await requestAndroidBasicBluetooth();
-		if (scanResult === 'granted' && connectResult === 'granted') {
-			result = 'granted';
-		} else {
-			result = 'denied';
-		}
+		result =
+			scanResult === 'granted' && connectResult === 'granted'
+				? 'granted'
+				: 'denied';
 	} else {
-		result = await requestLocationPermission();
+		const locationResult = await requestPreciseLocationPermission();
+		result = locationResult === 'granted' ? 'granted' : 'denied';
+		// Create alert pop up if permission is denied
+		if (result === 'denied') {
+			if (result === 'denied') {
+				Alert.alert(
+					'Permission Denied',
+					'Location permission is required to use feature.',
+				);
+			}
+		}
 	}
 
 	return result;

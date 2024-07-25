@@ -26,15 +26,6 @@ export function WifiSelectionModalScreen() {
 		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
 	};
 
-	// TODO: Implement
-	const handleOtherWifiNavigation = () => {
-		// navigation.navigate(STACK_SCREENS.WIFI.PARENT, {
-		//  screen: STACK_SCREENS.WIFI.OTHER,
-		//  params: { ssid: '', bleId },
-		//  merge: true,
-		// });
-	};
-
 	if (isLoadingWifiList) {
 		return (
 			<CenteredView>
@@ -48,7 +39,6 @@ export function WifiSelectionModalScreen() {
 			<WifiSelectionModal
 				wifiOptions={wifiOptions}
 				onPasswordChangeNavigation={handlePressToChangePassword}
-				onOtherWifiNavigation={handleOtherWifiNavigation}
 				currentSsid={currentSsid}
 			/>
 		</>

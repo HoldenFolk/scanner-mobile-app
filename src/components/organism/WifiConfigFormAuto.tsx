@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { WifiListItem } from '../molecule/wifiConfig/WifiListItem';
+import { WifiSelectionItem } from '../molecule/wifiConfig/WifiSelectionItem';
 import ScannerImage from '@/assets/scanner-MKMini02.png';
 import Button from '../atomic/Button';
 
@@ -18,7 +18,7 @@ export const WifiConfigFormAuto = ({
 	return (
 		<Container>
 			<InnerContainer>
-				<WifiListItem onPress={onWifiSelect} />
+				<WifiSelectionItem onPress={onWifiSelect} />
 				<StyledImage source={ScannerImage} resizeMode="contain" />
 			</InnerContainer>
 			<ButtonContainer>

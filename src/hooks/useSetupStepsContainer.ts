@@ -15,6 +15,7 @@ export const useSetupStepsContainer = (bleId: string) => {
 
 	// TODO: Implement better error handling here
 	const handleError = async (err: Error) => {
+		dispatch(setConfigState(AsyncLifecycle.REJECTED));
 		console.debug(`SetupStepsContainer:56 handleError: ${err?.message}`);
 
 		// disconnect for failure. change the message if cannot disconnect
@@ -27,7 +28,6 @@ export const useSetupStepsContainer = (bleId: string) => {
 					' Failed to disconnect BLE device. Please close the app and retry';
 				err.message = nextErrMsg;
 			}
-			dispatch(setConfigState(AsyncLifecycle.REJECTED));
 		}
 	};
 

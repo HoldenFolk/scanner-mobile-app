@@ -18,8 +18,8 @@ export const useBluetoothScan = () => {
 		// Start the scanning process
 		const startScan = async () => {
 			const permissionGranted = await requestBluetoothPermission();
-			if (!permissionGranted) {
-				console.warn('Bluetooth permission not granted');
+			console.log('Permission granted:', permissionGranted);
+			if (permissionGranted === 'denied') {
 				dispatch(setScanning(false));
 				return;
 			}

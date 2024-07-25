@@ -1,5 +1,5 @@
 import { request, PERMISSIONS } from 'react-native-permissions';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 
 /**
  * Function to request precise location permission on iOS
@@ -25,6 +25,13 @@ export async function requestPreciseLocationPermission(): Promise<string> {
 		result = await requestIOSPreciseLocationPermission();
 	} else {
 		result = await requestAndroidPreciseLocationPermission();
+	}
+	// Create alert pop up if permission is denied
+	if (result === 'denied') {
+		Alert.alert(
+			'Permission Denied',
+			'Location permission is required to use feature.',
+		);
 	}
 
 	return result;
