@@ -26,7 +26,7 @@ export function WifiConfigFormManual({
 					<WifiRequirementInfo />
 				</InfoContainer>
 				<InputPickerWithModal form={ssidForm} label={'Wifi SSID'} />
-				<InputPickerWithModal form={passwordForm} label={'Wifi Password'} />
+				<InputPickerWithModal form={passwordForm} label={'Wi-Fi Password'} />
 			</ContentContainer>
 			<ButtonContainer>
 				<StyledButton title="Save" onPress={handleSubmit} />

@@ -40,7 +40,7 @@ const PasswordModalScreen = () => {
 		<BasicTemplate>
 			<Container>
 				<ContentContainer>
-					<InputPickerWithModal form={passwordForm} label={'Wifi Password'} />
+					<InputPickerWithModal form={passwordForm} label={'Wi-Fi Password'} />
 				</ContentContainer>
 				<ButtonContainer>
 					<StyledButton title="Save" onPress={handleSubmit(onPress)} />

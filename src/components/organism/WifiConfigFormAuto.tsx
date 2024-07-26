@@ -3,6 +3,8 @@ import styled from 'styled-components/native';
 import { WifiSelectionItem } from '../molecule/wifiConfig/WifiSelectionItem';
 import ScannerImage from '@/assets/scanner-MKMini02.png';
 import Button from '../atomic/Button';
+import Image from '../atomic/Image';
+import { scale } from 'react-native-size-matters';
 
 interface WifiConfigurationFormAutoProps {
 	onCancel: () => void;
@@ -37,23 +39,25 @@ export const WifiConfigFormAuto = ({
 
 const Container = styled.View`
 	width: 100%;
-	margin-top: 16px;
+	margin-top: ${scale(16)}px;
 	align-items: center;
 `;
 
 const InnerContainer = styled.View`
 	flex: 1;
+	width: 100%;
 `;
 
-const StyledImage = styled.Image`
-	flex: 1;
-	margin: 10px;
-	border-radius: 10px;
+const StyledImage = styled(Image)`
+	/* margin: ${scale(9)}px; */
+	border-radius: ${scale(30)}px;
+	width: 100%;
+	height: ${scale(300)}px;
 	overflow: hidden;
 `;
 
 const ButtonContainer = styled.View`
-	height: 160px;
+	height: ${scale(80)}px;
 	align-items: center;
 	width: 100%;
 `;
