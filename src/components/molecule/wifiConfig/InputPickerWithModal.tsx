@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useController, Control, FieldValues, Path } from 'react-hook-form';
-import { View } from '@/components/atomic/View';
-import FormInput from '@/components/atomic/FormInput';
+import { Control, FieldValues, Path } from 'react-hook-form';
 import { PasswordIcon } from './PasswordIcon';
+import AutoCompleteInput from '../AutoCompleteInput';
 
 interface InputPickerWithModalProps<T extends FieldValues> {
 	form: {
@@ -15,38 +14,34 @@ interface InputPickerWithModalProps<T extends FieldValues> {
 	label: string;
 }
 
-// TODO: Add modal history here or refine component to not need it.
 const InputPickerWithModal = <T extends FieldValues>({
 	form,
 	label,
 }: InputPickerWithModalProps<T>) => {
-	const { control, setValue, name, trigger } = form;
-	const { field } = useController({ control, name });
+	const { control, options, name } = form;
 
 	const [isSecured, setIsSecured] = useState(false);
 
-	const handleInputChange = (text: string) => {
-		setValue(name, text);
-		trigger(name);
-	};
-
 	return (
-		<View>
-			<FormInput
-				label={label}
-				value={field.value}
-				onChangeText={handleInputChange}
-				secureTextEntry={isSecured}
-				placeholder="Enter Value"
-				rightIcon={
+		<AutoCompleteInput
+			control={control}
+			inputProps={{
+				label: label,
+				autoCapitalize: 'none',
+				spellCheck: false,
+				secureTextEntry: isSecured,
+				rightIcon: (
 					<PasswordIcon
 						pressableProps={{ type: 'opacity' }}
 						onPress={() => setIsSecured(!isSecured)}
 						isHidden={isSecured}
 					/>
-				}
-			/>
-		</View>
+				),
+			}}
+			options={options}
+			name={name}
+			required={false}
+		/>
 	);
 };
 

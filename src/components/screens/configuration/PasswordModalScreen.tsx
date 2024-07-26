@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
 import Button from '@/components/atomic/Button';
@@ -9,16 +9,32 @@ import { useDispatch } from 'react-redux';
 import { setConnectedDeviceWifiPSWD } from '@/providers/redux/slices';
 import { BasicTemplate } from '@/components/template/BasicTemplate';
 import useAppNavigation from '@/hooks/useAppNavigation';
+import {
+	addPasswordToHistory,
+	getPasswordHistory,
+} from '@/utils/passwordHistory';
 
 const PasswordModalScreen = () => {
 	const dispatch = useDispatch();
 	const { ConfigurationSetting } = useAppNavigation();
+	const [history, setHistory] = useState<string[]>([]);
 
 	// Save wifi password in global state and navigate back to WifiConfiguration screen
-	const onPress = (data: GetWifiFormInputsAuto) => {
+	const onPress = async (data: GetWifiFormInputsAuto) => {
 		dispatch(setConnectedDeviceWifiPSWD(data.wifi_password));
+		await addPasswordToHistory(data.wifi_password);
+		const updatedHistory = await getPasswordHistory();
+		setHistory(updatedHistory);
 		ConfigurationSetting();
 	};
+
+	useEffect(() => {
+		const fetchHistory = async () => {
+			const savedHistory = await getPasswordHistory();
+			setHistory(savedHistory);
+		};
+		fetchHistory();
+	}, []);
 
 	const {
 		control,
@@ -32,7 +48,7 @@ const PasswordModalScreen = () => {
 	const passwordForm: FormPropsAuto = {
 		control,
 		setValue,
-		options: ['option1', 'option2'], // replace with actual options
+		options: history,
 		name: 'wifi_password',
 		trigger,
 	};

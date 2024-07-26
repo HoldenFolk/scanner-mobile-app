@@ -12,7 +12,6 @@ interface WifiConfigurationFormManualProps {
 }
 
 // Wifi Configuration Form for manual input when no wifi is found by the scanner
-// TODO: Add history options
 export function WifiConfigFormManual({
 	onCancel,
 	form,

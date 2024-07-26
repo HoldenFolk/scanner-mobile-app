@@ -3,7 +3,7 @@ import { Input, InputProps } from 'react-native-elements';
 import { IconNode } from 'react-native-elements/dist/icons/Icon';
 import styled from 'styled-components';
 
-interface FormInputProps extends InputProps {
+export interface FormInputProps extends InputProps {
 	label: string;
 	errorMessage?: string;
 	secureTextEntry: boolean;
