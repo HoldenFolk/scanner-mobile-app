@@ -40,6 +40,7 @@ export const useBluetoothManager = () => {
 			const { name, advertising, rssi } = peripheral;
 			if (name === 'KaiduScanner') {
 				console.log('Discovered KaiduScanner:', name);
+				console.log('Peripheral: ', JSON.stringify(peripheral, null, 2));
 
 				const manufacturerRawData =
 					advertising.manufacturerData?.ffff?.bytes || [];

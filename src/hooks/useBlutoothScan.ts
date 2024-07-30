@@ -14,12 +14,13 @@ export const useBluetoothScan = () => {
 	const dispatch = useDispatch();
 
 	// Start or stop scanning based on the global isScanning state
+	// TODO: Add notification when bluetooth is not enabled
 	useEffect(() => {
 		// Start the scanning process
 		const startScan = async () => {
 			const permissionGranted = await requestBluetoothPermission();
 			console.log('Permission granted:', permissionGranted);
-			if (permissionGranted === 'denied') {
+			if (permissionGranted !== 'granted') {
 				dispatch(setScanning(false));
 				return;
 			}
