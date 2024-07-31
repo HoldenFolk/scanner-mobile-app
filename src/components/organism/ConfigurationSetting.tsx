@@ -16,6 +16,7 @@ interface ConfigurationSettingProps {
 	onNavigation: () => void;
 	onWifiSelect: () => void;
 	id: string;
+	macAddress: string;
 	plugState: PlugState;
 	children?: React.ReactNode;
 }
@@ -24,6 +25,7 @@ export function ConfigurationSetting({
 	onNavigation,
 	onWifiSelect,
 	id,
+	macAddress,
 	plugState,
 	...optionals
 }: ConfigurationSettingProps) {
@@ -49,7 +51,7 @@ export function ConfigurationSetting({
 					<CenteredView>
 						<Row>
 							<StyledText>{'MAC:'}</StyledText>
-							<StyledText>{id}</StyledText>
+							<StyledText>{macAddress}</StyledText>
 						</Row>
 						<PlugStateInfo plugState={plugState || PlugState.UNCONFIGURED} />
 					</CenteredView>

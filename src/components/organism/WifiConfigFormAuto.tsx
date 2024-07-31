@@ -63,6 +63,6 @@ const ButtonContainer = styled.View`
 `;
 
 const StyledButton = styled(Button)`
-	margin-top: auto;
-	margin-bottom: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
 `;

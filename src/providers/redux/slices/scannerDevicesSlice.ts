@@ -17,7 +17,7 @@ export const scannerDevicesSlice = createSlice({
 	reducers: {
 		addDevice: (state, action: PayloadAction<ScannerData>) => {
 			const index = state.devices.findIndex(
-				device => device.id === action.payload.id,
+				device => device.macAddress === action.payload.macAddress,
 			);
 			if (index !== -1) {
 				state.devices[index] = action.payload;

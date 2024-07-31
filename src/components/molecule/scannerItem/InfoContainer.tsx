@@ -30,7 +30,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 				</Row>
 			) : null}
 			<Row>
-				<LabelText text="MAC:" />
+				<LabelText text="MAC: " />
 				<StyledText>{macAddress || 'Not available'}</StyledText>
 			</Row>
 			<Row>

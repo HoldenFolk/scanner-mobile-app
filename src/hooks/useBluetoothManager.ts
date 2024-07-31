@@ -1,5 +1,6 @@
 import {
 	addDevice,
+	getConfigState,
 	getIsConnecting,
 	resetConnectedScanner,
 	setConnected,
@@ -27,13 +28,17 @@ export const useBluetoothManager = () => {
 	const theme = useTheme();
 
 	const isConnecting = useSelector(getIsConnecting);
+	const configState = useSelector(getConfigState);
+
 	const isConnectingRef = useRef(isConnecting);
+	const configStateRef = useRef(configState);
 
 	// Update the ref whenever isConnecting changes
 	// This is used to prevent errors when using the global state in the disconnect event
 	useEffect(() => {
 		isConnectingRef.current = isConnecting;
-	}, [isConnecting]);
+		configStateRef.current = configState;
+	}, [configState, isConnecting]);
 
 	const handleDiscoverPeripheral = useCallback(
 		(peripheral: Peripheral) => {
@@ -47,11 +52,16 @@ export const useBluetoothManager = () => {
 				const manufacturerData = decodeManufacturerData(manufacturerRawData);
 
 				const plugState = getValidPlugState(manufacturerData?.plugState);
-				const id = manufacturerData.macAddress;
+				const macAddress = manufacturerData.macAddress;
+				console.log('MAC Address:', macAddress);
 				const wifiRssi = manufacturerData.rssi;
+				// BLE ID is used to connect to the deivice in IOS but MAC is used in Android
+				const bleID = peripheral.id || macAddress;
+				console.log('BLE ID:', bleID);
 				dispatch(
 					addDevice({
-						id,
+						id: bleID,
+						macAddress,
 						name,
 						rssi,
 						wifiRssi,
@@ -83,7 +93,7 @@ export const useBluetoothManager = () => {
 		});
 		dispatch(resetConnectedScanner());
 		dispatch(setConnected(false));
-		if (!isConnectingRef.current) {
+		if (!isConnectingRef.current && configStateRef.current === 'idle') {
 			Alert.alert(
 				'Connection Error.',
 				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',

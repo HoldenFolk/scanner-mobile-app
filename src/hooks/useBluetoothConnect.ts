@@ -6,6 +6,7 @@ import {
 	setLoadingWifiList,
 	setConnected,
 	setConnectedDevicePlugState,
+	setConnectedDeviceMacAddress,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
@@ -65,13 +66,18 @@ export const useBluetoothConnect = () => {
 		dispatch(setLoadingWifiList(false));
 	};
 
-	const connectToScanner = async (id: string, plugState: PlugState) => {
+	const connectToScanner = async (
+		id: string,
+		macAddress: string,
+		plugState: PlugState,
+	) => {
 		dispatch(setConnecting(true));
 
 		try {
 			await attemptConnection(id);
 
 			dispatch(setConnectedDeviceId(id));
+			dispatch(setConnectedDeviceMacAddress(macAddress));
 			dispatch(setConnectedDevicePlugState(plugState));
 			dispatch(setConnected(true));
 
