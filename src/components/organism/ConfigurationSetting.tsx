@@ -6,11 +6,9 @@ import { BasicTemplate } from '../template/BasicTemplate';
 import styled from 'styled-components/native';
 import { PlugState } from '@/types/scannerData';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { RootParamList } from '@/types/navigation';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
 import WifiConfigForm from '@/components/organism/WifiConfigForm';
+import useAppNavigation from '@/hooks/useAppNavigation';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
@@ -30,7 +28,7 @@ export function ConfigurationSetting({
 	...optionals
 }: ConfigurationSettingProps) {
 	const { children } = optionals;
-	const navigation = useNavigation<DrawerNavigationProp<RootParamList>>();
+	const { Home } = useAppNavigation();
 	const { disconnectFromScanner } = useBluetoothConnect();
 
 	const handleCancel = async () => {
@@ -40,7 +38,7 @@ export function ConfigurationSetting({
 			// do nothing
 			console.warn('err', (err as Error)?.message);
 		} finally {
-			navigation.goBack();
+			Home();
 		}
 	};
 

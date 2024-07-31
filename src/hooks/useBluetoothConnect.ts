@@ -24,6 +24,7 @@ export const useBluetoothConnect = () => {
 			try {
 				await BleManager.connect(id);
 				console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
+				return;
 			} catch (error) {
 				console.log(
 					`Failed to connect to scanner (attempt ${attempts}):`,

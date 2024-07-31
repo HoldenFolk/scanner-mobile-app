@@ -63,10 +63,12 @@ export const Home: React.FC = () => {
 				</>
 			)}
 
-			<OverlayActivityIndicator
-				isVisible={isConnecting}
-				text={'Retrieving details for your Kaidu scanner.'}
-			/>
+			{isConnecting && (
+				<OverlayActivityIndicator
+					isVisible={isConnecting}
+					text={'Retrieving details for your Kaidu scanner.'}
+				/>
+			)}
 		</BasicTemplate>
 	);
 };
