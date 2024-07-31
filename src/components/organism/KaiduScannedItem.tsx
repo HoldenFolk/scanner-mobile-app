@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsConnecting, setScanning } from '@/providers/redux/slices';
 import { ScannedItemUI } from '@/components/molecule/scannerItem/ScannedItemUI';
 import { PlugState, ScannerData } from '@/types/scannerData';
-import { Alert } from 'react-native';
 import useAppNavigation from '@/hooks/useAppNavigation';
 
 interface KaiduScannedItemProps {
@@ -34,11 +33,7 @@ export const KaiduScannedItem = ({
 				);
 			}
 		} catch (error: unknown) {
-			let errorMessage = 'An unexpected error occurred';
-			if (error instanceof Error) {
-				errorMessage = error.message;
-			}
-			Alert.alert('Connection Error.', errorMessage, [{ text: 'OK' }]);
+			console.error('Error connecting to scanner:', error);
 		}
 	};
 

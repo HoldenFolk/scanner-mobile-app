@@ -86,7 +86,7 @@ export const useBluetoothManager = () => {
 		if (!isConnectingRef.current) {
 			Alert.alert(
 				'Connection Error.',
-				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner and try again.',
+				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
 				[{ text: 'OK' }],
 			);
 		}
