@@ -1,5 +1,6 @@
 import {
 	addDevice,
+	getConfigState,
 	getIsConnecting,
 	resetConnectedScanner,
 	setConnected,
@@ -27,13 +28,17 @@ export const useBluetoothManager = () => {
 	const theme = useTheme();
 
 	const isConnecting = useSelector(getIsConnecting);
+	const configState = useSelector(getConfigState);
+
 	const isConnectingRef = useRef(isConnecting);
+	const configStateRef = useRef(configState);
 
 	// Update the ref whenever isConnecting changes
 	// This is used to prevent errors when using the global state in the disconnect event
 	useEffect(() => {
 		isConnectingRef.current = isConnecting;
-	}, [isConnecting]);
+		configStateRef.current = configState;
+	}, [configState, isConnecting]);
 
 	const handleDiscoverPeripheral = useCallback(
 		(peripheral: Peripheral) => {
@@ -88,9 +93,9 @@ export const useBluetoothManager = () => {
 		});
 		dispatch(resetConnectedScanner());
 		dispatch(setConnected(false));
-		if (!isConnectingRef.current) {
+		if (!isConnectingRef.current && configStateRef.current === 'idle') {
 			Alert.alert(
-				'Connection Error.',
+				'Disconnect Error.',
 				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner and try again.',
 				[{ text: 'OK' }],
 			);
