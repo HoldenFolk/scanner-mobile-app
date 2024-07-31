@@ -1,5 +1,6 @@
 export interface ScannerData {
 	id: string;
+	macAddress: string;
 	name?: string;
 	rssi: number;
 	wifiRssi: number;

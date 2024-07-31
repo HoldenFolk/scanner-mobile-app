@@ -8,7 +8,11 @@ import useAppNavigation from '@/hooks/useAppNavigation';
 
 interface KaiduScannedItemProps {
 	scanner: ScannerData;
-	connectToScanner: (id: string, plugState: PlugState) => Promise<boolean>;
+	connectToScanner: (
+		id: string,
+		macAddress: string,
+		plugState: PlugState,
+	) => Promise<boolean>;
 }
 
 export const KaiduScannedItem = ({
@@ -25,7 +29,11 @@ export const KaiduScannedItem = ({
 	const handlePress = async () => {
 		dispatch(setScanning(false));
 		try {
-			const connected = await connectToScanner(scanner.id, scanner.plugState);
+			const connected = await connectToScanner(
+				scanner.id,
+				scanner.macAddress,
+				scanner.plugState,
+			);
 			if (connected) {
 				WifiConfiguration();
 			} else {
@@ -44,7 +52,7 @@ export const KaiduScannedItem = ({
 
 	return (
 		<ScannedItemUI
-			macAddress={scanner.id}
+			macAddress={scanner.macAddress}
 			onPress={handlePress}
 			disabled={isDisabled}
 			data={scanner}

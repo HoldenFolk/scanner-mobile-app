@@ -46,6 +46,12 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+  		<string>location</string>
+	</array>
+	<key>GMSApiKey</key>
+	<string>AIzaSyD3OHlMT2MTJizy2Amc847PXT6wRUrbs6w</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

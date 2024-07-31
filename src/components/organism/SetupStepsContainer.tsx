@@ -15,6 +15,7 @@ import { useSetupStepsContainer } from '@/hooks/useSetupStepsContainer';
 
 interface SetupStepsContainerProps {
 	bleId: string;
+	macAddress: string;
 }
 
 const ContainerView = styled(View)`
@@ -29,7 +30,10 @@ const InnerView = styled(View)`
 	flex-grow: 1;
 `;
 
-export function SetupStepsContainer({ bleId }: SetupStepsContainerProps) {
+export function SetupStepsContainer({
+	bleId,
+	macAddress,
+}: SetupStepsContainerProps) {
 	const dispatch = useDispatch();
 	const {
 		handleError,
@@ -46,6 +50,7 @@ export function SetupStepsContainer({ bleId }: SetupStepsContainerProps) {
 				{status === AsyncLifecycle.PENDING && (
 					<Writer
 						bleId={bleId}
+						macAddress={macAddress}
 						onFulfilled={() => {
 							dispatch(setConfigState(AsyncLifecycle.VERIFYING));
 						}}

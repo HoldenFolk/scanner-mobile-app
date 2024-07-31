@@ -1,5 +1,6 @@
 import {
 	getConnectedDeviceId,
+	getConnectedDeviceMacAddress,
 	getConnectedDevicePlugState,
 } from '@/providers/redux/slices';
 import { ConfigurationSetting } from '../../organism/ConfigurationSetting';
@@ -15,6 +16,7 @@ export function Configuration() {
 	// Global states
 	const bleId = useSelector(getConnectedDeviceId);
 	const plugState = useSelector(getConnectedDevicePlugState);
+	const macAddress = useSelector(getConnectedDeviceMacAddress);
 
 	const { GeolocationModal, WifiSelectionModal, Home } = useAppNavigation();
 
@@ -32,6 +34,7 @@ export function Configuration() {
 		<ErrorBoundary onError={() => Home()}>
 			<ConfigurationSetting
 				id={bleId}
+				macAddress={macAddress}
 				plugState={plugState}
 				onNavigation={handleGeolocationNavigation}
 				onWifiSelect={handleWifiSelectionNavigation}

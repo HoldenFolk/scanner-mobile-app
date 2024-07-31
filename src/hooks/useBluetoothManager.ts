@@ -40,7 +40,6 @@ export const useBluetoothManager = () => {
 			const { name, advertising, rssi } = peripheral;
 			if (name === 'KaiduScanner') {
 				console.log('Discovered KaiduScanner:', name);
-				console.log('Peripheral: ', JSON.stringify(peripheral, null, 2));
 
 				const manufacturerRawData =
 					advertising.manufacturerData?.ffff?.bytes || [];
@@ -48,11 +47,16 @@ export const useBluetoothManager = () => {
 				const manufacturerData = decodeManufacturerData(manufacturerRawData);
 
 				const plugState = getValidPlugState(manufacturerData?.plugState);
-				const id = manufacturerData.macAddress;
+				const macAddress = manufacturerData.macAddress;
+				console.log('MAC Address:', macAddress);
 				const wifiRssi = manufacturerData.rssi;
+				// BLE ID is used to connect to the deivice in IOS but MAC is used in Android
+				const bleID = peripheral.id || macAddress;
+				console.log('BLE ID:', bleID);
 				dispatch(
 					addDevice({
-						id,
+						id: bleID,
+						macAddress,
 						name,
 						rssi,
 						wifiRssi,

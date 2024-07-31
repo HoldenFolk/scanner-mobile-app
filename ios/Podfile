@@ -58,11 +58,12 @@ target 'kaidu_config_mobile' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-    # Add Google Maps SDK
-    pod 'GoogleMaps'
-    pod 'Google-Maps-iOS-Utils'
-   
-    pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  # Add dependencies for Google Maps
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
+  
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'kaidu_config_mobileTests' do
     inherit! :complete

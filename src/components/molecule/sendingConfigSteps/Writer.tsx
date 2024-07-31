@@ -5,6 +5,7 @@ import React from 'react';
 
 interface WriterProps {
 	bleId: string;
+	macAddress: string;
 	onFulfilled: () => void;
 	onRejected: (err: Error) => Promise<void>;
 	shouldStart: boolean;
@@ -12,6 +13,7 @@ interface WriterProps {
 
 export const Writer = ({
 	bleId,
+	macAddress,
 	onFulfilled,
 	onRejected,
 	shouldStart,
@@ -22,7 +24,7 @@ export const Writer = ({
 	const writeConfigToScanner = async () => {
 		try {
 			await configureDeviceWifi(bleId);
-			await configureDeviceGeolocation(bleId);
+			await configureDeviceGeolocation(macAddress);
 			onFulfilled();
 		} catch (error) {
 			await onRejected(error as Error);

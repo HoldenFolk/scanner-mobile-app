@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GeolocationSetting } from '@/components/organism/GeolocationSetting';
 import ErrorBoundary from 'react-native-error-boundary';
 import {
-	getConnectedDeviceId,
+	getConnectedDeviceMacAddress,
 	setConfigState,
 	setConnectedDeviceGeolocation,
 } from '@/providers/redux/slices';
@@ -15,7 +15,7 @@ export const GeolocationModalScreen = () => {
 	const dispatch = useDispatch();
 
 	// Global states
-	const bleId = useSelector(getConnectedDeviceId);
+	const macAddress = useSelector(getConnectedDeviceMacAddress);
 
 	const { Setup, Home } = useAppNavigation();
 
@@ -33,7 +33,7 @@ export const GeolocationModalScreen = () => {
 			<GeolocationSetting
 				navigateToSetup={handleSetupNavigation}
 				updateGlobalGeolocation={handleUpdateGloablGeolocation}
-				bleId={bleId}
+				macAddress={macAddress}
 			/>
 		</ErrorBoundary>
 	);

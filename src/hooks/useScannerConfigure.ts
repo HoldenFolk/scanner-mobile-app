@@ -57,25 +57,24 @@ export const useScannerConfigure = () => {
 		}
 	};
 	// TODO: Add name configuration
-	const configureDeviceGeolocation = async (deviceId: string) => {
-		try {
-			if (!geolocation)
-				throw new Error('Geolocation is empty when configuring device wifi');
-			if (!wifiSSID)
-				throw new Error('Wifi SSID is empty when configuring device wifi');
-			if (!wifiPassword)
-				throw new Error('Wifi Password is empty when configuring device wifi');
-			const response = await updateScannerConfig(
-				deviceId,
-				wifiSSID,
-				wifiPassword,
-				'KaiduScanner',
-				geolocation,
-			);
-			console.log('Geolocation Configuration response!', response);
-		} catch (error) {
-			console.error(error as Error);
-		}
+	const configureDeviceGeolocation = async (macAddress: string) => {
+		// try {
+		if (!geolocation)
+			throw new Error('Geolocation is empty when configuring device wifi');
+		if (!wifiSSID)
+			throw new Error('Wifi SSID is empty when configuring device wifi');
+		const response = await updateScannerConfig(
+			macAddress,
+			wifiSSID,
+			wifiPassword || '',
+			'KaiduScanner',
+			geolocation,
+		);
+		console.log('Geolocation Configuration sucess!');
+		return response;
+		// } catch (error) {
+		// 	console.error(error as Error);
+		// }
 	};
 	return { configureDeviceWifi, configureDeviceGeolocation };
 };

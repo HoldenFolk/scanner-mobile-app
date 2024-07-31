@@ -9,13 +9,13 @@ import { Geolocation } from '@/types/api';
 interface GeolocationSettingProps {
 	navigateToSetup: () => void;
 	updateGlobalGeolocation: (geolocation: Geolocation) => void;
-	bleId: string;
+	macAddress: string;
 }
 
 export const GeolocationSetting = ({
 	navigateToSetup,
 	updateGlobalGeolocation,
-	bleId,
+	macAddress,
 }: GeolocationSettingProps) => {
 	return (
 		<BasicTemplate>
@@ -23,7 +23,7 @@ export const GeolocationSetting = ({
 				<CenteredView>
 					<Row>
 						<StyledText>{'MAC:'}</StyledText>
-						<StyledText>{bleId}</StyledText>
+						<StyledText>{macAddress}</StyledText>
 					</Row>
 				</CenteredView>
 
