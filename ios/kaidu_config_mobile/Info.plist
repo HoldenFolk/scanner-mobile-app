@@ -21,13 +21,26 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need access to your location to provide location-based services.</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>We need access to Bluetooth to connect to your devices.</string>
+	<string>21</string>
+	<key>GMSApiKey</key>
+	<string>AIzaSyD3OHlMT2MTJizy2Amc847PXT6wRUrbs6w</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>We need access to Bluetooth to connect to your devices.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We need access to Bluetooth to connect to your devices.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need access to your location to provide location-based services.</string>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen.storyboard</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -48,26 +61,11 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
-  		<string>location</string>
+		<string>location</string>
 	</array>
-	<key>GMSApiKey</key>
-	<string>AIzaSyD3OHlMT2MTJizy2Amc847PXT6wRUrbs6w</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<false/>
-		<key>NSAllowsLocalNetworking</key>
-		<true/>
-	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv64</string>
+		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
