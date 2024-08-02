@@ -1,4 +1,8 @@
-import { getConfigState, setConfigState } from '@/providers/redux/slices';
+import {
+	getConfigState,
+	setConfigState,
+	setScanning,
+} from '@/providers/redux/slices';
 import { useDispatch, useSelector } from 'react-redux';
 import { useBluetoothConnect } from './useBluetoothConnect';
 import { AsyncLifecycle } from '@/types/scannerData';
@@ -16,7 +20,7 @@ export const useSetupStepsContainer = (bleId: string) => {
 	// TODO: Implement better error handling here
 	const handleError = async (err: Error) => {
 		dispatch(setConfigState(AsyncLifecycle.REJECTED));
-		console.debug(`SetupStepsContainer:56 handleError: ${err?.message}`);
+		console.error(err as Error);
 
 		// disconnect for failure. change the message if cannot disconnect
 		const isConnected = await isScannerConnected(bleId);
@@ -33,6 +37,7 @@ export const useSetupStepsContainer = (bleId: string) => {
 
 	const handleClose = async () => {
 		dispatch(setConfigState(AsyncLifecycle.IDLE));
+		dispatch(setScanning(true));
 		Home();
 	};
 

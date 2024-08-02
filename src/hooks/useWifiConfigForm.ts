@@ -39,7 +39,7 @@ export const useWifiConfigForm = ({
 	const ssidForm: FormProps = {
 		control,
 		setValue,
-		options: ['option1', 'option2'], // replace with actual options
+		options: [], // replace with actual options
 		name: SSID_NAME,
 		trigger,
 	};
@@ -47,7 +47,7 @@ export const useWifiConfigForm = ({
 	const passwordForm: FormProps = {
 		control,
 		setValue,
-		options: ['option1', 'option2'], // replace with actual options
+		options: [], // replace with actual options
 		name: PASSWORD_NAME,
 		trigger,
 	};

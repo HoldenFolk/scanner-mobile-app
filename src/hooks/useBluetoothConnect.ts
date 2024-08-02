@@ -7,6 +7,8 @@ import {
 	setConnected,
 	setConnectedDevicePlugState,
 	setConnectedDeviceMacAddress,
+	setConnectedDeviceWifiPSWD,
+	setConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
@@ -38,6 +40,21 @@ export const useBluetoothConnect = () => {
 				}
 			}
 		}
+	};
+
+	const retreiveCurrentWifiConfig = async (id: string) => {
+		const ssidCode = await readCharacteristic(
+			id,
+			settings.serviceID,
+			settings.characteristicIDSSID,
+		);
+		const passwordCode = await readCharacteristic(
+			id,
+			settings.serviceID,
+			settings.characteristicIDPassword,
+		);
+
+		return { ssidCode, passwordCode };
 	};
 
 	const retrieveWifiList = async (id: string) => {
@@ -77,17 +94,34 @@ export const useBluetoothConnect = () => {
 		try {
 			await attemptConnection(id);
 
+			// Set the connected device state
 			dispatch(setConnectedDeviceId(id));
 			dispatch(setConnectedDeviceMacAddress(macAddress));
 			dispatch(setConnectedDevicePlugState(plugState));
 			dispatch(setConnected(true));
 
+			// Retrieve services and wifi list
 			await retreiveServices(id);
 			await retrieveWifiList(id);
+
+			// Retrieve current wifi config from device characteristics
+			const { ssidCode, passwordCode } = await retreiveCurrentWifiConfig(id);
+			const ssid = ssidCode
+				? String.fromCharCode.apply(null, ssidCode)
+				: undefined;
+			const password = passwordCode
+				? String.fromCharCode.apply(null, passwordCode)
+				: undefined;
+			console.log('Current wifi config:', ssid, password);
+
+			// Set the global connected device wifi config
+			dispatch(setConnectedDeviceWifiSSID(ssid));
+			dispatch(setConnectedDeviceWifiPSWD(password));
 
 			return true;
 		} catch (error) {
 			console.error('Error during connection process:', error);
+			dispatch(resetConnectedScanner());
 			return false;
 		} finally {
 			dispatch(setConnecting(false));

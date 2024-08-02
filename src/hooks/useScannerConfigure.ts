@@ -1,5 +1,3 @@
-import BleManager from 'react-native-ble-manager';
-import { Buffer } from 'buffer';
 import settings from '@/globalConstants';
 import { useSelector } from 'react-redux';
 import {
@@ -8,47 +6,25 @@ import {
 	getConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
 import { updateScannerConfig } from '@/api/apiConfig';
+import { writeCharacteristic } from '@/utils/bleManager';
 
 export const useScannerConfigure = () => {
 	const wifiSSID = useSelector(getConnectedDeviceWifiSSID);
 	const wifiPassword = useSelector(getConnectedDeviceWifiPSWD);
 	const geolocation = useSelector(getConnectedDeviceGeolocation);
 
-	const writeCharacteristic = async (
-		deviceId: string,
-		serviceUUID: string,
-		characteristicUUID: string,
-		data?: string,
-	) => {
-		try {
-			if (!data) throw new Error('Data is empty when configuring device wifi');
-			const buffer = Buffer.from(data, 'utf-8');
-			const dataArray = Array.from(buffer);
-			await BleManager.write(
-				deviceId,
-				serviceUUID,
-				characteristicUUID,
-				dataArray,
-			);
-		} catch (error) {
-			console.error(error as Error);
-		} finally {
-			// do nothing
-		}
-	};
-
 	const configureDeviceWifi = async (deviceId: string) => {
 		try {
 			await writeCharacteristic(
 				deviceId,
 				settings.serviceID,
-				settings.characteristicIDWriteSSID,
+				settings.characteristicIDSSID,
 				wifiSSID,
 			);
 			await writeCharacteristic(
 				deviceId,
 				settings.serviceID,
-				settings.characteristicIDWritePassword,
+				settings.characteristicIDPassword,
 				wifiPassword,
 			);
 			console.log('WIFI Configuration sucess!');

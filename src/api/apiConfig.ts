@@ -14,6 +14,7 @@ export const updateScannerConfig = async (
 		scanner_name: scannerName,
 		geo: JSON.stringify(geolocation),
 	}).toString();
+
 	const response = await apiClient.get(
 		`kaidu_device_configuration/configstring/${macAddress}?${params}`,
 	);

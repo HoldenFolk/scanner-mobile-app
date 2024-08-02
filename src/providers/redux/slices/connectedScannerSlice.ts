@@ -3,6 +3,7 @@ import { AppState } from '@/types/redux';
 import { PlugState, Wifi } from '@/types/scannerData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+// bleID is the unique identifier for the scanner in IOS. In android, it is the same as the mac address
 interface ConnectedScannerState {
 	bleID: string;
 	macAddress: string;
@@ -17,8 +18,8 @@ interface ConnectedScannerState {
 const initialState: ConnectedScannerState = {
 	bleID: '',
 	macAddress: '',
-	wifiSSID: '',
-	wifiPSWD: '',
+	wifiSSID: undefined,
+	wifiPSWD: undefined,
 	isConfigured: false,
 	plugState: PlugState.UNCONFIGURED,
 	wifiList: [],
@@ -34,10 +35,16 @@ export const connectedScannerSlice = createSlice({
 		setConnectedDeviceMacAddress: (state, action: PayloadAction<string>) => {
 			state.macAddress = action.payload;
 		},
-		setConnectedDeviceWifiSSID: (state, action: PayloadAction<string>) => {
+		setConnectedDeviceWifiSSID: (
+			state,
+			action: PayloadAction<string | undefined>,
+		) => {
 			state.wifiSSID = action.payload;
 		},
-		setConnectedDeviceWifiPSWD: (state, action: PayloadAction<string>) => {
+		setConnectedDeviceWifiPSWD: (
+			state,
+			action: PayloadAction<string | undefined>,
+		) => {
 			state.wifiPSWD = action.payload;
 		},
 		setConnectedDeviceIsConfigured: (state, action: PayloadAction<boolean>) => {
@@ -58,8 +65,8 @@ export const connectedScannerSlice = createSlice({
 		resetConnectedScanner: state => {
 			state.bleID = '';
 			state.macAddress = '';
-			state.wifiSSID = '';
-			state.wifiPSWD = '';
+			state.wifiSSID = undefined;
+			state.wifiPSWD = undefined;
 			state.isConfigured = false;
 			state.wifiList = [];
 			state.plugState = PlugState.UNCONFIGURED;

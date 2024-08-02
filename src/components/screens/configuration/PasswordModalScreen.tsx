@@ -5,8 +5,11 @@ import Button from '@/components/atomic/Button';
 import InputPickerWithModal from '@/components/molecule/wifiConfig/InputPickerWithModal';
 import { useForm } from 'react-hook-form';
 import { FormPropsAuto, GetWifiFormInputsAuto } from '@/types/form';
-import { useDispatch } from 'react-redux';
-import { setConnectedDeviceWifiPSWD } from '@/providers/redux/slices';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	getConnectedDeviceWifiPSWD,
+	setConnectedDeviceWifiPSWD,
+} from '@/providers/redux/slices';
 import { BasicTemplate } from '@/components/template/BasicTemplate';
 import useAppNavigation from '@/hooks/useAppNavigation';
 import {
@@ -17,6 +20,7 @@ import {
 const PasswordModalScreen = () => {
 	const dispatch = useDispatch();
 	const { ConfigurationSetting } = useAppNavigation();
+	const currentPassword = useSelector(getConnectedDeviceWifiPSWD);
 	const [history, setHistory] = useState<string[]>([]);
 
 	// Save wifi password in global state and navigate back to WifiConfiguration screen
@@ -43,7 +47,11 @@ const PasswordModalScreen = () => {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		formState: { errors },
 		trigger,
-	} = useForm<GetWifiFormInputsAuto>({});
+	} = useForm<GetWifiFormInputsAuto>({
+		defaultValues: {
+			wifi_password: currentPassword,
+		},
+	});
 
 	const passwordForm: FormPropsAuto = {
 		control,

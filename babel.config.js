@@ -22,7 +22,7 @@ module.exports = {
 			},
 		],
 		// ['@babel/plugin-transform-private-methods', { loose: true }],
-		'module:react-native-dotenv',
+		// 'module:react-native-dotenv',
 		'react-native-reanimated/plugin',
 	],
 };

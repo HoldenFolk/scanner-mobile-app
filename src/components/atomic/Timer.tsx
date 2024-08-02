@@ -26,7 +26,6 @@ export function Timer({ shouldReset }: { shouldReset: boolean }) {
 	});
 
 	useEffect(() => {
-		console.debug('Timer is mounted');
 		start();
 	}, [start]);
 
