@@ -21,7 +21,7 @@ export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
 
 	const MAX_ATTEMPTS = 5; // Maximum connection attempts
-	const TIMEOUT = 20000; // 20 seconds before timeout
+	const TIMEOUT = 10000; // 20 seconds before timeout
 
 	const showAlert = (message: string) => {
 		Alert.alert('Connection Error.', message, [{ text: 'OK' }]);

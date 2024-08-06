@@ -33,7 +33,7 @@ export function WifiConfigurationStackGroup() {
 		headerShown: false,
 		headerTransparent: true,
 		headerTitle: '',
-		headerTintColor: theme?.colors?.tertiary,
+		headerTintColor: theme?.colors?.primary,
 	};
 
 	return (
@@ -52,6 +52,7 @@ export function WifiConfigurationStackGroup() {
 							: theme.colors.white,
 					},
 					headerTitleStyle: { color: theme?.colors?.tertiary },
+					headerTintColor: theme?.colors?.primary,
 					...SlideFromRightTransition,
 				}}
 			>
