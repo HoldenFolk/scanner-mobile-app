@@ -112,11 +112,19 @@ export const useBluetoothConnect = () => {
 			const password = passwordCode
 				? String.fromCharCode.apply(null, passwordCode)
 				: undefined;
-			console.log('Current wifi config:', ssid, password);
+
+			// Check if ssid or password consists only of \u0000 characters and set them to null if true
+			// eslint-disable-next-line no-control-regex
+			const nullPattern = /^[\u0000]+$/;
+			const processedSsid = ssid && nullPattern.test(ssid) ? undefined : ssid;
+			const processedPassword =
+				password && nullPattern.test(password) ? undefined : password;
+
+			console.log('Current wifi config:', processedSsid, processedPassword);
 
 			// Set the global connected device wifi config
-			dispatch(setConnectedDeviceWifiSSID(ssid));
-			dispatch(setConnectedDeviceWifiPSWD(password));
+			dispatch(setConnectedDeviceWifiSSID(processedSsid));
+			dispatch(setConnectedDeviceWifiPSWD(processedPassword));
 
 			return true;
 		} catch (error) {

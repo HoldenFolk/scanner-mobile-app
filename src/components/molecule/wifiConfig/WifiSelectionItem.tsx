@@ -37,7 +37,9 @@ export function WifiSelectionItem({ onPress }: { onPress: () => void }) {
 			onPress={onPress}
 			rightComponent={
 				<Container>
-					<Text>{currentSsid || 'Select Network'}</Text>
+					<Text>
+						{currentSsid && currentSsid !== '' ? currentSsid : 'Select Network'}
+					</Text>
 					<ForwardIcon />
 				</Container>
 			}
