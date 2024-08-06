@@ -41,8 +41,6 @@ export const writeCharacteristic = async (
 			dataArray,
 		);
 	} catch (error) {
-		console.error(error as Error);
-	} finally {
-		// do nothing
+		console.error('Failed to write characteristic', error);
 	}
 };

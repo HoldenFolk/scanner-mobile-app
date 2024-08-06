@@ -41,7 +41,7 @@ export function SuccessMsg({ onConfirm, name }: SuccessViewProps) {
 				<ModalTitle>Congratulations!</ModalTitle>
 				<StyledText>{`The scanner ${
 					name ?? ''
-				} has been configured successfully! After reboot, if the connection is successful, the LED will illuminate green`}</StyledText>
+				} has been configured successfully! Please wait for the scanner to reboot, if the Wi-Fi connection is successful, the LED will illuminate green`}</StyledText>
 			</CenteredView>
 			<CenteredView>
 				<Button title={'Finish'} onPress={onConfirm} type="solid" />
