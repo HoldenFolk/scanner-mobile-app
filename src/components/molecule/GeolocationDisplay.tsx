@@ -12,7 +12,6 @@ interface SetLocationScreenProps {
 	navigateToSetup: () => void;
 }
 
-// TODO: Modularize the logic
 const SetLocationScreen: React.FC<SetLocationScreenProps> = ({
 	navigateToSetup,
 	updateGlobalGeolocation,

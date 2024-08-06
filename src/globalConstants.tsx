@@ -2,7 +2,6 @@ import Config from 'react-native-config';
 
 console.log('API_BASE_URL', Config.API_BASE_URL);
 
-// TODO make api base url to env variable
 const settings = {
 	version: '1.0.0',
 	apiBaseUrl: Config.API_BASE_URL,

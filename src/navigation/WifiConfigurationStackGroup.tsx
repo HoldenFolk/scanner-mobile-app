@@ -36,7 +36,6 @@ export function WifiConfigurationStackGroup() {
 		headerTintColor: theme?.colors?.tertiary,
 	};
 
-	// TODO: add go back button
 	return (
 		<FormProvider {...methods}>
 			<Stack.Navigator

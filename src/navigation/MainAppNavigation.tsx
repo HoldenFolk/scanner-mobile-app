@@ -9,7 +9,6 @@ const DrawerContent = (props: DrawerContentComponentProps) => (
 	<DrawerItemGroup {...props} />
 );
 
-// TODO: Add snackbar event listeners for BLE connection status
 function MainAppNavigation() {
 	return (
 		<NavigationContainer>

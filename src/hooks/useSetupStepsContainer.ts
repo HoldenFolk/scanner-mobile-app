@@ -17,7 +17,6 @@ export const useSetupStepsContainer = (bleId: string) => {
 
 	const errorMsg = 'Connection Cancelled';
 
-	// TODO: Implement better error handling here
 	const handleError = async (err: Error) => {
 		dispatch(setConfigState(AsyncLifecycle.REJECTED));
 		console.error(err as Error);

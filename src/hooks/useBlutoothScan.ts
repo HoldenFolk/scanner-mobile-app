@@ -8,7 +8,6 @@ import {
 	clearDevices,
 } from '@/providers/redux/slices';
 
-// TODO: Make the scanners remove when lost connection
 export const useBluetoothScan = () => {
 	const isScanning = useSelector(getIsScanning);
 	const dispatch = useDispatch();
