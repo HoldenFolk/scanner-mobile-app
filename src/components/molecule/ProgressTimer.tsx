@@ -10,7 +10,7 @@ const CenteredView = styled(View)`
 `;
 
 const TimerContainer = styled(View)`
-	margin-top: 20px; /* Adjusted from tailwind's mt-5 */
+	margin-top: 20px;
 	width: 100%;
 `;
 

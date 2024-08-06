@@ -2,12 +2,14 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import "RNCConfig.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [GMSServices provideAPIKey:@"AIzaSyD3OHlMT2MTJizy2Amc847PXT6wRUrbs6w"]; // add this line using the api key obtained from Google Console
+NSString *apiKey = [RNCConfig envFor:@"GOOGLE_API_KEY"];
+[GMSServices provideAPIKey:apiKey]; // add this line using the api key obtained from Google Console
 
   self.moduleName = @"kaidu_config_mobile";
   // You can add your custom initial props in the dictionary below.

@@ -34,7 +34,6 @@ export const useScannerConfigure = () => {
 	};
 	// TODO: Add name configuration
 	const configureDeviceGeolocation = async (macAddress: string) => {
-		// try {
 		if (!geolocation)
 			throw new Error('Geolocation is empty when configuring device wifi');
 		if (!wifiSSID)
@@ -48,9 +47,6 @@ export const useScannerConfigure = () => {
 		);
 		console.log('Geolocation Configuration sucess!');
 		return response;
-		// } catch (error) {
-		// 	console.error(error as Error);
-		// }
 	};
 	return { configureDeviceWifi, configureDeviceGeolocation };
 };

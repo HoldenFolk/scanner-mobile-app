@@ -15,31 +15,64 @@ import { useDispatch } from 'react-redux';
 import settings from '@/globalConstants';
 import { PlugState, Wifi } from '@/types/scannerData';
 import { readCharacteristic, retreiveServices } from '@/utils/bleManager';
+import { Alert } from 'react-native';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
-	// Max attempts at connecting to the scanner before throwing an error
-	const MAX_ATTEMPTS = 5;
 
 	const attemptConnection = async (id: string) => {
-		for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
-			try {
-				await BleManager.connect(id);
-				console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
-				return;
-			} catch (error) {
-				console.log(
-					`Failed to connect to scanner (attempt ${attempts}):`,
-					id,
-					error,
+		const MAX_ATTEMPTS = 5; // Assuming MAX_ATTEMPTS is defined somewhere
+		const TIMEOUT = 10000; // 10 seconds
+		let timeoutHandle: NodeJS.Timeout;
+
+		const timeoutPromise = new Promise((_, reject) => {
+			timeoutHandle = setTimeout(() => {
+				Alert.alert(
+					'Connection Error.',
+					'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
+					[{ text: 'OK' }],
 				);
-				if (attempts < MAX_ATTEMPTS) {
-					await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
-				} else {
-					throw new Error('Failed to connect to scanner');
+
+				// Reject the promise if the connection attempt times out
+				reject(
+					new Error(
+						'Connection attempt timed out. Failed to connect to scanner',
+					),
+				);
+			}, TIMEOUT);
+		});
+
+		const connectWithRetries = async () => {
+			for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
+				try {
+					await BleManager.connect(id);
+					console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
+
+					// Clear the timeout if the connection is successful
+					clearTimeout(timeoutHandle);
+
+					return;
+				} catch (error) {
+					console.log(
+						`Failed to connect to scanner (attempt ${attempts}):`,
+						id,
+						error,
+					);
+					if (attempts < MAX_ATTEMPTS) {
+						await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+					} else {
+						Alert.alert(
+							'Connection Error.',
+							'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
+							[{ text: 'OK' }],
+						);
+						throw new Error('Failed to connect to scanner');
+					}
 				}
 			}
-		}
+		};
+
+		return Promise.race([connectWithRetries(), timeoutPromise]);
 	};
 
 	const retreiveCurrentWifiConfig = async (id: string) => {
@@ -106,6 +139,8 @@ export const useBluetoothConnect = () => {
 
 			// Retrieve current wifi config from device characteristics
 			const { ssidCode, passwordCode } = await retreiveCurrentWifiConfig(id);
+
+			// Convert the ssid and password from byte array to string
 			const ssid = ssidCode
 				? String.fromCharCode.apply(null, ssidCode)
 				: undefined;
@@ -115,13 +150,18 @@ export const useBluetoothConnect = () => {
 
 			// Check if ssid or password contains null characters and trim them
 			// eslint-disable-next-line no-control-regex
-			const nullPattern = /^[\u0000]+$/;
+			const nullPattern = /\u0000/g;
 			const processedSsid = ssid ? ssid.replace(nullPattern, '') : ssid;
 			const processedPassword = password
 				? password.replace(nullPattern, '')
 				: password;
 
-			console.log('Current wifi config:', processedSsid, processedPassword);
+			const wifiConfig = {
+				ssid: processedSsid,
+				password: processedPassword,
+			};
+
+			console.log(JSON.stringify(wifiConfig, null, 2));
 
 			// Set the global connected device wifi config
 			dispatch(setConnectedDeviceWifiSSID(processedSsid));
@@ -130,6 +170,8 @@ export const useBluetoothConnect = () => {
 			return true;
 		} catch (error) {
 			console.error('Error during connection process:', error);
+			BleManager.removePeripheral(id);
+			dispatch(setConnecting(false));
 			dispatch(resetConnectedScanner());
 			return false;
 		} finally {

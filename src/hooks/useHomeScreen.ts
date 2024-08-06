@@ -17,7 +17,7 @@ export const useHomeScreen = () => {
 	const scannedDevices = useSelector(getDevices);
 
 	const backgroundTitle = isScanning
-		? 'Approach a Kaidu scanner and hold down Sthe reset button until the LED illuminates light purple.'
+		? 'Approach a Kaidu scanner and hold down the reset button until the LED illuminates light purple.'
 		: 'Tap the Scan button to locate Kaidu Scanners';
 
 	return { connectToScanner, isConnecting, scannedDevices, backgroundTitle };

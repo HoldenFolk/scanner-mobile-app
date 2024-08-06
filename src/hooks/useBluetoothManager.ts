@@ -17,8 +17,8 @@ import {
 	SCANNED_DEVICE_EVENT,
 } from '@/utils/bleConstants';
 import { useTheme } from 'styled-components/native';
-import { Alert } from 'react-native';
 import Snackbar from 'react-native-snackbar';
+import useAppNavigation from './useAppNavigation';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -26,6 +26,7 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
 export const useBluetoothManager = () => {
 	const dispatch = useDispatch();
 	const theme = useTheme();
+	const { Home } = useAppNavigation();
 
 	const isConnecting = useSelector(getIsConnecting);
 	const configState = useSelector(getConfigState);
@@ -93,13 +94,11 @@ export const useBluetoothManager = () => {
 		});
 		dispatch(resetConnectedScanner());
 		dispatch(setConnected(false));
-		if (!isConnectingRef.current && configStateRef.current === 'idle') {
-			Alert.alert(
-				'Connection Error.',
-				'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
-				[{ text: 'OK' }],
-			);
+
+		if (configStateRef.current === 'idle') {
+			Home();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch, theme.colors.grayscale, theme.colors.success]);
 
 	const initializeBleManager = useCallback(async () => {

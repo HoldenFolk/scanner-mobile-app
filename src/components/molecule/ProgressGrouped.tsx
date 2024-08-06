@@ -10,8 +10,8 @@ interface ProgressGroupedProps {
 }
 
 const StyledView = styled(View)<{ shouldShow: boolean }>`
-	margin-top: 64px; /* Adjusted from tailwind's mt-16 */
-	margin-bottom: 40px; /* Adjusted from tailwind's mb-10 */
+	margin-top: 64px;
+	margin-bottom: 40px;
 	width: 100%;
 	justify-content: space-between;
 	flex-grow: 1;
