@@ -21,12 +21,10 @@ export function Configuration() {
 	const { GeolocationModal, WifiSelectionModal, Home } = useAppNavigation();
 
 	const handleGeolocationNavigation = () => {
-		console.log('Navigate to Geolocation config');
 		GeolocationModal();
 	};
 
 	const handleWifiSelectionNavigation = () => {
-		console.log('Navigate to WifiSelectionModalScreen with data');
 		WifiSelectionModal();
 	};
 

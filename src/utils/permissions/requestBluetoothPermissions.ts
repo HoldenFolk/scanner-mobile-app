@@ -28,7 +28,6 @@ export async function requestBluetoothPermission(): Promise<string> {
 	let result: string;
 
 	if (Platform.OS === 'ios') {
-		console.log('Platform is IOS');
 		result = await requestIOSBluetoothPermission();
 	} else if (isAndroid12AndAbove()) {
 		// Request both BLUETOOTH_SCAN and BLUETOOTH_CONNECT for Android 12 and above

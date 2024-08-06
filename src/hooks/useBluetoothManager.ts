@@ -58,7 +58,6 @@ export const useBluetoothManager = () => {
 				const wifiRssi = manufacturerData.rssi;
 				// BLE ID is used to connect to the deivice in IOS but MAC is used in Android
 				const bleID = peripheral.id || macAddress;
-				console.log('BLE ID:', bleID);
 				dispatch(
 					addDevice({
 						id: bleID,
