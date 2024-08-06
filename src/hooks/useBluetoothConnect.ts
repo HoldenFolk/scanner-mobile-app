@@ -113,12 +113,13 @@ export const useBluetoothConnect = () => {
 				? String.fromCharCode.apply(null, passwordCode)
 				: undefined;
 
-			// Check if ssid or password consists only of \u0000 characters and set them to null if true
+			// Check if ssid or password contains null characters and trim them
 			// eslint-disable-next-line no-control-regex
 			const nullPattern = /^[\u0000]+$/;
-			const processedSsid = ssid && nullPattern.test(ssid) ? undefined : ssid;
-			const processedPassword =
-				password && nullPattern.test(password) ? undefined : password;
+			const processedSsid = ssid ? ssid.replace(nullPattern, '') : ssid;
+			const processedPassword = password
+				? password.replace(nullPattern, '')
+				: password;
 
 			console.log('Current wifi config:', processedSsid, processedPassword);
 
