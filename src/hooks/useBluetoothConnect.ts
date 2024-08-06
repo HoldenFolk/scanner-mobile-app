@@ -20,20 +20,23 @@ import { Alert } from 'react-native';
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
 
-	const attemptConnection = async (id: string) => {
-		const MAX_ATTEMPTS = 5; // Assuming MAX_ATTEMPTS is defined somewhere
-		const TIMEOUT = 10000; // 10 seconds
-		let timeoutHandle: NodeJS.Timeout;
+	const MAX_ATTEMPTS = 5; // Maximum connection attempts
+	const TIMEOUT = 20000; // 20 seconds before timeout
 
-		const timeoutPromise = new Promise((_, reject) => {
+	const showAlert = (message: string) => {
+		Alert.alert('Connection Error.', message, [{ text: 'OK' }]);
+	};
+
+	const createTimeoutPromise = (timeoutController: {
+		isTimeout: boolean;
+	}): { promise: Promise<void>; timeoutHandle: NodeJS.Timeout | undefined } => {
+		let timeoutHandle: NodeJS.Timeout | undefined;
+		const promise = new Promise<void>((_, reject) => {
 			timeoutHandle = setTimeout(() => {
-				Alert.alert(
-					'Connection Error.',
+				timeoutController.isTimeout = true;
+				showAlert(
 					'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
-					[{ text: 'OK' }],
 				);
-
-				// Reject the promise if the connection attempt times out
 				reject(
 					new Error(
 						'Connection attempt timed out. Failed to connect to scanner',
@@ -41,38 +44,56 @@ export const useBluetoothConnect = () => {
 				);
 			}, TIMEOUT);
 		});
+		return { promise, timeoutHandle };
+	};
 
-		const connectWithRetries = async () => {
-			for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
-				try {
-					await BleManager.connect(id);
-					console.log(`Connected to scanner: ${id} on attempt ${attempts}`);
-
-					// Clear the timeout if the connection is successful
-					clearTimeout(timeoutHandle);
-
-					return;
-				} catch (error) {
-					console.log(
-						`Failed to connect to scanner (attempt ${attempts}):`,
-						id,
-						error,
+	const connectWithRetries = async (
+		id: string,
+		timeoutController: { isTimeout: boolean },
+	): Promise<void> => {
+		for (let attempts = 1; attempts <= MAX_ATTEMPTS; attempts++) {
+			if (timeoutController.isTimeout) {
+				throw new Error('Connection process aborted due to timeout');
+			}
+			try {
+				await BleManager.connect(id);
+				return; // Connection successful
+			} catch (error) {
+				if (timeoutController.isTimeout) {
+					throw new Error('Connection process aborted due to timeout');
+				}
+				console.warn(
+					`Failed to connect to scanner. Attempt ${attempts}/${MAX_ATTEMPTS}`,
+				);
+				if (attempts < MAX_ATTEMPTS) {
+					await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
+				} else {
+					showAlert(
+						'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
 					);
-					if (attempts < MAX_ATTEMPTS) {
-						await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
-					} else {
-						Alert.alert(
-							'Connection Error.',
-							'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
-							[{ text: 'OK' }],
-						);
-						throw new Error('Failed to connect to scanner');
-					}
+					throw new Error('Failed to connect to scanner');
 				}
 			}
-		};
+		}
+	};
 
-		return Promise.race([connectWithRetries(), timeoutPromise]);
+	const attemptConnection = async (id: string): Promise<void> => {
+		const timeoutController = { isTimeout: false };
+		const { promise: timeoutPromise, timeoutHandle } =
+			createTimeoutPromise(timeoutController);
+
+		try {
+			await Promise.race([
+				connectWithRetries(id, timeoutController),
+				timeoutPromise,
+			]);
+			console.log('Connected to scanner:', id);
+			// Clear the timeout if connection is successful
+			clearTimeout(timeoutHandle);
+		} catch (error) {
+			console.error('Error during connection process:', error);
+			throw error;
+		}
 	};
 
 	const retreiveCurrentWifiConfig = async (id: string) => {
@@ -170,7 +191,7 @@ export const useBluetoothConnect = () => {
 			return true;
 		} catch (error) {
 			console.error('Error during connection process:', error);
-			BleManager.removePeripheral(id);
+			BleManager.disconnect(id);
 			dispatch(setConnecting(false));
 			dispatch(resetConnectedScanner());
 			return false;
