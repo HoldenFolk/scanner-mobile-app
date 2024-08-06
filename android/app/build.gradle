@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
@@ -91,10 +92,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile file('C:/Users/owner/Kaidu/kaidu-config-mobile-app/android/app/kaidu-mobile-keystore.keystore')
-            storePassword 'kaidu.ai'
-            keyAlias 'kaidu-mobile-key'
-            keyPassword 'kaidu.ai'
+            storeFile file(project.env.get("MYAPP_RELEASE_STORE_FILE"))
+            storePassword project.env.get("MYAPP_RELEASE_PASSWORD")
+            keyAlias project.env.get("MYAPP_RELEASE_KEY_ALIAS")
+            keyPassword project.env.get("MYAPP_RELEASE_PASSWORD")
         }
     }
     buildTypes {
@@ -123,5 +124,5 @@ dependencies {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 
