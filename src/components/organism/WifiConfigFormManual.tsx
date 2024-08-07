@@ -7,7 +7,7 @@ import { WifiRequirementInfo } from '../molecule/wifiConfig/WifiRequirementInfo'
 import { WifiFormReturn } from '@/types/form';
 
 interface WifiConfigurationFormManualProps {
-	onCancel: () => void;
+	onCancel?: () => void;
 	form: WifiFormReturn;
 }
 
@@ -29,13 +29,15 @@ export function WifiConfigFormManual({
 			</ContentContainer>
 			<ButtonContainer>
 				<StyledButton title="Save" onPress={handleSubmit} />
-				<Button
-					title="Cancel"
-					onPress={onCancel}
-					type={'outline'}
-					accessibilityLabel="Cancel Button"
-					testID={'Cancel Button'}
-				/>
+				{onCancel && (
+					<Button
+						title="Cancel"
+						onPress={onCancel}
+						type={'outline'}
+						accessibilityLabel="Cancel Button"
+						testID={'Cancel Button'}
+					/>
+				)}
 			</ButtonContainer>
 		</Container>
 	);

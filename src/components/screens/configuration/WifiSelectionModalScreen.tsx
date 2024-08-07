@@ -17,12 +17,16 @@ export function WifiSelectionModalScreen() {
 	const wifiOptions = useSelector(getConnectedDeviceWifiList);
 	const currentSsid = useSelector(getConnectedDeviceWifiSSID);
 	const isLoadingWifiList = useSelector(getIsLoadingWifiList);
-	const { PasswordModal } = useAppNavigation();
+	const { PasswordModal, OtherModal } = useAppNavigation();
 	const dispatch = useDispatch();
 
 	const handlePressToChangePassword = (wifi: Wifi) => {
 		PasswordModal();
 		dispatch(setConnectedDeviceWifiSSID(wifi.ssid));
+	};
+
+	const handlePressOther = () => {
+		OtherModal();
 	};
 
 	if (isLoadingWifiList) {
@@ -38,6 +42,7 @@ export function WifiSelectionModalScreen() {
 			<WifiSelectionModal
 				wifiOptions={wifiOptions}
 				onPasswordChangeNavigation={handlePressToChangePassword}
+				handlePressOther={handlePressOther}
 				currentSsid={currentSsid}
 			/>
 		</>

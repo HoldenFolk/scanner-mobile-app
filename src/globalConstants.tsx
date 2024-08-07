@@ -1,7 +1,5 @@
 import Config from 'react-native-config';
 
-console.log('API_BASE_URL', Config.API_BASE_URL);
-
 const settings = {
 	version: Config.VERSION_NUMBER,
 	apiBaseUrl: Config.API_BASE_URL,

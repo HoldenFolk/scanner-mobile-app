@@ -15,7 +15,6 @@ const useAppNavigation = () => {
 		PasswordModal: () => navigation.navigate('PasswordModal'),
 		GeolocationModal: () => navigation.navigate('GeolocationModal'),
 		OtherModal: () => navigation.navigate('OtherModal'),
-		Init: () => navigation.navigate('Init'),
 	};
 };
 

@@ -8,16 +8,19 @@ import { isFilledArray } from '@/utils/array';
 import { Wifi } from '@/types/scannerData';
 import BaseScrollView from '@/components/atomic/ScrollView';
 import { SelectedCheckIcon } from '@/components/atomic/SelectedCheckIcon';
+import Icon from '@/components/atomic/Icon';
 
 interface WifiSelectionModalProps {
 	wifiOptions: Wifi[];
 	onPasswordChangeNavigation: (ssid: Wifi) => void;
+	handlePressOther: () => void;
 	currentSsid?: string;
 }
 
 const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 	wifiOptions,
 	onPasswordChangeNavigation,
+	handlePressOther,
 	currentSsid,
 }) => {
 	return (
@@ -40,7 +43,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 									bottomDivider
 								/>
 							))}
-							{/* <BasicListItem
+							<BasicListItem
 								title="Other..."
 								onPress={handlePressOther}
 								leftComponent={
@@ -54,7 +57,7 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 										)}
 									</LeftComponentView>
 								}
-							/> */}
+							/>
 						</StyledScrollView>
 					</AtomicView>
 				)}
@@ -72,6 +75,11 @@ const StyledView = styled(AtomicView)`
 const StyledScrollView = styled(BaseScrollView)`
 	padding-left: 8px;
 	padding-right: 8px;
+`;
+
+const LeftComponentView = styled(AtomicView)`
+	width: 28px;
+	background-color: transparent;
 `;
 
 export default WifiSelectionModal;

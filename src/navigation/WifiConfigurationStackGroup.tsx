@@ -8,6 +8,7 @@ import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiList
 import PasswordModalScreen from '@/components/screens/Configuration/PasswordModalScreen';
 import { RootParamList, STACK_SCREENS } from '@/types/navigation';
 import { GeolocationModalScreen } from '@/components/screens/Configuration/GeolocationModalScreen';
+import OtherModal from '@/components/screens/Configuration/OtherModal';
 
 const Stack = createStackNavigator<RootParamList>();
 
@@ -46,9 +47,7 @@ export function WifiConfigurationStackGroup() {
 							: theme.colors.white,
 					},
 					headerStyle: {
-						backgroundColor: isDarkMode
-							? theme.colors.secondary
-							: theme.colors.white,
+						backgroundColor: theme.colors.secondary,
 					},
 					headerTitleStyle: { color: theme?.colors?.tertiary },
 					headerTintColor: theme?.colors?.primary,
@@ -72,6 +71,13 @@ export function WifiConfigurationStackGroup() {
 					component={PasswordModalScreen}
 					options={{
 						headerTitle: 'Password',
+					}}
+				/>
+				<Stack.Screen
+					name={STACK_SCREENS.OTHER_MODAL}
+					component={OtherModal}
+					options={{
+						headerTitle: 'Other',
 					}}
 				/>
 				<Stack.Screen
