@@ -7,7 +7,6 @@ import { WifiSelectionModalScreen } from '@/components/screens/Configuration/Wif
 import RefreshWifiListBtn from '@/components/molecule/wifiConfig/RefreshWifiListBtn';
 import PasswordModalScreen from '@/components/screens/Configuration/PasswordModalScreen';
 import { RootParamList, STACK_SCREENS } from '@/types/navigation';
-import { SlideFromRightTransition } from './NavigationTransitions';
 import { GeolocationModalScreen } from '@/components/screens/Configuration/GeolocationModalScreen';
 
 const Stack = createStackNavigator<RootParamList>();
@@ -53,7 +52,6 @@ export function WifiConfigurationStackGroup() {
 					},
 					headerTitleStyle: { color: theme?.colors?.tertiary },
 					headerTintColor: theme?.colors?.primary,
-					...SlideFromRightTransition,
 				}}
 			>
 				<Stack.Screen

@@ -3,7 +3,7 @@ import Config from 'react-native-config';
 console.log('API_BASE_URL', Config.API_BASE_URL);
 
 const settings = {
-	version: '1.0.0',
+	version: Config.VERSION_NUMBER,
 	apiBaseUrl: Config.API_BASE_URL,
 	serviceID: '8f7e1830-70b5-46b4-b09f-eda20e4b6a7b',
 	characteristicIDReadWifi: '8f7e1836-70b5-46b4-b09f-eda20e4b6a7b',

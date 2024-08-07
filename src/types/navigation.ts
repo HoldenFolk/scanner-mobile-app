@@ -8,7 +8,7 @@ export type RootParamList = {
 	PasswordModal: undefined;
 	OtherModal: undefined;
 	GeolocationModal: undefined;
-	Init: undefined;
+	Drawer: undefined;
 };
 
 export const STACK_SCREENS = {
@@ -20,5 +20,5 @@ export const STACK_SCREENS = {
 	PASSWORD_MODAL: 'PasswordModal',
 	OTHER_MODAL: 'OtherModal',
 	GEOLOCATION_MODAL: 'GeolocationModal',
-	INIT: 'Init',
+	DRAWER: 'Drawer',
 } as const;

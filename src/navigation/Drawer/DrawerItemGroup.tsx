@@ -8,6 +8,8 @@ import settings from '@/globalConstants';
 import { BasicListItem } from '@/components/molecule/ListItem';
 import { View } from '../../components/atomic/View';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { useThemeToggle } from '@/hooks/useThemeToggle';
+import Switch from '@/components/atomic/Switch';
 
 const ICON_SIZE = 38;
 
@@ -34,6 +36,12 @@ const Content = styled(View)`
  * Main content in the drawer side bar
  */
 export function DrawerItemGroup(_props: DrawerContentComponentProps) {
+	const toggleTheme = useThemeToggle();
+
+	const onToggle = () => {
+		toggleTheme();
+	};
+
 	return (
 		<Container>
 			<Content>
@@ -48,6 +56,10 @@ export function DrawerItemGroup(_props: DrawerContentComponentProps) {
 					leftComponent={
 						<Icon name={'comment'} type="font-awesome" size={ICON_SIZE} />
 					}
+				/>
+				<BasicListItem
+					title={'Toggle Dark Mode'}
+					rightComponent={<Switch onToggle={onToggle} />}
 				/>
 			</Content>
 			<VersionText text={settings.version} />

@@ -1,9 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import { DrawerNavigation } from './DrawerNavigation';
 import { DrawerItemGroup } from './Drawer';
 import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import StackNavigation from './StackNavigation';
 
 const DrawerContent = (props: DrawerContentComponentProps) => (
 	<DrawerItemGroup {...props} />
@@ -12,7 +12,7 @@ const DrawerContent = (props: DrawerContentComponentProps) => (
 function MainAppNavigation() {
 	return (
 		<NavigationContainer>
-			<DrawerNavigation drawerContent={DrawerContent} />
+			<StackNavigation drawerContent={DrawerContent} />
 		</NavigationContainer>
 	);
 }
