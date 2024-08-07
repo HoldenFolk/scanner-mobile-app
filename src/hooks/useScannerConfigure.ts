@@ -2,6 +2,7 @@ import settings from '@/globalConstants';
 import { useSelector } from 'react-redux';
 import {
 	getConnectedDeviceGeolocation,
+	getConnectedDeviceName,
 	getConnectedDeviceWifiPSWD,
 	getConnectedDeviceWifiSSID,
 } from '@/providers/redux/slices';
@@ -12,6 +13,7 @@ export const useScannerConfigure = () => {
 	const wifiSSID = useSelector(getConnectedDeviceWifiSSID);
 	const wifiPassword = useSelector(getConnectedDeviceWifiPSWD);
 	const geolocation = useSelector(getConnectedDeviceGeolocation);
+	const name = useSelector(getConnectedDeviceName);
 
 	const configureDeviceWifi = async (deviceId: string) => {
 		try {
@@ -42,7 +44,7 @@ export const useScannerConfigure = () => {
 			macAddress,
 			wifiSSID,
 			wifiPassword || '',
-			'KaiduScanner',
+			name,
 			geolocation,
 		);
 		console.log('Geolocation Configuration sucess!');

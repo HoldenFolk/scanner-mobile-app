@@ -1,7 +1,6 @@
 import {
 	addDevice,
 	getConfigState,
-	getDevices,
 	getIsConnecting,
 	resetConnectedScanner,
 	setConnected,
@@ -32,7 +31,6 @@ export const useBluetoothManager = () => {
 
 	const isConnecting = useSelector(getIsConnecting);
 	const configState = useSelector(getConfigState);
-	const discoveredScanners = useSelector(getDevices);
 
 	const isConnectingRef = useRef(isConnecting);
 	const configStateRef = useRef(configState);
@@ -44,6 +42,7 @@ export const useBluetoothManager = () => {
 		configStateRef.current = configState;
 	}, [configState, isConnecting]);
 
+	// TODO: Prevent the same device calling the API multiple times
 	const handleDiscoverPeripheral = useCallback(
 		async (peripheral: Peripheral) => {
 			const { name, advertising, rssi } = peripheral;
@@ -62,15 +61,7 @@ export const useBluetoothManager = () => {
 				// BLE ID is used to connect to the deivice in IOS but MAC is used in Android
 				const bleID = peripheral.id || macAddress;
 
-				// Check if the scanner is already discovered
-				const scannerExists = discoveredScanners.find(
-					scanner => scanner.id === bleID,
-				);
-
-				if (scannerExists) {
-					return;
-				}
-
+				// Get the scanner name from API
 				const configResult = await getScannerConfig(macAddress);
 				const scannerConfig = configResult.split('\t');
 				const scannerName = scannerConfig[4];
@@ -88,7 +79,6 @@ export const useBluetoothManager = () => {
 				);
 			}
 		},
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[dispatch],
 	);
 
