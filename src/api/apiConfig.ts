@@ -21,6 +21,8 @@ export const updateScannerConfig = async (
 };
 
 export const getScannerConfig = async (macAddress: string): Promise<string> => {
-	const response = await apiClient.get(`v1/kaidu_devices_list/${macAddress}`);
+	const response = await apiClient.get(
+		`kaidu_device_configuration/configstring/${macAddress}`,
+	);
 	return response.data;
 };

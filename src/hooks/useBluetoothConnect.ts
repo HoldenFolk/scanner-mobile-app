@@ -9,6 +9,7 @@ import {
 	setConnectedDeviceMacAddress,
 	setConnectedDeviceWifiPSWD,
 	setConnectedDeviceWifiSSID,
+	setConnectedDeviceName,
 } from '@/providers/redux/slices';
 import BleManager from 'react-native-ble-manager';
 import { useDispatch } from 'react-redux';
@@ -16,6 +17,7 @@ import settings from '@/globalConstants';
 import { PlugState, Wifi } from '@/types/scannerData';
 import { readCharacteristic, retreiveServices } from '@/utils/bleManager';
 import { Alert } from 'react-native';
+import { getScannerConfig } from '@/api/apiConfig';
 
 export const useBluetoothConnect = () => {
 	const dispatch = useDispatch();
@@ -68,9 +70,6 @@ export const useBluetoothConnect = () => {
 				if (attempts < MAX_ATTEMPTS) {
 					await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second before retrying
 				} else {
-					showAlert(
-						'You have lost connection to the scanner during the configuration process. Make sure you are in range of the scanner.\n\nIf the problem persists, unplug the scanner and try again.',
-					);
 					throw new Error('Failed to connect to scanner');
 				}
 			}
@@ -148,9 +147,15 @@ export const useBluetoothConnect = () => {
 		try {
 			await attemptConnection(id);
 
+			// Retreive the name of the scanner from API
+			const configResult = await getScannerConfig(macAddress);
+			const scannerConfig = configResult.split('\t');
+			const scannerName = scannerConfig[4];
+
 			// Set the connected device state
 			dispatch(setConnectedDeviceId(id));
 			dispatch(setConnectedDeviceMacAddress(macAddress));
+			dispatch(setConnectedDeviceName(scannerName));
 			dispatch(setConnectedDevicePlugState(plugState));
 			dispatch(setConnected(true));
 
@@ -193,7 +198,11 @@ export const useBluetoothConnect = () => {
 			console.error('Error during connection process:', error);
 			BleManager.disconnect(id);
 			dispatch(setConnecting(false));
+
 			dispatch(resetConnectedScanner());
+			showAlert(
+				'An error has occured during the connection process.\n\nIf the problem persists, unplug the scanner and try again.',
+			);
 			return false;
 		} finally {
 			dispatch(setConnecting(false));

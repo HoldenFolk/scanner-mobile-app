@@ -1,6 +1,7 @@
 import {
 	addDevice,
 	getConfigState,
+	getDevices,
 	getIsConnecting,
 	resetConnectedScanner,
 	setConnected,
@@ -19,6 +20,7 @@ import {
 import { useTheme } from 'styled-components/native';
 import Snackbar from 'react-native-snackbar';
 import useAppNavigation from './useAppNavigation';
+import { getScannerConfig } from '@/api/apiConfig';
 
 const BleManagerModule = NativeModules.BleManager;
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule);
@@ -30,6 +32,7 @@ export const useBluetoothManager = () => {
 
 	const isConnecting = useSelector(getIsConnecting);
 	const configState = useSelector(getConfigState);
+	const discoveredScanners = useSelector(getDevices);
 
 	const isConnectingRef = useRef(isConnecting);
 	const configStateRef = useRef(configState);
@@ -42,7 +45,7 @@ export const useBluetoothManager = () => {
 	}, [configState, isConnecting]);
 
 	const handleDiscoverPeripheral = useCallback(
-		(peripheral: Peripheral) => {
+		async (peripheral: Peripheral) => {
 			const { name, advertising, rssi } = peripheral;
 			if (name === 'KaiduScanner') {
 				console.log('Discovered KaiduScanner:', name);
@@ -58,11 +61,25 @@ export const useBluetoothManager = () => {
 				const wifiRssi = manufacturerData.rssi;
 				// BLE ID is used to connect to the deivice in IOS but MAC is used in Android
 				const bleID = peripheral.id || macAddress;
+
+				// Check if the scanner is already discovered
+				const scannerExists = discoveredScanners.find(
+					scanner => scanner.id === bleID,
+				);
+
+				if (scannerExists) {
+					return;
+				}
+
+				const configResult = await getScannerConfig(macAddress);
+				const scannerConfig = configResult.split('\t');
+				const scannerName = scannerConfig[4];
+
 				dispatch(
 					addDevice({
 						id: bleID,
 						macAddress,
-						name,
+						name: scannerName || 'KaiduScanner',
 						rssi,
 						wifiRssi,
 						plugState: plugState,
@@ -71,6 +88,7 @@ export const useBluetoothManager = () => {
 				);
 			}
 		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[dispatch],
 	);
 

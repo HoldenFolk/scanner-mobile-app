@@ -7,6 +7,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface ConnectedScannerState {
 	bleID: string;
 	macAddress: string;
+	name: string;
 	wifiSSID?: string;
 	wifiPSWD?: string;
 	isConfigured: boolean;
@@ -18,6 +19,7 @@ interface ConnectedScannerState {
 const initialState: ConnectedScannerState = {
 	bleID: '',
 	macAddress: '',
+	name: '',
 	wifiSSID: undefined,
 	wifiPSWD: undefined,
 	isConfigured: false,
@@ -34,6 +36,9 @@ export const connectedScannerSlice = createSlice({
 		},
 		setConnectedDeviceMacAddress: (state, action: PayloadAction<string>) => {
 			state.macAddress = action.payload;
+		},
+		setConnectedDeviceName: (state, action: PayloadAction<string>) => {
+			state.name = action.payload;
 		},
 		setConnectedDeviceWifiSSID: (
 			state,
@@ -65,6 +70,7 @@ export const connectedScannerSlice = createSlice({
 		resetConnectedScanner: state => {
 			state.bleID = '';
 			state.macAddress = '';
+			state.name = '';
 			state.wifiSSID = undefined;
 			state.wifiPSWD = undefined;
 			state.isConfigured = false;
@@ -80,6 +86,8 @@ export const getConnectedDeviceId = (state: AppState): string =>
 	state.connectedScanner.bleID;
 export const getConnectedDeviceMacAddress = (state: AppState): string =>
 	state.connectedScanner.macAddress;
+export const getConnectedDeviceName = (state: AppState): string =>
+	state.connectedScanner.name;
 export const getConnectedDeviceWifiSSID = (
 	state: AppState,
 ): string | undefined => state.connectedScanner.wifiSSID;
@@ -98,6 +106,7 @@ export const getConnectedDeviceGeolocation = (
 
 export const {
 	setConnectedDeviceId,
+	setConnectedDeviceName,
 	setConnectedDeviceWifiSSID,
 	setConnectedDeviceWifiPSWD,
 	setConnectedDeviceIsConfigured,
