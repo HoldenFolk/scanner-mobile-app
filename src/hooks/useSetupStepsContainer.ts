@@ -36,7 +36,6 @@ export const useSetupStepsContainer = (bleId: string) => {
 
 	const handleClose = async () => {
 		dispatch(setConfigState(AsyncLifecycle.IDLE));
-		dispatch(setScanning(true));
 		Home();
 	};
 
@@ -48,6 +47,7 @@ export const useSetupStepsContainer = (bleId: string) => {
 
 	const handleConnected = async () => {
 		await disconnectFromScanner(bleId);
+		dispatch(setScanning(true));
 		dispatch(setConfigState(AsyncLifecycle.FULFILLED));
 	};
 
