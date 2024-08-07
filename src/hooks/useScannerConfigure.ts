@@ -17,6 +17,8 @@ export const useScannerConfigure = () => {
 
 	const configureDeviceWifi = async (deviceId: string) => {
 		try {
+			console.log('Configuring device wifi...');
+			console.log('SSID:', wifiSSID);
 			await writeCharacteristic(
 				deviceId,
 				settings.serviceID,
