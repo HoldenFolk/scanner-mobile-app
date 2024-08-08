@@ -108,6 +108,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    applicationVariants.all { variant ->
+        variant.mergeResources.doLast {
+            def dotenvFile = file("../../.env")
+            if (variant.buildType.name == "release") {
+                dotenvFile = file("../../.env.prod")
+            }
+            project.env = new Properties()
+            project.env.load(new FileInputStream(dotenvFile))
+        }
+    }
 }
 
 dependencies {
