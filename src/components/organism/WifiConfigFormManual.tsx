@@ -24,8 +24,18 @@ export function WifiConfigFormManual({
 				<InfoContainer>
 					<WifiRequirementInfo />
 				</InfoContainer>
-				<InputPickerWithModal form={ssidForm} label={'Wifi SSID'} />
-				<InputPickerWithModal form={passwordForm} label={'Wi-Fi Password'} />
+				<InputPickerWithModal
+					form={ssidForm}
+					label={'Wifi SSID'}
+					secureTextEntry={false}
+					maxLength={32}
+				/>
+				<InputPickerWithModal
+					form={passwordForm}
+					label={'Wi-Fi Password'}
+					secureTextEntry={false}
+					maxLength={63}
+				/>
 			</ContentContainer>
 			<ButtonContainer>
 				<StyledButton title="Save" onPress={handleSubmit} />

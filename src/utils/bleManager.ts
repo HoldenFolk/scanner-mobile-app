@@ -38,7 +38,7 @@ export const writeCharacteristic = async (
 			serviceUUID,
 			characteristicUUID,
 			dataArray,
-			32, // maxByteSize
+			63, // maxByteSize
 		);
 	} catch (error) {
 		console.error('Failed to write characteristic', error);

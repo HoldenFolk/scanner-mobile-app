@@ -56,10 +56,7 @@ export const connectedScannerSlice = createSlice({
 			state.isConfigured = action.payload;
 		},
 		setConnectedDeviceWifiList: (state, action: PayloadAction<Wifi[]>) => {
-			state.wifiList = [
-				{ ssid: 'livefreeordiein5years@home', rssi: '100' },
-				...action.payload,
-			];
+			state.wifiList = action.payload;
 		},
 		setConnectedDevicePlugState: (state, action: PayloadAction<PlugState>) => {
 			state.plugState = action.payload;
