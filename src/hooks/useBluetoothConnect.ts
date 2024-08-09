@@ -126,10 +126,11 @@ export const useBluetoothConnect = () => {
 
 			const resultString = String.fromCharCode.apply(null, data);
 			const [ssid, rssi] = resultString.split('\t').map(item => item.trim());
+			if (ssid === '' || rssi === '') continue;
 			const wifi = { ssid, rssi: rssi.slice(0, 3) };
 
 			isUniqueSSID = !wifiList.some(item => item.ssid === ssid);
-			if (isUniqueSSID) {
+			if (isUniqueSSID && ssid !== '') {
 				wifiList.push(wifi);
 			}
 		} while (isUniqueSSID);

@@ -4,12 +4,10 @@ import { BasicTemplate } from '../../../components/template/BasicTemplate';
 import { View as AtomicView } from '@/components/atomic/View';
 import { BasicListItem } from '../ListItem';
 import { RSSIStrengthIcon } from '../scannerItem/RSSIStrengthIcon';
-import { isFilledArray } from '@/utils/array';
 import { Wifi } from '@/types/scannerData';
 import BaseScrollView from '@/components/atomic/ScrollView';
 import { SelectedCheckIcon } from '@/components/atomic/SelectedCheckIcon';
-import Icon from '@/components/atomic/Icon';
-import { Heading, H2 } from '@/components/atomic/Heading';
+import { Heading } from '@/components/atomic/Heading';
 import { Text } from '@/components/atomic/Text';
 
 interface WifiSelectionModalProps {
@@ -29,49 +27,38 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 	return (
 		<BasicTemplate>
 			<StyledView>
-				{isFilledArray(wifiOptions) && (
-					<AtomicView>
-						{wifiOptions && (
-							<>
-								<Heading>No Wi-Fi networks found by scanner</Heading>
-								<StyledText>
-									*Refresh Wi-Fi network or enter SSID manually to continue
-								</StyledText>
-							</>
-						)}
-						<StyledScrollView keyboardShouldPersistTaps="handled">
-							{wifiOptions.map((item, index) => (
-								<BasicListItem
-									key={index}
-									title={item.ssid}
-									onPress={() => onPasswordChangeNavigation(item)}
-									leftComponent={
-										item.ssid === currentSsid && <SelectedCheckIcon />
-									}
-									rightComponent={
-										item.rssi && <RSSIStrengthIcon value={Number(item.rssi)} />
-									}
-									bottomDivider
-								/>
-							))}
+				<AtomicView>
+					{wifiOptions.length === 0 && (
+						<>
+							<Heading>No Wi-Fi networks found by scanner</Heading>
+							<StyledText>
+								*Refresh Wi-Fi network or enter SSID manually to continue
+							</StyledText>
+						</>
+					)}
+					<StyledScrollView keyboardShouldPersistTaps="handled">
+						{wifiOptions.map((item, index) => (
 							<BasicListItem
-								title="Other..."
-								onPress={handlePressOther}
+								key={index}
+								title={item.ssid}
+								onPress={() => onPasswordChangeNavigation(item)}
 								leftComponent={
-									<LeftComponentView>
-										{!currentSsid && (
-											<Icon
-												name="check-circle"
-												type="font-awesome-5"
-												size={26}
-											/>
-										)}
-									</LeftComponentView>
+									item.ssid === currentSsid && <SelectedCheckIcon />
 								}
+								rightComponent={
+									item.rssi && <RSSIStrengthIcon value={Number(item.rssi)} />
+								}
+								bottomDivider
+								topDivider
 							/>
-						</StyledScrollView>
-					</AtomicView>
-				)}
+						))}
+						<BasicListItem
+							title="Other Network..."
+							onPress={handlePressOther}
+							topDivider
+						/>
+					</StyledScrollView>
+				</AtomicView>
 			</StyledView>
 		</BasicTemplate>
 	);
@@ -88,15 +75,11 @@ const StyledScrollView = styled(BaseScrollView)`
 	padding-right: 8px;
 `;
 
-const LeftComponentView = styled(AtomicView)`
-	width: 28px;
-	background-color: transparent;
-`;
-
 const StyledText = styled(Text)`
 	font-size: 15px;
 	min-width: 60px;
 	text-align: center;
+	margin-bottom: 16px;
 	color: ${({ theme }) => theme.colors.fourth};
 `;
 
