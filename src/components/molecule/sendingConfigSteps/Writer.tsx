@@ -39,8 +39,8 @@ export const Writer = ({
 	return (
 		<View>
 			<Heading>
-				Storing your WiFi settings. Remain near your Kaidu scanner until the
-				operation finishes.
+				Storing your WiFi settings. Remain near your scanner until the operation
+				finishes.
 			</Heading>
 		</View>
 	);

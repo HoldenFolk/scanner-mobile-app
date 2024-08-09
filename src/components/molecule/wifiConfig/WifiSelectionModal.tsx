@@ -9,6 +9,8 @@ import { Wifi } from '@/types/scannerData';
 import BaseScrollView from '@/components/atomic/ScrollView';
 import { SelectedCheckIcon } from '@/components/atomic/SelectedCheckIcon';
 import Icon from '@/components/atomic/Icon';
+import { Heading, H2 } from '@/components/atomic/Heading';
+import { Text } from '@/components/atomic/Text';
 
 interface WifiSelectionModalProps {
 	wifiOptions: Wifi[];
@@ -17,6 +19,7 @@ interface WifiSelectionModalProps {
 	currentSsid?: string;
 }
 
+// TODO: Modularize this component
 const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 	wifiOptions,
 	onPasswordChangeNavigation,
@@ -28,6 +31,14 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 			<StyledView>
 				{isFilledArray(wifiOptions) && (
 					<AtomicView>
+						{wifiOptions && (
+							<>
+								<Heading>No Wi-Fi networks found by scanner</Heading>
+								<StyledText>
+									*Refresh Wi-Fi network or enter SSID manually to continue
+								</StyledText>
+							</>
+						)}
 						<StyledScrollView keyboardShouldPersistTaps="handled">
 							{wifiOptions.map((item, index) => (
 								<BasicListItem
@@ -80,6 +91,13 @@ const StyledScrollView = styled(BaseScrollView)`
 const LeftComponentView = styled(AtomicView)`
 	width: 28px;
 	background-color: transparent;
+`;
+
+const StyledText = styled(Text)`
+	font-size: 15px;
+	min-width: 60px;
+	text-align: center;
+	color: ${({ theme }) => theme.colors.fourth};
 `;
 
 export default WifiSelectionModal;

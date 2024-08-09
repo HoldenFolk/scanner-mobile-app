@@ -7,8 +7,8 @@ import styled from 'styled-components/native';
 import { PlugState } from '@/types/scannerData';
 import { PlugStateInfo } from '@/components/molecule/wifiConfig/ConfigureStateInfo';
 import { useBluetoothConnect } from '@/hooks/useBluetoothConnect';
-import WifiConfigForm from '@/components/organism/WifiConfigForm';
 import useAppNavigation from '@/hooks/useAppNavigation';
+import { WifiConfigFormAuto } from './WifiConfigFormAuto';
 
 interface ConfigurationSettingProps {
 	onNavigation: () => void;
@@ -54,12 +54,11 @@ export function ConfigurationSetting({
 						<PlugStateInfo plugState={plugState || PlugState.UNCONFIGURED} />
 					</CenteredView>
 
-					<WifiConfigForm
-						onWifiSelect={onWifiSelect}
-						onNavigation={onNavigation}
+					<WifiConfigFormAuto
 						onCancel={handleCancel}
+						onWifiSelect={onWifiSelect}
+						onSubmit={onNavigation}
 					/>
-
 					{children}
 				</StyledKeyboardAwareScrollView>
 			</Container>

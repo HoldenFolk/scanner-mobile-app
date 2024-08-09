@@ -38,14 +38,12 @@ export function WifiSelectionModalScreen() {
 	}
 
 	return (
-		<>
-			<WifiSelectionModal
-				wifiOptions={wifiOptions}
-				onPasswordChangeNavigation={handlePressToChangePassword}
-				handlePressOther={handlePressOther}
-				currentSsid={currentSsid}
-			/>
-		</>
+		<WifiSelectionModal
+			wifiOptions={wifiOptions}
+			onPasswordChangeNavigation={handlePressToChangePassword}
+			handlePressOther={handlePressOther}
+			currentSsid={currentSsid}
+		/>
 	);
 }
 

@@ -49,7 +49,7 @@ export const Home: React.FC = () => {
 			{isConnecting && (
 				<OverlayActivityIndicator
 					isVisible={isConnecting}
-					text={'Retrieving details for your Kaidu scanner.'}
+					text={'Retrieving details for your scanner.'}
 				/>
 			)}
 		</BasicTemplate>
