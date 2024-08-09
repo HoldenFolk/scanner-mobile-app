@@ -32,7 +32,8 @@ const WifiSelectionModal: React.FC<WifiSelectionModalProps> = ({
 						<>
 							<Heading>No Wi-Fi networks found by scanner</Heading>
 							<StyledText>
-								*Refresh Wi-Fi network or enter SSID manually to continue
+								*Refresh the Wi-Fi network, reconnect the scanner, or manually
+								enter the SSID to proceed.
 							</StyledText>
 						</>
 					)}
