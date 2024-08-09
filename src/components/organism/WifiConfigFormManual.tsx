@@ -26,7 +26,7 @@ export function WifiConfigFormManual({
 				</InfoContainer>
 				<InputPickerWithModal
 					form={ssidForm}
-					label={'Wifi SSID'}
+					label={'Wi-Fi SSID'}
 					secureTextEntry={false}
 					maxLength={32}
 				/>

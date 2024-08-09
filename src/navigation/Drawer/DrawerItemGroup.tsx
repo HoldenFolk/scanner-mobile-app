@@ -25,6 +25,7 @@ const Container = styled(View)`
 	background-color: transparent;
 	flex: 1;
 	padding: 8px 4px;
+	margin-bottom: 8px;
 `;
 
 const Content = styled(View)`
