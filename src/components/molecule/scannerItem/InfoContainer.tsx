@@ -1,6 +1,4 @@
 import React from 'react';
-import { useTheme } from 'styled-components/native';
-import Icon from '../../atomic/Icon';
 import { Text } from '../../atomic/Text';
 import { RSSIStrengthIcon } from './RSSIStrengthIcon';
 import { ScannerData } from '@/types/ScannerData';
@@ -19,8 +17,6 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 	macAddress,
 	isLoadingName,
 }) => {
-	const theme = useTheme();
-
 	return (
 		<Container>
 			{data.name || isLoadingName ? (
@@ -34,13 +30,7 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 				<StyledText>MAC: {macAddress || 'Not available'}</StyledText>
 			</Row>
 			<Row>
-				<Icon
-					name="signal"
-					type="font-awesome-5"
-					size={scale(10)}
-					color={theme.colors.fourth}
-				/>
-				<StyledText>{`${data.rssi || 'N/A'} dBm`}</StyledText>
+				<StyledText>Signal: {`${data.rssi || 'N/A'} dBm`}</StyledText>
 				<RSSIStrengthIcon value={data.wifiRssi} />
 			</Row>
 		</Container>
@@ -67,4 +57,5 @@ const StyledText = styled(Text)`
 	color: ${({ theme }) => theme.colors.tertiary};
 	flex-wrap: wrap;
 	font-size: ${scale(14)}px;
+	margin-right: 8px;
 `;

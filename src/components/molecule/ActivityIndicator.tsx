@@ -6,6 +6,7 @@ import { CenteredSpinner } from '../atomic/CenteredSpinner';
 import { Overlay } from '../atomic/Overlay';
 import { Text } from '../atomic/Text';
 import { OverlayProps } from 'react-native-elements';
+import { scale } from 'react-native-size-matters';
 
 interface ActivityIndicatorProps extends OverlayProps {
 	color?: string;
@@ -28,7 +29,9 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({
 };
 
 const StyledText = styled(Text)`
+	font-size: ${scale(15)}px;
 	color: ${props => props.theme?.colors?.tertiary};
+	margin-top: 16px;
 `;
 
 const Container = styled(View)`

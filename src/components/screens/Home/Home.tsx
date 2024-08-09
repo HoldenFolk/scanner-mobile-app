@@ -29,7 +29,7 @@ export const Home: React.FC = () => {
 			{!isConnecting && (
 				<>
 					<Appbar
-						title="Kaidu"
+						title="Kaidu Config"
 						leftComponent={
 							<Icon
 								type="font-awesome-5"
@@ -46,7 +46,7 @@ export const Home: React.FC = () => {
 				</>
 			)}
 
-			{isConnecting && (
+			{!isConnecting && (
 				<OverlayActivityIndicator
 					isVisible={isConnecting}
 					text={'Retrieving details for your scanner.'}

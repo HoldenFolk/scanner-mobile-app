@@ -1,5 +1,4 @@
 import React from 'react';
-import { DeviceIcon } from '../DeviceIcon';
 import { useTheme } from 'styled-components/native';
 import { TouchableHighlight, TouchableHighlightProps } from 'react-native';
 import { ScannerData } from '@/types/ScannerData';
@@ -13,7 +12,6 @@ interface ScannedItemUIProps extends TouchableHighlightProps {
 	macAddress: string;
 	onPress: () => void;
 	data: ScannerData;
-	configurationStatus?: 'other' | 'configured' | 'unconfigured' | undefined;
 	isLoadingName?: boolean;
 }
 
@@ -21,7 +19,6 @@ export function ScannedItemUI({
 	macAddress,
 	onPress,
 	data,
-	configurationStatus,
 	isLoadingName,
 	children,
 	...rest
@@ -43,10 +40,6 @@ export function ScannedItemUI({
 				{...rest}
 			>
 				<Content>
-					<DeviceIcon
-						type={data.kaiduDeviceType}
-						configurationStatus={configurationStatus}
-					/>
 					<InfoContainer
 						data={data}
 						macAddress={macAddress}
@@ -87,6 +80,7 @@ const CustomTouchableHighlight = styled(TouchableHighlight)<{
 const Content = styled(View)`
 	height: 144px;
 	padding: 8px;
+	margin-left: 16px;
 	background-color: transparent;
 	flex-direction: row;
 	justify-content: flex-start;
