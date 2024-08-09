@@ -1,11 +1,12 @@
 import React from 'react';
 import { useTheme } from 'styled-components/native';
 import Icon from '../../atomic/Icon';
-import { LabelText, Text } from '../../atomic/Text';
+import { Text } from '../../atomic/Text';
 import { RSSIStrengthIcon } from './RSSIStrengthIcon';
 import { ScannerData } from '@/types/ScannerData';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
 interface InfoContainerProps {
 	data: ScannerData;
@@ -30,14 +31,13 @@ const InfoContainer: React.FC<InfoContainerProps> = ({
 				</Row>
 			) : null}
 			<Row>
-				<LabelText text="MAC: " />
-				<StyledText>{macAddress || 'Not available'}</StyledText>
+				<StyledText>MAC: {macAddress || 'Not available'}</StyledText>
 			</Row>
 			<Row>
 				<Icon
 					name="signal"
 					type="font-awesome-5"
-					size={10}
+					size={scale(10)}
 					color={theme.colors.fourth}
 				/>
 				<StyledText>{`${data.rssi || 'N/A'} dBm`}</StyledText>
@@ -66,4 +66,5 @@ const Row = styled(View)`
 const StyledText = styled(Text)`
 	color: ${({ theme }) => theme.colors.tertiary};
 	flex-wrap: wrap;
+	font-size: ${scale(14)}px;
 `;

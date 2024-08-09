@@ -57,7 +57,6 @@ const StyledImage = styled(Image)`
 `;
 
 const ButtonContainer = styled.View`
-	height: ${scale(80)}px;
 	align-items: center;
 	width: 100%;
 `;

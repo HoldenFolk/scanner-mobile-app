@@ -56,17 +56,17 @@ export function PlugStateIcon({ type, ...optionals }: { type: PlugState }) {
 	if (!name) {
 		return null;
 	}
+	const size = scale(38);
 
 	if (name === 'exclamation-circle') {
-		return <UnconfiguredIcon color={color} />;
+		return <UnconfiguredIcon color={color} size={size} />;
 	} else if (name === 'unlink') {
-		return <UnconnectedIcon color={color} />;
+		return <UnconnectedIcon color={color} size={size} />;
 	} else if (name === 'check-circle') {
-		return <ConnectedIcon color={color} />;
+		return <ConnectedIcon color={color} size={size} />;
 	} else if (name === 'wifi-alert') {
-		return <WifiNotFoundIcon color={color} />;
+		return <WifiNotFoundIcon color={color} size={size} />;
 	}
-	const size = scale(38);
 
 	return (
 		<>
