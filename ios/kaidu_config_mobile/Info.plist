@@ -36,9 +36,9 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>We need access to Bluetooth to connect to your devices.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We need access to your location to provide location-based services like device location setting.</string>
+	<string>We need access to your location to provide location-based services and configure the geolocaiton of your Kaidu Scanner.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>We need access to your location to provide location-based services.</string>
+	<string>We need access to your location to provide location-based services and configure the geolocaiton of your Kaidu Scanner.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIAppFonts</key>
