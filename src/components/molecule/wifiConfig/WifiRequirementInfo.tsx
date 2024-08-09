@@ -9,7 +9,7 @@ import { Text as AtomicText } from '../../atomic/Text';
 export function WifiRequirementInfo() {
 	return (
 		<View>
-			<StyledText>Select 2.4 GHz Wi-Fi Network</StyledText>
+			<StyledText>Add 2.4 GHz Wi-Fi Network</StyledText>
 		</View>
 	);
 }
