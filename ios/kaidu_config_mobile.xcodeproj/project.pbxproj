@@ -179,7 +179,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "kaidu_config_mobile" */;
 			buildPhases = (
-				EA02FC462C6561E60040D61A /* ShellScript */,
+				EA02FC462C6561E60040D61A /* Run Script */,
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -366,7 +366,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-kaidu_config_mobile/Pods-kaidu_config_mobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EA02FC462C6561E60040D61A /* ShellScript */ = {
+		EA02FC462C6561E60040D61A /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -375,6 +375,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
