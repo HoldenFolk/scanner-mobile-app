@@ -40,15 +40,14 @@ export async function requestBluetoothPermission(): Promise<string> {
 	} else {
 		const locationResult = await requestPreciseLocationPermission();
 		result = locationResult === 'granted' ? 'granted' : 'denied';
-		// Create alert pop up if permission is denied
-		if (result === 'denied') {
-			if (result === 'denied') {
-				Alert.alert(
-					'Permission Denied',
-					'Location permission is required to use feature.',
-				);
-			}
-		}
+	}
+
+	// Create alert pop up if permission is denied
+	if (result !== 'granted') {
+		Alert.alert(
+			'Permission Denied',
+			'Location permission is required to use feature.',
+		);
 	}
 
 	return result;

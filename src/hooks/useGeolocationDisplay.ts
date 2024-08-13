@@ -17,6 +17,8 @@ interface useGeolocationDisplayProps {
 export const useGeolocationDisplay = ({
 	updateGlobalGeolocation,
 }: useGeolocationDisplayProps) => {
+	const [geolocationPermission, setGeolocationPermission] =
+		useState<boolean>(false);
 	const [region, setRegion] = useState<Region>();
 
 	// Function to check if two regions are approximately equal. Prevents rounding differences causing infinite loops.
@@ -38,6 +40,7 @@ export const useGeolocationDisplay = ({
 
 		const result = await requestPreciseLocationPermission();
 		const enabled = result === 'granted';
+		setGeolocationPermission(enabled);
 		if (!enabled) {
 			return;
 		}
@@ -66,6 +69,7 @@ export const useGeolocationDisplay = ({
 		const updateLocationPermission = async () => {
 			const result = await requestPreciseLocationPermission();
 			const enabled = result === 'granted';
+			setGeolocationPermission(enabled);
 			if (enabled) {
 				await handleGetCurrentLocation();
 			}
@@ -84,5 +88,10 @@ export const useGeolocationDisplay = ({
 		}
 	};
 
-	return { region, handleRegionChangeComplete, handleGetCurrentLocation };
+	return {
+		region,
+		geolocationPermission,
+		handleRegionChangeComplete,
+		handleGetCurrentLocation,
+	};
 };

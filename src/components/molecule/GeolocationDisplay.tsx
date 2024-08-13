@@ -6,6 +6,7 @@ import { View } from '../atomic/View';
 import { Geolocation } from '@/types/api';
 import * as Progress from 'react-native-progress';
 import { useGeolocationDisplay } from '@/hooks/useGeolocationDisplay';
+import BackgroundGroup from './BackgroundGroup';
 
 interface SetLocationScreenProps {
 	updateGlobalGeolocation: (geolocation: Geolocation) => void;
@@ -16,12 +17,16 @@ const SetLocationScreen: React.FC<SetLocationScreenProps> = ({
 	navigateToSetup,
 	updateGlobalGeolocation,
 }) => {
-	const { region, handleGetCurrentLocation, handleRegionChangeComplete } =
-		useGeolocationDisplay({ updateGlobalGeolocation });
+	const {
+		region,
+		geolocationPermission,
+		handleGetCurrentLocation,
+		handleRegionChangeComplete,
+	} = useGeolocationDisplay({ updateGlobalGeolocation });
 
 	return (
 		<Container>
-			{region && (
+			{region && geolocationPermission && (
 				<>
 					<CenteredContainer>
 						<Button
@@ -48,9 +53,19 @@ const SetLocationScreen: React.FC<SetLocationScreenProps> = ({
 					</CenteredContainer>
 				</>
 			)}
-			{!region && (
+			{!region && geolocationPermission && (
 				<CenteredContainer>
 					<Progress.Circle size={50} borderWidth={5} indeterminate />
+				</CenteredContainer>
+			)}
+			{!geolocationPermission && (
+				<CenteredContainer>
+					<BackgroundGroup
+						isShown={true}
+						title={
+							'Enable Geolocation Permissions to Configure Scanner Geolocation'
+						}
+					/>
 				</CenteredContainer>
 			)}
 		</Container>

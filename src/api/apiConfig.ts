@@ -6,7 +6,7 @@ export const updateScannerConfig = async (
 	wifiSSID: string,
 	wifiPassword: string,
 	scannerName: string,
-	geolocation: Geolocation,
+	geolocation: Geolocation | undefined,
 ): Promise<string> => {
 	const params = new URLSearchParams({
 		wifi_ssid: wifiSSID,

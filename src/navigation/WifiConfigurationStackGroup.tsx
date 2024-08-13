@@ -9,6 +9,7 @@ import PasswordModalScreen from '@/components/screens/Configuration/PasswordModa
 import { RootParamList, STACK_SCREENS } from '@/types/navigation';
 import { GeolocationModalScreen } from '@/components/screens/Configuration/GeolocationModalScreen';
 import OtherModal from '@/components/screens/Configuration/OtherModal';
+import SkipGeoButton from '@/components/atomic/SkipGeoButton';
 
 const Stack = createStackNavigator<RootParamList>();
 
@@ -83,7 +84,10 @@ export function WifiConfigurationStackGroup() {
 				<Stack.Screen
 					name={STACK_SCREENS.GEOLOCATION_MODAL}
 					component={GeolocationModalScreen}
-					options={{ headerTitle: 'Geolocation' }}
+					options={{
+						headerTitle: 'Geolocation',
+						headerRight: SkipGeoButton,
+					}}
 				/>
 			</Stack.Navigator>
 		</FormProvider>
