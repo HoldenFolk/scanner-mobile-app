@@ -2,6 +2,7 @@ import { request, PERMISSIONS } from 'react-native-permissions';
 import { Alert, Platform } from 'react-native';
 import { isAndroid12AndAbove } from '../checkAndroidVersion';
 import { requestPreciseLocationPermission } from './requestLocationPermissions';
+import { Linking } from 'react-native';
 
 export async function requestIOSBluetoothPermission(): Promise<string> {
 	return request(PERMISSIONS.IOS.BLUETOOTH);
@@ -46,7 +47,14 @@ export async function requestBluetoothPermission(): Promise<string> {
 	if (result !== 'granted') {
 		Alert.alert(
 			'Permission Denied',
-			'Bluetooth permission is required to use feature.',
+			'Enable Bluetooth for This Device and in Settings to Use This Feature.',
+			[
+				{ text: 'Cancel', style: 'cancel' },
+				{
+					text: 'Open Settings',
+					onPress: () => Linking.openURL('app-settings:'),
+				},
+			],
 		);
 	}
 

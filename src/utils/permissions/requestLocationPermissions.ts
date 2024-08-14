@@ -1,5 +1,5 @@
 import { request, PERMISSIONS } from 'react-native-permissions';
-import { Alert, Platform } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 
 /**
  * Function to request precise location permission on iOS
@@ -30,7 +30,14 @@ export async function requestPreciseLocationPermission(): Promise<string> {
 	if (result !== 'granted') {
 		Alert.alert(
 			'Permission Denied',
-			'Location permission is required to use feature.',
+			'Enable Location Permissions in Settings to Use This Feature.',
+			[
+				{ text: 'Cancel', style: 'cancel' },
+				{
+					text: 'Open Settings',
+					onPress: () => Linking.openURL('app-settings:'),
+				},
+			],
 		);
 	}
 
