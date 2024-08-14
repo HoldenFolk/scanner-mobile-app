@@ -16,7 +16,7 @@ This application is a React Native mobile app to configure the Kaidu Occupancy S
 
 # Configuring Environment
 
-### <ins>Android:</ins>
+### Android:
 
 
 In order to set up your android environment on windows these steps were followed. Alternativlely, check the official [React Native Guide](https://reactnative.dev/docs/set-up-your-environment) to see the most recent guide. 
@@ -24,7 +24,7 @@ In order to set up your android environment on windows these steps were followed
 #### Prerequisite:
 Make sure you have installed Node 18 or higher and JDK 17 on your machine. The official React team recommend using chocolately to install these 
 
- #### 1. Install Android Studio
+#### 1. Install Android Studio
 
 [Download and install Android Studio](https://developer.android.com/studio/index.html). While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:
 
@@ -96,6 +96,9 @@ You will also need to install the Xcode Command Line Tools. Open Xcode, then cho
 [CocoaPods](https://cocoapods.org/)  is one of the dependency management system available for iOS. CocoaPods is a Ruby  [gem](https://en.wikipedia.org/wiki/RubyGems). You can install CocoaPods using the version of Ruby that ships with the latest version of macOS.
 
 For more information, please visit  [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+
+After completing these installations you may then connect your device via lighing cable to your Mac. 
+**Note:** Ensure that your Mac and iPhone are on the same network so that Metro can communicate between the two devices when running the development server!
 
 # Installation
 
@@ -176,7 +179,7 @@ This project uses a `.env` file and a `.env.prod` file to configure environment 
 
 # Deployment
 
-### <ins> Android: </ins>
+### Android:
 
 To create a production ready APK for andoird navigate to the `android` folder and run
 ```bash
@@ -185,5 +188,5 @@ To create a production ready APK for andoird navigate to the `android` folder an
 
 This will output your build to `./android/app/build/outputs/apk/release`
 
-### <ins> IOS: </ins>
+### IOS:
 To create a production ready test app for IOS open the project in Xcode and **Archive** the current project. Then release the application to **TestFlight** for testing or for production.
