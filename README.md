@@ -16,10 +16,9 @@ This application is a React Native mobile app to configure the Kaidu Occupancy S
 
 # Configuring Environment
 
+In order to set up your environment these steps were followed. Alternativlely, check the official [React Native Guide](https://reactnative.dev/docs/set-up-your-environment) to see the most recent guide. 
+
 ### Android:
-
-
-In order to set up your android environment on windows these steps were followed. Alternativlely, check the official [React Native Guide](https://reactnative.dev/docs/set-up-your-environment) to see the most recent guide. 
 
 #### Prerequisite:
 Make sure you have installed Node 18 or higher and JDK 17 on your machine. The official React team recommend using chocolately to install these 
