@@ -13,7 +13,6 @@ export const useBluetoothScan = () => {
 	const dispatch = useDispatch();
 
 	// Start or stop scanning based on the global isScanning state
-	// TODO: Add notification when bluetooth is not enabled
 	useEffect(() => {
 		// Start the scanning process
 		const startScan = async () => {
