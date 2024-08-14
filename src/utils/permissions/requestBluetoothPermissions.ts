@@ -46,7 +46,7 @@ export async function requestBluetoothPermission(): Promise<string> {
 	if (result !== 'granted') {
 		Alert.alert(
 			'Permission Denied',
-			'Location permission is required to use feature.',
+			'Bluetooth permission is required to use feature.',
 		);
 	}
 

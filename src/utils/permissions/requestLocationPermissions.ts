@@ -27,7 +27,7 @@ export async function requestPreciseLocationPermission(): Promise<string> {
 		result = await requestAndroidPreciseLocationPermission();
 	}
 	// Create alert pop up if permission is denied
-	if (result === 'denied') {
+	if (result !== 'granted') {
 		Alert.alert(
 			'Permission Denied',
 			'Location permission is required to use feature.',
