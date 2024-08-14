@@ -52,7 +52,7 @@ export async function requestBluetoothPermission(): Promise<string> {
 				{ text: 'Cancel', style: 'cancel' },
 				{
 					text: 'Open Settings',
-					onPress: () => Linking.openURL('app-settings:'),
+					onPress: () => Linking.openSettings(),
 				},
 			],
 		);
