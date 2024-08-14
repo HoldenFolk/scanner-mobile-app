@@ -1,7 +1,14 @@
 apply plugin: "com.android.application"
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+
+// Select the correct env file for the environent
+project.ext.envConfigFiles = [
+    debug: ".env",
+    release: ".env.prod",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -80,8 +87,8 @@ android {
         applicationId "com.kaidu_config_mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.0.2"
         manifestPlaceholders = [GOOGLE_API_KEY: "$System.env.GOOGLE_API_KEY"]
     }
     signingConfigs {
@@ -108,16 +115,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    applicationVariants.all { variant ->
-        variant.mergeResources.doLast {
-            def dotenvFile = file("../../.env")
-            if (variant.buildType.name == "release") {
-                dotenvFile = file("../../.env.prod")
-            }
-            project.env = new Properties()
-            project.env.load(new FileInputStream(dotenvFile))
-        }
-    }
+    // applicationVariants.all { variant ->
+    //     variant.mergeResources.doLast {
+    //         def dotenvFile = file("../../.env")
+    //         if (variant.buildType.name == "release") {
+    //             dotenvFile = file("../../.env.prod")
+    //         }
+    //         project.env = new Properties()
+    //         project.env.load(new FileInputStream(dotenvFile))
+    //     }
+    // }
 }
 
 dependencies {
