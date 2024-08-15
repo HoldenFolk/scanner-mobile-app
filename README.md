@@ -113,6 +113,12 @@ yarn install
 
 ### MacOS:
 
+To easily install the correct cocoapods verion, install **bundler** and run: 
+
+```bash
+bundle install
+```
+
 Additionaly, In the 	`~/ios` folder, run 
 
 ```bash
