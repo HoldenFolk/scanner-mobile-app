@@ -193,6 +193,11 @@ To create a production ready APK for andoird navigate to the `android` folder an
 ./gradlew assembleRelease
 ```
 
+Or to create a production AAB navigate to the `android` folder and run
+```bash
+./gradlew bundleRelease
+```
+
 This will output your build to `./android/app/build/outputs/apk/release`
 
 ### IOS:
