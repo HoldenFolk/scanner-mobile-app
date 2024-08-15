@@ -1,6 +1,8 @@
 
 # kaidu-customer-heatmap
 
+**Author:** [Holden Folk](https://github.com/HoldenFolk).
+
 This application is a React Native mobile app to configure the Kaidu Occupancy Scensors. It has working releases for both IOS and Android and is strongly typed with TypeScript. 
 
 # Table of Contents
