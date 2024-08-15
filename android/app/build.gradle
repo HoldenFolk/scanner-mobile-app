@@ -88,7 +88,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4
-        versionName "1.0.2"
+        versionName project.env.get("VERSION_NUMBER")
         manifestPlaceholders = [GOOGLE_API_KEY: "$System.env.GOOGLE_API_KEY"]
     }
     signingConfigs {
