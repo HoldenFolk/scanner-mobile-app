@@ -3,7 +3,9 @@
 
 **Author:** [Holden Folk](https://github.com/HoldenFolk).
 
-This application is a React Native mobile app to configure the Kaidu Occupancy Scensors. It has working releases for both IOS and Android and is strongly typed with TypeScript. 
+This application is a React Native mobile app to configure the Kaidu Occupancy Sensors. It has working releases for both IOS and Android and is strongly typed with TypeScript. The user can connect to and set up their BLE Kaidu Occupancy Sensors to their local network. The user can then configure settings to start collecting data and insights. This project was made as a cumulative project during my internship at Kaidu AI and has a working release on both the IOS App Store and the Google Play Store. 
+
+<img width="901" alt="ScannerAppScreenShots" src="https://github.com/user-attachments/assets/f2d4cd5d-8707-48aa-afb0-c41475a1887c">
 
 # Table of Contents
 
@@ -18,12 +20,12 @@ This application is a React Native mobile app to configure the Kaidu Occupancy S
 
 # Configuring Environment
 
-In order to set up your environment these steps were followed. Alternativlely, check the official [React Native Guide](https://reactnative.dev/docs/set-up-your-environment) to see the most recent guide. 
+To set up your environment these steps were followed. Alternativlely, check the official [React Native Guide](https://reactnative.dev/docs/set-up-your-environment) to see the most recent guide. 
 
 ### Android:
 
 #### Prerequisite:
-Make sure you have installed Node 18 or higher and JDK 17 on your machine. The official React team recommend using chocolately to install these 
+Make sure you have installed Node 18 or higher and JDK 17 on your machine. The official React team recommends using Chocolatey to install these 
 
 #### 1. Install Android Studio
 
@@ -35,7 +37,7 @@ Make sure you have installed Node 18 or higher and JDK 17 on your machine. The o
 
 #### 2. Install the Android SDK
 
-Look for and expand the  `Android 14 (UpsideDownCake)`  entry in the SDK manager in Andoird studio, then make sure the following items are checked:
+Look for and expand the  `Android 14 (UpsideDownCake)`  entry in the SDK manager in Android Studio, then make sure the following items are checked:
 
 -   `Android SDK Platform 34`
 -   `Intel x86 Atom_64 System Image`  or  `Google APIs Intel x86 Atom System Image`
@@ -46,7 +48,7 @@ Finally, click "Apply" to download and install the Android SDK and related build
 
 #### 3. Configure the ANDROID_HOME environment variable
 
-The React Native tools require some environment variables to be set up in order to build apps with native code.
+The React Native tools require some environment variables to be set up to build apps with native code.
 
 1.  Open the  **Windows Control Panel.**
 2.  Click on  **User Accounts,**  then click  **User Accounts**  again
@@ -68,7 +70,7 @@ The default location for this folder is:
 %LOCALAPPDATA%\Android\Sdk\platform-tools
 ```
 
-You can then connect your android device via USB
+You can then connect your Android device via USB
 
 ### MacOS:
 
@@ -94,11 +96,11 @@ You will also need to install the Xcode Command Line Tools. Open Xcode, then cho
 
 #### CocoaPods[​](https://reactnative.dev/docs/set-up-your-environment?os=macos&platform=ios#cocoapods "Direct link to CocoaPods")
 
-[CocoaPods](https://cocoapods.org/)  is one of the dependency management system available for iOS. CocoaPods is a Ruby  [gem](https://en.wikipedia.org/wiki/RubyGems). You can install CocoaPods using the version of Ruby that ships with the latest version of macOS.
+[CocoaPods](https://cocoapods.org/)  is one of the dependency management systems available for iOS. CocoaPods is a Ruby  [gem](https://en.wikipedia.org/wiki/RubyGems). You can install CocoaPods using the version of Ruby that ships with the latest version of macOS.
 
 For more information, please visit  [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
 
-After completing these installations you may then connect your device via lighing cable to your Mac. 
+After completing these installations you may then connect your device via lightning cable to your Mac. 
 **Note:** Ensure that your Mac and iPhone are on the same network so that Metro can communicate between the two devices when running the development server!
 
 # Installation
@@ -115,7 +117,7 @@ yarn install
 
 ### MacOS:
 
-To easily install the correct cocoapods verion, install **bundler** and run: 
+To easily install the correct cocoapods version, install **bundler** and run: 
 
 ```bash
 bundle install
@@ -176,19 +178,19 @@ If you want to contribute to this project, please follow these steps:
 - Commit your changes (`git commit -am 'Add new feature'`)
 - Push to the branch (`git push origin feature/your-feature`)
 - Create a new Pull Request to merge to **dev**
-- After testing, create a a new pull request to merge **dev** to **main**
+- After testing, create a new pull request to merge **dev** to **main**
 
 
 # Global Variables and Project Settings
 
-This project uses a `.env` file and a `.env.prod` file to configure environment variabels. Use both of these files to configure the development environment and the production environment respectively. 
+This project uses a `.env` file and a `.env.prod` file to configure environment variables. Use both of these files to configure the development environment and the production environment respectively. 
 
 
 # Deployment
 
 ### Android:
 
-To create a production ready APK for andoird navigate to the `android` folder and run
+To create a production-ready APK for Android navigate to the `android` folder and run
 ```bash
 ./gradlew assembleRelease
 ```
@@ -201,4 +203,4 @@ Or to create a production AAB navigate to the `android` folder and run
 This will output your build to `./android/app/build/outputs/apk/release`
 
 ### IOS:
-To create a production ready test app for IOS open the project in Xcode and **Archive** the current project. Then release the application to **TestFlight** for testing or for production.
+To create a production-ready test app for IOS open the project in Xcode and **Archive** the current project. Then release the application to **TestFlight** for testing or for production.
